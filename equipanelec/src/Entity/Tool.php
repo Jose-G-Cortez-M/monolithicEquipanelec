@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ToolRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,16 @@ class Tool
      * @ORM\Column(type="float")
      */
     private $price;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="tools", orphanRemoval=true)
+     */
+    private $movements;
+
+    public function __construct()
+    {
+        $this->movements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +132,36 @@ class Tool
     public function setPrice(float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Movement[]
+     */
+    public function getMovements(): Collection
+    {
+        return $this->movements;
+    }
+
+    public function addMovement(Movement $movement): self
+    {
+        if (!$this->movements->contains($movement)) {
+            $this->movements[] = $movement;
+            $movement->setTools($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMovement(Movement $movement): self
+    {
+        if ($this->movements->removeElement($movement)) {
+            // set the owning side to null (unless already changed)
+            if ($movement->getTools() === $this) {
+                $movement->setTools(null);
+            }
+        }
 
         return $this;
     }

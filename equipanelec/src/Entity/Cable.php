@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CableRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,16 @@ class Cable
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="cables", orphanRemoval=true)
+     */
+    private $movements;
+
+    public function __construct()
+    {
+        $this->movements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +149,36 @@ class Cable
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Movement[]
+     */
+    public function getMovements(): Collection
+    {
+        return $this->movements;
+    }
+
+    public function addMovement(Movement $movement): self
+    {
+        if (!$this->movements->contains($movement)) {
+            $this->movements[] = $movement;
+            $movement->setCables($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMovement(Movement $movement): self
+    {
+        if ($this->movements->removeElement($movement)) {
+            // set the owning side to null (unless already changed)
+            if ($movement->getCables() === $this) {
+                $movement->setCables(null);
+            }
+        }
 
         return $this;
     }
