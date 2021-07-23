@@ -29,19 +29,16 @@ class Movement
 
     /**
      * @ORM\ManyToOne(targetEntity=Tool::class, inversedBy="movements")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $tools;
 
     /**
      * @ORM\ManyToOne(targetEntity=Material::class, inversedBy="movements")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $materials;
 
     /**
      * @ORM\ManyToOne(targetEntity=Cable::class, inversedBy="movements")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $cables;
 

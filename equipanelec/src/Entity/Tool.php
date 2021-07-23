@@ -30,7 +30,7 @@ class Tool
     private $name;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $stock;
 
@@ -50,7 +50,7 @@ class Tool
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="tools", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="tools")
      */
     private $movements;
 
@@ -88,12 +88,12 @@ class Tool
         return $this;
     }
 
-    public function getStock(): ?int
+    public function getStock(): ?float
     {
         return $this->stock;
     }
 
-    public function setStock(int $stock): self
+    public function setStock(float $stock): self
     {
         $this->stock = $stock;
 

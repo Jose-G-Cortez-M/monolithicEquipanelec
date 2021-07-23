@@ -22,7 +22,7 @@ class Client
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private $company;
+    private $comapny;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -54,14 +54,14 @@ class Client
         return $this->id;
     }
 
-    public function getCompany(): ?string
+    public function getComapny(): ?string
     {
-        return $this->company;
+        return $this->comapny;
     }
 
-    public function setCompany(?string $company): self
+    public function setComapny(?string $comapny): self
     {
-        $this->company = $company;
+        $this->comapny = $comapny;
 
         return $this;
     }

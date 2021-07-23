@@ -57,15 +57,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $projects;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Task::class, mappedBy="users")
-     */
-    private $tasks;
-
     public function __construct()
     {
         $this->projects = new ArrayCollection();
-        $this->tasks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -215,33 +209,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->projects->removeElement($project)) {
             $project->removeUser($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Task[]
-     */
-    public function getTasks(): Collection
-    {
-        return $this->tasks;
-    }
-
-    public function addTask(Task $task): self
-    {
-        if (!$this->tasks->contains($task)) {
-            $this->tasks[] = $task;
-            $task->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTask(Task $task): self
-    {
-        if ($this->tasks->removeElement($task)) {
-            $task->removeUser($this);
         }
 
         return $this;

@@ -42,7 +42,7 @@ class Cable
     /**
      * @ORM\Column(type="float")
      */
-    private $purchaseprice;
+    private $purcharseprice;
 
     /**
      * @ORM\Column(type="float")
@@ -55,7 +55,7 @@ class Cable
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="cables", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="cables")
      */
     private $movements;
 
@@ -117,14 +117,14 @@ class Cable
         return $this;
     }
 
-    public function getPurchaseprice(): ?float
+    public function getPurcharseprice(): ?float
     {
-        return $this->purchaseprice;
+        return $this->purcharseprice;
     }
 
-    public function setPurchaseprice(float $purchaseprice): self
+    public function setPurcharseprice(float $purcharseprice): self
     {
-        $this->purchaseprice = $purchaseprice;
+        $this->purcharseprice = $purcharseprice;
 
         return $this;
     }

@@ -30,7 +30,7 @@ class Material
     private $name;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $stock;
 
@@ -60,12 +60,12 @@ class Material
     private $saleprice;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $minimumlimit;
 
     /**
-     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="materials", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="materials")
      */
     private $movements;
 
@@ -103,12 +103,12 @@ class Material
         return $this;
     }
 
-    public function getStock(): ?int
+    public function getStock(): ?float
     {
         return $this->stock;
     }
 
-    public function setStock(int $stock): self
+    public function setStock(float $stock): self
     {
         $this->stock = $stock;
 
@@ -175,12 +175,12 @@ class Material
         return $this;
     }
 
-    public function getMinimumlimit(): ?int
+    public function getMinimumlimit(): ?float
     {
         return $this->minimumlimit;
     }
 
-    public function setMinimumlimit(?int $minimumlimit): self
+    public function setMinimumlimit(?float $minimumlimit): self
     {
         $this->minimumlimit = $minimumlimit;
 

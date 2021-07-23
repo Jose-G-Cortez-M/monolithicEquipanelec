@@ -42,17 +42,17 @@ class Project
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $enddate;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $advances;
+    private $endtime;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $advances;
 
     /**
      * @ORM\Column(type="float", nullable=true)
@@ -139,26 +139,14 @@ class Project
         return $this;
     }
 
-    public function getEnddate(): ?\DateTimeInterface
+    public function getEndtime(): ?\DateTimeInterface
     {
-        return $this->enddate;
+        return $this->endtime;
     }
 
-    public function setEnddate(?\DateTimeInterface $enddate): self
+    public function setEndtime(?\DateTimeInterface $endtime): self
     {
-        $this->enddate = $enddate;
-
-        return $this;
-    }
-
-    public function getAdvances(): ?float
-    {
-        return $this->advances;
-    }
-
-    public function setAdvances(?float $advances): self
-    {
-        $this->advances = $advances;
+        $this->endtime = $endtime;
 
         return $this;
     }
@@ -171,6 +159,18 @@ class Project
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getAdvances(): ?float
+    {
+        return $this->advances;
+    }
+
+    public function setAdvances(?float $advances): self
+    {
+        $this->advances = $advances;
 
         return $this;
     }

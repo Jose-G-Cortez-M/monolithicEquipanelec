@@ -27,7 +27,7 @@ class Task
     /**
      * @ORM\Column(type="float")
      */
-    private $timeperminut;
+    private $timeperminute;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -44,15 +44,9 @@ class Task
      */
     private $projects;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="tasks")
-     */
-    private $users;
-
     public function __construct()
     {
         $this->projects = new ArrayCollection();
-        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -72,14 +66,14 @@ class Task
         return $this;
     }
 
-    public function getTimeperminut(): ?float
+    public function getTimeperminute(): ?float
     {
-        return $this->timeperminut;
+        return $this->timeperminute;
     }
 
-    public function setTimeperminut(float $timeperminut): self
+    public function setTimeperminute(float $timeperminute): self
     {
-        $this->timeperminut = $timeperminut;
+        $this->timeperminute = $timeperminute;
 
         return $this;
     }
@@ -128,30 +122,6 @@ class Task
     public function removeProject(Project $project): self
     {
         $this->projects->removeElement($project);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        $this->users->removeElement($user);
 
         return $this;
     }
