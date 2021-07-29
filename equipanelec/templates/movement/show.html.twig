@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Movement{% endblock %}
+
+{% block body %}
+    <h1>Movement</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ movement.id }}</td>
+            </tr>
+            <tr>
+                <th>Orderdate</th>
+                <td>{{ movement.orderdate ? movement.orderdate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ movement.quantity }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('movement_index') }}">back to list</a>
+
+    <a href="{{ path('movement_edit', {'id': movement.id}) }}">edit</a>
+
+    {{ include('movement/_delete_form.html.twig') }}
+{% endblock %}

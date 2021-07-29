@@ -28,22 +28,26 @@ class Movement
     private $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Tool::class, inversedBy="movements")
+     * @ORM\ManyToOne(targetEntity=Tool::class,inversedBy="movements")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $tools;
 
     /**
      * @ORM\ManyToOne(targetEntity=Material::class, inversedBy="movements")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $materials;
 
     /**
      * @ORM\ManyToOne(targetEntity=Cable::class, inversedBy="movements")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $cables;
 
     /**
      * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="movements")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $projects;
 
