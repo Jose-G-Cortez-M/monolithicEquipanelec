@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cable index{% endblock %}
+
+{% block body %}
+    <h1>Cable index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Barcode</th>
+                <th>Name</th>
+                <th>Availablemeter</th>
+                <th>Weightpermeter</th>
+                <th>Purcharseprice</th>
+                <th>Saleprice</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cable in cables %}
+            <tr>
+                <td>{{ cable.id }}</td>
+                <td>{{ cable.barcode }}</td>
+                <td>{{ cable.name }}</td>
+                <td>{{ cable.availablemeter }}</td>
+                <td>{{ cable.weightpermeter }}</td>
+                <td>{{ cable.purcharseprice }}</td>
+                <td>{{ cable.saleprice }}</td>
+                <td>{{ cable.description }}</td>
+                <td>
+                    <a href="{{ path('cable_show', {'id': cable.id}) }}">show</a>
+                    <a href="{{ path('cable_edit', {'id': cable.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('cable_new') }}">Create new</a>
+{% endblock %}

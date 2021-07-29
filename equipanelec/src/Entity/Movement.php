@@ -28,7 +28,7 @@ class Movement
     private $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Tool::class, inversedBy="movements")
+     * @ORM\ManyToOne(targetEntity=Tool::class,inversedBy="movements")
      */
     private $tools;
 

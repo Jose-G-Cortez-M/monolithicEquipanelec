@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Material{% endblock %}
+
+{% block body %}
+    <h1>Material</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ material.id }}</td>
+            </tr>
+            <tr>
+                <th>Barcode</th>
+                <td>{{ material.barcode }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ material.name }}</td>
+            </tr>
+            <tr>
+                <th>Stock</th>
+                <td>{{ material.stock }}</td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td>{{ material.location }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ material.description }}</td>
+            </tr>
+            <tr>
+                <th>Brand</th>
+                <td>{{ material.brand }}</td>
+            </tr>
+            <tr>
+                <th>Purchaseprice</th>
+                <td>{{ material.purchaseprice }}</td>
+            </tr>
+            <tr>
+                <th>Saleprice</th>
+                <td>{{ material.saleprice }}</td>
+            </tr>
+            <tr>
+                <th>Minimumlimit</th>
+                <td>{{ material.minimumlimit }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('material_index') }}">back to list</a>
+
+    <a href="{{ path('material_edit', {'id': material.id}) }}">edit</a>
+
+    {{ include('material/_delete_form.html.twig') }}
+{% endblock %}
