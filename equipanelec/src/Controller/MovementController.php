@@ -33,8 +33,8 @@ class MovementController extends AbstractController
      */
     public function newmaterial(Request $request,$id): Response
     {
+        $mensaje = "";
         $movement = new Movement();
-
         $material = new Material();
         $em = $this->getDoctrine()->getRepository(Material::class);
         $material = $em->find($id);
@@ -44,11 +44,18 @@ class MovementController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($movement);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+            if($movement->getMaterials()->getStock()>=$movement->getQuantity())
+            {
+                $restante = ($movement->getMaterials()->getStock())-($movement->getQuantity());
+                $material->setStock($restante);
+                $movement->setMaterials($material);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($movement);
+                $entityManager->flush();
+                return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+            }else{
+                echo $mensaje = "<h2>Opss! No tienes suficientes materiales en bodega :P</h2>";
+            }
         }
 
         return $this->renderForm('movement/new.html.twig', [
