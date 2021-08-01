@@ -37,6 +37,7 @@
                 <td>
                     <a href="{{ path('material_show', {'id': material.id}) }}">show</a>
                     <a href="{{ path('material_edit', {'id': material.id}) }}">edit</a>
+                    {{ include('material/_movement_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

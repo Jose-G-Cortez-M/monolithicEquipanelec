@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Cable;
+use App\Entity\Material;
 use App\Entity\Movement;
+use App\Entity\Tool;
 use App\Form\MovementType;
 use App\Repository\MovementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,11 +29,17 @@ class MovementController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="movement_new", methods={"GET","POST"})
+     * @Route("/newmaterial/{id}", name="movement_new_material", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function newmaterial(Request $request,$id): Response
     {
         $movement = new Movement();
+
+        $material = new Material();
+        $em = $this->getDoctrine()->getRepository(Material::class);
+        $material = $em->find($id);
+        $movement->setMaterials($material);
+
         $form = $this->createForm(MovementType::class, $movement);
         $form->handleRequest($request);
 
@@ -47,6 +56,68 @@ class MovementController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    /**
+     * @Route("/newcable/{id}", name="movement_new_cable", methods={"GET","POST"})
+     */
+    public function newcable(Request $request,$id): Response
+    {
+        $movement = new Movement();
+
+        $cable = new Cable();
+        $em = $this->getDoctrine()->getRepository(Cable::class);
+        $cable = $em->find($id);
+        $movement->setCables($cable);
+
+
+        $form = $this->createForm(MovementType::class, $movement);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($movement);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('movement/new.html.twig', [
+            'movement' => $movement,
+            'form' => $form,
+        ]);
+    }
+    /**
+     * @Route("/newtool/{id}", name="movement_new_tool", methods={"GET","POST"})
+     */
+    public function newtool(Request $request,$id): Response
+    {
+        $movement = new Movement();
+
+        $tool = new Tool();
+        $em = $this->getDoctrine()->getRepository(Tool::class);
+        $tool = $em->find($id);
+        $movement->setTools($tool);
+
+
+        $form = $this->createForm(MovementType::class, $movement);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($movement);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('movement/new.html.twig', [
+            'movement' => $movement,
+            'form' => $form,
+        ]);
+    }
+
+
+
 
     /**
      * @Route("/{id}", name="movement_show", methods={"GET"})

@@ -33,6 +33,7 @@
                 <td>
                     <a href="{{ path('cable_show', {'id': cable.id}) }}">show</a>
                     <a href="{{ path('cable_edit', {'id': cable.id}) }}">edit</a>
+                    {{ include('cable/_movement_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

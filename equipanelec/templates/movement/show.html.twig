@@ -12,12 +12,26 @@
                 <td>{{ movement.id }}</td>
             </tr>
             <tr>
-                <th>Orderdate</th>
-                <td>{{ movement.orderdate ? movement.orderdate|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Name</th>
+                <td>
+                    {% if movement.materials.name |default  %}
+                        {{ movement.materials.name }}
+                    {% endif %}
+                    {% if movement.tools.name |default  %}
+                        {{ movement.tools.name }}
+                    {% endif %}
+                    {% if movement.cables.name |default  %}
+                        {{ movement.cables.name }}
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Quantity</th>
                 <td>{{ movement.quantity }}</td>
+            </tr>
+            <tr>
+                <th>Orderdate</th>
+                <td>{{ movement.orderdate ? movement.orderdate|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>

@@ -9,8 +9,9 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Orderdate</th>
+                <th>Name</th>
                 <th>Quantity</th>
+                <th>Orderdate</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,8 +19,21 @@
         {% for movement in movements %}
             <tr>
                 <td>{{ movement.id }}</td>
-                <td>{{ movement.orderdate ? movement.orderdate|date('Y-m-d H:i:s') : '' }}</td>
+
+                <td>
+                    {% if movement.materials.name |default  %}
+                        {{ movement.materials.name }}
+                    {% endif %}
+                    {% if movement.tools.name |default  %}
+                        {{ movement.tools.name }}
+                    {% endif %}
+                    {% if movement.cables.name |default  %}
+                        {{ movement.cables.name }}
+                    {% endif %}
+                </td>
+
                 <td>{{ movement.quantity }}</td>
+                <td>{{ movement.orderdate ? movement.orderdate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('movement_show', {'id': movement.id}) }}">show</a>
                     <a href="{{ path('movement_edit', {'id': movement.id}) }}">edit</a>
@@ -33,5 +47,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('movement_new') }}">Create new</a>
 {% endblock %}

@@ -31,6 +31,7 @@
                 <td>
                     <a href="{{ path('tool_show', {'id': tool.id}) }}">show</a>
                     <a href="{{ path('tool_edit', {'id': tool.id}) }}">edit</a>
+                    {{ include('tool/_movement_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

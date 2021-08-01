@@ -23,19 +23,22 @@ class MovementType extends AbstractType
                 'class' => Tool::class,
                 'choice_label' => 'name',
                 'placeholder' => 'Selecciona un herramienta',
-                'required' => false
+                'required' => false,
+                'disabled' => true
             ])
             ->add('materials', EntityType::class,[
                 'class' => Material::class,
                 'choice_label' => 'name',
                 'placeholder' => 'Selecciona un Material',
-                'required' => false
+                'required' => false,
+                'disabled' => true
             ])
             ->add('cables',EntityType::class,[
                 'class' => Cable::class,
                 'choice_label' => 'name',
                 'placeholder' => 'Selecciona un Cable',
-                'required' => false
+                'required' => false,
+                'disabled' => true
             ])
             ->add('projects',EntityType::class,[
                 'class' => Project::class,
