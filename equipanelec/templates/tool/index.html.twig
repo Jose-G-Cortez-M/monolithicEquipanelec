@@ -8,26 +8,20 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Barcode</th>
                 <th>Name</th>
                 <th>Stock</th>
                 <th>Description</th>
-                <th>Brand</th>
-                <th>Price</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for tool in tools %}
             <tr>
-                <td>{{ tool.id }}</td>
                 <td>{{ tool.barcode }}</td>
                 <td>{{ tool.name }}</td>
                 <td>{{ tool.stock }}</td>
                 <td>{{ tool.description }}</td>
-                <td>{{ tool.brand }}</td>
-                <td>{{ tool.price }}</td>
                 <td>
                     <a href="{{ path('tool_show', {'id': tool.id}) }}">show</a>
                     <a href="{{ path('tool_edit', {'id': tool.id}) }}">edit</a>

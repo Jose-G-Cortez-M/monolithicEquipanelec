@@ -21,7 +21,7 @@ class MaterialController extends AbstractController
     public function index(MaterialRepository $materialRepository): Response
     {
         return $this->render('material/index.html.twig', [
-            'materials' => $materialRepository->findAll(),
+            'materials' => $materialRepository->findBy(array(),array('name' => 'ASC'))
         ]);
     }
 

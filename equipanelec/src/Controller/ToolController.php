@@ -21,7 +21,7 @@ class ToolController extends AbstractController
     public function index(ToolRepository $toolRepository): Response
     {
         return $this->render('tool/index.html.twig', [
-            'tools' => $toolRepository->findAll(),
+            'tools' => $toolRepository->findBy(array(),array('name' => 'ASC'))
         ]);
     }
 

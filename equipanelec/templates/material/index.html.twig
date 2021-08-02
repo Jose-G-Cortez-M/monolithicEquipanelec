@@ -8,15 +8,11 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Barcode</th>
                 <th>Name</th>
                 <th>Stock</th>
                 <th>Location</th>
                 <th>Description</th>
-                <th>Brand</th>
-                <th>Purchaseprice</th>
-                <th>Saleprice</th>
                 <th>Minimumlimit</th>
                 <th>actions</th>
             </tr>
@@ -24,15 +20,11 @@
         <tbody>
         {% for material in materials %}
             <tr>
-                <td>{{ material.id }}</td>
                 <td>{{ material.barcode }}</td>
                 <td>{{ material.name }}</td>
                 <td>{{ material.stock }}</td>
                 <td>{{ material.location }}</td>
                 <td>{{ material.description }}</td>
-                <td>{{ material.brand }}</td>
-                <td>{{ material.purchaseprice }}</td>
-                <td>{{ material.saleprice }}</td>
                 <td>{{ material.minimumlimit }}</td>
                 <td>
                     <a href="{{ path('material_show', {'id': material.id}) }}">show</a>

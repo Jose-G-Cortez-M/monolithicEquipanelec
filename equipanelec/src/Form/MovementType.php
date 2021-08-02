@@ -7,8 +7,12 @@ use App\Entity\Material;
 use App\Entity\Movement;
 use App\Entity\Project;
 use App\Entity\Tool;
+use Doctrine\DBAL\Types\DateType;
+use Doctrine\DBAL\Types\TimeType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,7 +21,9 @@ class MovementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('orderdate')
+            ->add('orderdate',DateTimeType::class,[
+                'disabled' => true,
+            ])
             ->add('quantity')
             ->add('tools',EntityType::class,[
                 'class' => Tool::class,

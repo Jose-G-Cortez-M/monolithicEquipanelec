@@ -21,7 +21,7 @@ class CableController extends AbstractController
     public function index(CableRepository $cableRepository): Response
     {
         return $this->render('cable/index.html.twig', [
-            'cables' => $cableRepository->findAll(),
+            'cables' => $cableRepository->findBy(array(),array('name' => 'ASC'))
         ]);
     }
 

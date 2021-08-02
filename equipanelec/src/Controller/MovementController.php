@@ -8,6 +8,8 @@ use App\Entity\Movement;
 use App\Entity\Tool;
 use App\Form\MovementType;
 use App\Repository\MovementRepository;
+use DateTimeInterface;
+use DateTimeZone;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,6 +38,7 @@ class MovementController extends AbstractController
         $mensaje = "";
         $movement = new Movement();
         $material = new Material();
+        $movement->setOrderdate($this->setdate());
         $em = $this->getDoctrine()->getRepository(Material::class);
         $material = $em->find($id);
         $movement->setMaterials($material);
@@ -69,23 +72,30 @@ class MovementController extends AbstractController
      */
     public function newcable(Request $request,$id): Response
     {
+        $mensaje = "";
         $movement = new Movement();
-
         $cable = new Cable();
+        $movement->setOrderdate($this->setdate());
         $em = $this->getDoctrine()->getRepository(Cable::class);
         $cable = $em->find($id);
         $movement->setCables($cable);
-
 
         $form = $this->createForm(MovementType::class, $movement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($movement);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+            if($movement->getCables()->getAvailablemeter()>=$movement->getQuantity())
+            {
+                $restante = ($movement->getCables()->getAvailablemeter())-($movement->getQuantity());
+                $cable->setAvailablemeter($restante);
+                $movement->setCables($cable);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($movement);
+                $entityManager->flush();
+                return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+            }else{
+                echo $mensaje = "<h2>Opss! No tienes suficientes cables en bodega :P</h2>";
+            }
         }
 
         return $this->renderForm('movement/new.html.twig', [
@@ -98,29 +108,37 @@ class MovementController extends AbstractController
      */
     public function newtool(Request $request,$id): Response
     {
+        $mensaje = "";
         $movement = new Movement();
-
         $tool = new Tool();
+        $movement->setOrderdate($this->setdate());
         $em = $this->getDoctrine()->getRepository(Tool::class);
         $tool = $em->find($id);
         $movement->setTools($tool);
-
 
         $form = $this->createForm(MovementType::class, $movement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($movement);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+            if($movement->getTools()->getStock()>=$movement->getQuantity())
+            {
+                $restante = ($movement->getTools()->getStock())-($movement->getQuantity());
+                $tool->setStock($restante);
+                $movement->setTools($tool);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($movement);
+                $entityManager->flush();
+                return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+            }else{
+                echo $mensaje = "<h2>Opss! No tienes suficientes herramientas en bodega :P</h2>";
+            }
         }
 
         return $this->renderForm('movement/new.html.twig', [
             'movement' => $movement,
             'form' => $form,
         ]);
+
     }
 
 
@@ -168,5 +186,12 @@ class MovementController extends AbstractController
         }
 
         return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    public function setdate()
+    {
+        date_default_timezone_set('America/Guayaquil');
+        $fechaActual = new \DateTime('now');
+        return $fechaActual;
     }
 }
