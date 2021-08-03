@@ -6,6 +6,7 @@ use App\Repository\CableRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CableRepository::class)
@@ -31,23 +32,27 @@ class Cable
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive
      */
     private $availability;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
-    private $weightpermeter;
+    private $weightPerMeter;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive
      */
-    private $purcharseprice;
+    private $purchasePrice;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\PositiveOrZero()
      */
-    private $saleprice;
+    private $salePrice;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -55,7 +60,8 @@ class Cable
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="cables")
+     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="cables", cascade={"persist","remove"})
+     * @ORM\JoinColumn(name="id", referencedColumnName="cables", onDelete="CASCADE")
      */
     private $movements;
 
@@ -105,38 +111,38 @@ class Cable
         return $this;
     }
 
-    public function getWeightpermeter(): ?float
+    public function getWeightPerMeter(): ?float
     {
-        return $this->weightpermeter;
+        return $this->weightPerMeter;
     }
 
-    public function setWeightpermeter(?float $weightpermeter): self
+    public function setWeightPerMeter(?float $weightPerMeter): self
     {
-        $this->weightpermeter = $weightpermeter;
+        $this->weightPerMeter = $weightPerMeter;
 
         return $this;
     }
 
-    public function getPurcharseprice(): ?float
+    public function getPurchasePrice(): ?float
     {
-        return $this->purcharseprice;
+        return $this->purchasePrice;
     }
 
-    public function setPurcharseprice(float $purcharseprice): self
+    public function setPurchasePrice(float $purchasePrice): self
     {
-        $this->purcharseprice = $purcharseprice;
+        $this->purchasePrice = $purchasePrice;
 
         return $this;
     }
 
-    public function getSaleprice(): ?float
+    public function getSalePrice(): ?float
     {
-        return $this->saleprice;
+        return $this->salePrice;
     }
 
-    public function setSaleprice(float $saleprice): self
+    public function setSalePrice(float $salePrice): self
     {
-        $this->saleprice = $saleprice;
+        $this->salePrice = $salePrice;
 
         return $this;
     }
@@ -182,4 +188,5 @@ class Cable
 
         return $this;
     }
+
 }

@@ -5,16 +5,15 @@
 {% block body %}
     <h1>Cable List</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Barcode</th>
+
+    <a href="{{ path('cable_new') }}">Create a new cable</a>
+
+
+    <table class="table table-hover table-bordered">
+        <thead >
+            <tr class="table-dark">
                 <th>Name</th>
-                <th>Availablemeter</th>
-                <th>Weightpermeter</th>
-                <th>Purcharseprice</th>
-                <th>Saleprice</th>
+                <th>Availability</th>
                 <th>Description</th>
                 <th>actions</th>
             </tr>
@@ -22,18 +21,13 @@
         <tbody>
         {% for cable in cables %}
             <tr>
-                <td>{{ cable.id }}</td>
-                <td>{{ cable.barcode }}</td>
                 <td>{{ cable.name }}</td>
-                <td>{{ cable.availablemeter }}</td>
-                <td>{{ cable.weightpermeter }}</td>
-                <td>{{ cable.purcharseprice }}</td>
-                <td>{{ cable.saleprice }}</td>
+                <td>{{ cable.availability }}</td>
                 <td>{{ cable.description }}</td>
                 <td>
-                    <a href="{{ path('cable_show', {'id': cable.id}) }}">show</a>
-                    <a href="{{ path('cable_edit', {'id': cable.id}) }}">edit</a>
+                    <a href="{{ path('cable_show', {'id': cable.id}) }}">Show</a>
                     {{ include('cable/_movement_form.html.twig') }}
+                    <a href="{{ path('cable_edit', {'id': cable.id}) }}">upgrade or add more cable</a>
                 </td>
             </tr>
         {% else %}
@@ -43,6 +37,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('cable_new') }}">Create new</a>
 {% endblock %}

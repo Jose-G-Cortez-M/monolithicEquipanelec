@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\MaterialRepository;
 use App\Repository\MovementRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -41,7 +40,7 @@ class Movement
     private $materials;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Cable::class, inversedBy="movements")
+     * @ORM\ManyToOne(targetEntity=Cable::class, inversedBy="movements", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $cables;
@@ -143,11 +142,15 @@ class Movement
         $cable->setAvailability($add);
         $this->setCables($cable);
     }
-    public  function returnToTool(Tool $tool, $mvOld):void
+    public function returnToTool(Tool $tool, $mvOld):void
     {
         $diff = ($mvOld-$this->getQuantity());
         $add = ($this->getTools()->getStock())+($diff);
         $tool->setStock($add);
         $this->setTools($tool);
+    }
+    public function __toString():string
+    {
+        return $this->orderdate;
     }
 }

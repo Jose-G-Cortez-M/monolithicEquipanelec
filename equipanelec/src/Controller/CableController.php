@@ -61,14 +61,18 @@ class CableController extends AbstractController
     /**
      * @Route("/{id}/edit", name="cable_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Cable $cable): Response
+    public function edit(Request $request, Cable $cable, $id): Response
     {
+        $em = $this->getDoctrine()->getRepository(Cable::class);
+        $cable = $em->find($id);
+        $oldAvailability = $cable->getAvailability();
+
         $form = $this->createForm(CableType::class, $cable);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $cable->setAvailability($oldAvailability+$cable->getAvailability());
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('cable_index', [], Response::HTTP_SEE_OTHER);
         }
 

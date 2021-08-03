@@ -52,20 +52,21 @@ class Material
     /**
      * @ORM\Column(type="float")
      */
-    private $purchaseprice;
+    private $purchasePrice;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $saleprice;
+    private $salePrice;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $minimumlimit;
+    private $minimumLimit;
 
     /**
-     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="materials")
+     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="materials", cascade={"persist","remove"})
+     * @ORM\JoinColumn(name="id", referencedColumnName="materials", onDelete="CASCADE")
      */
     private $movements;
 
@@ -151,38 +152,38 @@ class Material
         return $this;
     }
 
-    public function getPurchaseprice(): ?float
+    public function getPurchasePrice(): ?float
     {
-        return $this->purchaseprice;
+        return $this->purchasePrice;
     }
 
-    public function setPurchaseprice(float $purchaseprice): self
+    public function setPurchasePrice(float $purchasePrice): self
     {
-        $this->purchaseprice = $purchaseprice;
+        $this->purchasePrice = $purchasePrice;
 
         return $this;
     }
 
-    public function getSaleprice(): ?float
+    public function getSalePrice(): ?float
     {
-        return $this->saleprice;
+        return $this->salePrice;
     }
 
-    public function setSaleprice(float $saleprice): self
+    public function setSalePrice(float $salePrice): self
     {
-        $this->saleprice = $saleprice;
+        $this->salePrice = $salePrice;
 
         return $this;
     }
 
-    public function getMinimumlimit(): ?float
+    public function getMinimumLimit(): ?float
     {
-        return $this->minimumlimit;
+        return $this->minimumLimit;
     }
 
-    public function setMinimumlimit(?float $minimumlimit): self
+    public function setMinimumLimit(?float $minimumLimit): self
     {
-        $this->minimumlimit = $minimumlimit;
+        $this->minimumLimit = $minimumLimit;
 
         return $this;
     }

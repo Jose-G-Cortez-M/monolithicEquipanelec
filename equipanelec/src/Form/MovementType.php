@@ -20,6 +20,7 @@ class MovementType extends AbstractType
         $builder
             ->add('orderdate',DateTimeType::class,[
                 'disabled' => true,
+                'widget' => 'single_text',
             ])
             ->add('quantity')
             ->add('tools',EntityType::class,[

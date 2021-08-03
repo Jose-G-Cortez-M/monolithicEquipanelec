@@ -67,6 +67,8 @@ class ClientController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('client_index', [], Response::HTTP_SEE_OTHER);

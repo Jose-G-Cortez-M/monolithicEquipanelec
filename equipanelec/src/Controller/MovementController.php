@@ -37,7 +37,7 @@ class MovementController extends AbstractController
     public function listmovement(MovementRepository $movementRepository): Response
     {
         return $this->render('movement/filteredmovement.html.twig', [
-            'movements' => $movementRepository->findAll(),
+            'movements' => $movementRepository->findBy(array('projects'=> null)),
         ]);
     }
 
@@ -98,7 +98,7 @@ class MovementController extends AbstractController
             if($movement->getCables()->getAvailability()>=$movement->getQuantity())
             {
                 $remaining = ($movement->getCables()->getAvailability())-($movement->getQuantity());
-                $cable->setAvailablemeter($remaining);
+                $cable->setAvailability($remaining);
                 $movement->setCables($cable);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($movement);

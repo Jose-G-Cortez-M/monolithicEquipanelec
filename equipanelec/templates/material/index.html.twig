@@ -13,7 +13,7 @@
                 <th>Stock</th>
                 <th>Location</th>
                 <th>Description</th>
-                <th>Minimumlimit</th>
+                <th>Minimum Limit</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -25,7 +25,7 @@
                 <td>{{ material.stock }}</td>
                 <td>{{ material.location }}</td>
                 <td>{{ material.description }}</td>
-                <td>{{ material.minimumlimit }}</td>
+                <td>{{ material.minimumLimit }}</td>
                 <td>
                     <a href="{{ path('material_show', {'id': material.id}) }}">show</a>
                     <a href="{{ path('material_edit', {'id': material.id}) }}">edit</a>

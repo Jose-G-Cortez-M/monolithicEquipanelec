@@ -61,14 +61,18 @@ class ToolController extends AbstractController
     /**
      * @Route("/{id}/edit", name="tool_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Tool $tool): Response
+    public function edit(Request $request, Tool $tool,$id): Response
     {
+        $em = $this->getDoctrine()->getRepository(Tool::class);
+        $tool = $em->find($id);
+        $oldStock = $tool->getStock();
+
         $form = $this->createForm(ToolType::class, $tool);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $tool->setStock($oldStock+$tool->getStock());
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('tool_index', [], Response::HTTP_SEE_OTHER);
         }
 

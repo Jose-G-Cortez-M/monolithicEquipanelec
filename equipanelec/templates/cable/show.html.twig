@@ -20,20 +20,20 @@
                 <td>{{ cable.name }}</td>
             </tr>
             <tr>
-                <th>Availablemeter</th>
-                <td>{{ cable.availablemeter }}</td>
+                <th>Availability</th>
+                <td>{{ cable.availability }}</td>
             </tr>
             <tr>
-                <th>Weightpermeter</th>
-                <td>{{ cable.weightpermeter }}</td>
+                <th>Weight per meter</th>
+                <td>{{ cable.weightPerMeter }}</td>
             </tr>
             <tr>
-                <th>Purcharseprice</th>
-                <td>{{ cable.purcharseprice }}</td>
+                <th>Purchase price</th>
+                <td>{{ cable.purchasePrice }}</td>
             </tr>
             <tr>
-                <th>Saleprice</th>
-                <td>{{ cable.saleprice }}</td>
+                <th>Sale price</th>
+                <td>{{ cable.salePrice }}</td>
             </tr>
             <tr>
                 <th>Description</th>
@@ -43,8 +43,8 @@
     </table>
 
     <a href="{{ path('cable_index') }}">back to list</a>
-
+    {{ include('cable/_delete_form.html.twig') }}
     <a href="{{ path('cable_edit', {'id': cable.id}) }}">edit</a>
 
-    {{ include('cable/_delete_form.html.twig') }}
+
 {% endblock %}

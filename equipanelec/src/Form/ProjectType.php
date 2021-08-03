@@ -8,10 +8,7 @@ use App\Entity\Task;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\ChoiceList\ChoiceList;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,7 +19,10 @@ class ProjectType extends AbstractType
         $builder
             ->add('contractnumber')
             ->add('name')
-            ->add('registrationdate')
+            ->add('registrationdate',DateType::class,[
+                'input' => 'datetime',
+                'widget' => 'single_text',
+            ])
             ->add('startdate')
             ->add('endtime')
             ->add('description')

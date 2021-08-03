@@ -50,7 +50,8 @@ class Tool
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="tools")
+     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="tools", cascade={"persist","remove"})
+     * @ORM\JoinColumn(name="id", referencedColumnName="tools", onDelete="CASCADE")
      */
     private $movements;
 

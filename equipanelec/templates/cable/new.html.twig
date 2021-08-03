@@ -3,9 +3,13 @@
 {% block title %}New Cable{% endblock %}
 
 {% block body %}
-    <h1>Create new Cable</h1>
-
-    {{ include('cable/_form.html.twig') }}
-
-    <a href="{{ path('cable_index') }}">back to list</a>
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-9 bg-white rounded my3 p-5">
+                <h1>Create new Cable</h1>
+                {{ include('cable/_form.html.twig') }}
+                <a href="{{ path('cable_index') }}">back to list</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
