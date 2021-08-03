@@ -55,6 +55,11 @@ class Tool
      */
     private $movements;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $location;
+
     public function __construct()
     {
         $this->movements = new ArrayCollection();
@@ -163,6 +168,18 @@ class Tool
                 $movement->setTools(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): self
+    {
+        $this->location = $location;
 
         return $this;
     }

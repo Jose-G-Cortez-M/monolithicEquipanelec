@@ -25,12 +25,9 @@ class MaterialType extends AbstractType
             ->add('stock',NumberType::class,[
                 'label' => "Enter the number of materials you want to add to inventory",
             ])
-            ->add('location')
-            ->add('description',TextareaType::class,[
-                'label' => "Enter a description of the material",
-                'required' => false
+            ->add('brand',TextType::class,[
+                'label' => "Enter the brand of the material",
             ])
-            ->add('brand')
             ->add('purchasePrice',NumberType::class,[
                 'label' => "Enter the entry price of the material",
             ])
@@ -39,6 +36,14 @@ class MaterialType extends AbstractType
             ])
             ->add('minimumLimit',NumberType::class,[
                 'label' => "Enter the minimum quantity of material you want in the warehouse",
+            ])
+            ->add('description',TextareaType::class,[
+                'label' => "Enter a description of the material",
+                'required' => false
+            ])
+            ->add('location',TextareaType::class,[
+                'label' => "Enter the location of the material within the warehouse",
+                'required' => false
             ])
         ;
     }

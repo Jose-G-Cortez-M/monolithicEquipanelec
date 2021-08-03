@@ -60,10 +60,16 @@ class Cable
     private $description;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $location;
+
+    /**
      * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="cables", cascade={"persist","remove"})
      * @ORM\JoinColumn(name="id", referencedColumnName="cables", onDelete="CASCADE")
      */
     private $movements;
+
 
     public function __construct()
     {
@@ -158,6 +164,17 @@ class Cable
 
         return $this;
     }
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): self
+    {
+        $this->location = $location;
+
+        return $this;
+    }
 
     /**
      * @return Collection|Movement[]
@@ -188,5 +205,6 @@ class Cable
 
         return $this;
     }
+
 
 }

@@ -36,7 +36,11 @@ class CableType extends AbstractType
                 'label' => "Enter the price at which you sell or charge the cable",
             ])
             ->add('description', TextareaType::class,[
-                'label' => "Enter a description of the cable or you can put its location",
+                'label' => "Enter a description of the cable",
+                'required' => false
+            ])
+            ->add('location', TextareaType::class,[
+                'label' => "Enter the location of the cable within the warehouse",
                 'required' => false
             ])
         ;
