@@ -12,6 +12,7 @@
                 <th>Name</th>
                 <th>Quantity</th>
                 <th>Orderdate</th>
+                <th>Assigned project</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -35,7 +36,12 @@
                 <td>{{ movement.quantity }}</td>
                 <td>{{ movement.orderdate ? movement.orderdate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('movement_show', {'id': movement.id}) }}">show</a>
+                    {% if movement.projects %}
+                        {{ movement.projects.name }}
+                    {% endif %}
+                </td>
+
+                <td>
                     <a href="{{ path('movement_edit', {'id': movement.id}) }}">edit</a>
                 </td>
             </tr>

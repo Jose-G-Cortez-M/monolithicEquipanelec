@@ -32,7 +32,7 @@ class Cable
     /**
      * @ORM\Column(type="float")
      */
-    private $availablemeter;
+    private $availability;
 
     /**
      * @ORM\Column(type="float", nullable=true)
@@ -93,14 +93,14 @@ class Cable
         return $this;
     }
 
-    public function getAvailablemeter(): ?float
+    public function getAvailability(): ?float
     {
-        return $this->availablemeter;
+        return $this->availability;
     }
 
-    public function setAvailablemeter(float $availablemeter): self
+    public function setAvailability(float $availability): self
     {
-        $this->availablemeter = $availablemeter;
+        $this->availability = $availability;
 
         return $this;
     }

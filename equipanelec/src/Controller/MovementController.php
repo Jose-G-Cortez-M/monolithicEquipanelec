@@ -2,18 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Tool;
 use App\Entity\Cable;
 use App\Entity\Material;
 use App\Entity\Movement;
-use App\Entity\Tool;
 use App\Form\MovementType;
+use App\Repository\CableRepository;
+use App\Repository\MaterialRepository;
 use App\Repository\MovementRepository;
-use DateTimeInterface;
-use DateTimeZone;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ToolRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/movement")
@@ -31,14 +32,24 @@ class MovementController extends AbstractController
     }
 
     /**
+     * @Route("/list", name="movement_list", methods={"GET"})
+     */
+    public function listmovement(MovementRepository $movementRepository): Response
+    {
+        return $this->render('movement/filteredmovement.html.twig', [
+            'movements' => $movementRepository->findAll(),
+        ]);
+    }
+
+    /**
      * @Route("/newmaterial/{id}", name="movement_new_material", methods={"GET","POST"})
      */
-    public function newmaterial(Request $request,$id): Response
+    public function newMaterial(Request $request,$id): Response
     {
-        $mensaje = "";
+        $messaging = "";
         $movement = new Movement();
         $material = new Material();
-        $movement->setOrderdate($this->setdate());
+        $movement->setOrderdate($this->setDate());
         $em = $this->getDoctrine()->getRepository(Material::class);
         $material = $em->find($id);
         $movement->setMaterials($material);
@@ -49,15 +60,15 @@ class MovementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if($movement->getMaterials()->getStock()>=$movement->getQuantity())
             {
-                $restante = ($movement->getMaterials()->getStock())-($movement->getQuantity());
-                $material->setStock($restante);
+                $remaining = ($movement->getMaterials()->getStock())-($movement->getQuantity());
+                $material->setStock($remaining);
                 $movement->setMaterials($material);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($movement);
                 $entityManager->flush();
-                return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
             }else{
-                echo $mensaje = "<h2>Opss! No tienes suficientes materiales en bodega :P</h2>";
+                echo $messaging = "<h2>Opss! No tienes suficientes materiales en bodega :P</h2>";
             }
         }
 
@@ -70,12 +81,12 @@ class MovementController extends AbstractController
     /**
      * @Route("/newcable/{id}", name="movement_new_cable", methods={"GET","POST"})
      */
-    public function newcable(Request $request,$id): Response
+    public function newCable(Request $request,$id): Response
     {
-        $mensaje = "";
+        $messaging = "";
         $movement = new Movement();
         $cable = new Cable();
-        $movement->setOrderdate($this->setdate());
+        $movement->setOrderdate($this->setDate());
         $em = $this->getDoctrine()->getRepository(Cable::class);
         $cable = $em->find($id);
         $movement->setCables($cable);
@@ -84,17 +95,17 @@ class MovementController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($movement->getCables()->getAvailablemeter()>=$movement->getQuantity())
+            if($movement->getCables()->getAvailability()>=$movement->getQuantity())
             {
-                $restante = ($movement->getCables()->getAvailablemeter())-($movement->getQuantity());
-                $cable->setAvailablemeter($restante);
+                $remaining = ($movement->getCables()->getAvailability())-($movement->getQuantity());
+                $cable->setAvailablemeter($remaining);
                 $movement->setCables($cable);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($movement);
                 $entityManager->flush();
-                return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
             }else{
-                echo $mensaje = "<h2>Opss! No tienes suficientes cables en bodega :P</h2>";
+                echo $messaging = "<h2>Opss! No tienes suficientes cables en bodega :P</h2>";
             }
         }
 
@@ -106,12 +117,12 @@ class MovementController extends AbstractController
     /**
      * @Route("/newtool/{id}", name="movement_new_tool", methods={"GET","POST"})
      */
-    public function newtool(Request $request,$id): Response
+    public function newTool(Request $request,$id): Response
     {
-        $mensaje = "";
+        $messaging = "";
         $movement = new Movement();
         $tool = new Tool();
-        $movement->setOrderdate($this->setdate());
+        $movement->setOrderdate($this->setDate());
         $em = $this->getDoctrine()->getRepository(Tool::class);
         $tool = $em->find($id);
         $movement->setTools($tool);
@@ -122,15 +133,15 @@ class MovementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if($movement->getTools()->getStock()>=$movement->getQuantity())
             {
-                $restante = ($movement->getTools()->getStock())-($movement->getQuantity());
-                $tool->setStock($restante);
+                $remaining = ($movement->getTools()->getStock())-($movement->getQuantity());
+                $tool->setStock($remaining);
                 $movement->setTools($tool);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($movement);
                 $entityManager->flush();
-                return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
             }else{
-                echo $mensaje = "<h2>Opss! No tienes suficientes herramientas en bodega :P</h2>";
+                echo $messaging = "<h2>Opss! No tienes suficientes herramientas en bodega :P</h2>";
             }
         }
 
@@ -142,30 +153,42 @@ class MovementController extends AbstractController
     }
 
 
-
-
-    /**
-     * @Route("/{id}", name="movement_show", methods={"GET"})
-     */
-    public function show(Movement $movement): Response
-    {
-        return $this->render('movement/show.html.twig', [
-            'movement' => $movement,
-        ]);
-    }
-
     /**
      * @Route("/{id}/edit", name="movement_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Movement $movement): Response
+    public function edit(
+        Request $request,
+        Movement $movement,
+        MaterialRepository $materialRepository,
+        CableRepository $cableRepository,
+        ToolRepository $toolRepository
+        ): Response
     {
+        $mvOld = $movement->getQuantity();
         $form = $this->createForm(MovementType::class, $movement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($movement->getMaterials()!= null)
+            {
+                $material = new Material();
+                $material = $materialRepository->find($movement->getMaterials()->getId());
+                $movement->returnToMaterial($material,$mvOld);
+            }
+            elseif ($movement->getCables()!=null)
+            {
+                $cable = new Cable();
+                $cable = $cableRepository->find($movement->getCables()->getId());
+                $movement->returnToCable($cable,$mvOld);
+            }
+            elseif ($movement->getTools()!=null)
+            {
+                $tool = new Tool();
+                $tool = $toolRepository->find($movement->getTools()->getId());
+                $movement->returnToTool($tool,$mvOld);
+            }
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('movement/edit.html.twig', [
@@ -173,6 +196,7 @@ class MovementController extends AbstractController
             'form' => $form,
         ]);
     }
+
 
     /**
      * @Route("/{id}", name="movement_delete", methods={"POST"})
@@ -185,13 +209,14 @@ class MovementController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
     }
 
-    public function setdate()
+
+    public function setDate(): \DateTime
     {
         date_default_timezone_set('America/Guayaquil');
-        $fechaActual = new \DateTime('now');
-        return $fechaActual;
+        return new \DateTime('now');
     }
+
 }

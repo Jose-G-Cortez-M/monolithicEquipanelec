@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\MaterialRepository;
 use App\Repository\MovementRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -126,5 +127,27 @@ class Movement
         $this->projects = $projects;
 
         return $this;
+    }
+
+    public function returnToMaterial(Material $material,$mvOld):void
+    {
+        $diff = ($mvOld-$this->getQuantity());
+        $add = ($this->getMaterials()->getStock())+($diff);
+        $material->setStock($add);
+        $this->setMaterials($material);
+    }
+    public function returnToCable(Cable $cable, $mvOld):void
+    {
+        $diff = ($mvOld-$this->getQuantity());
+        $add = ($this->getCables()->getAvailability())+($diff);
+        $cable->setAvailability($add);
+        $this->setCables($cable);
+    }
+    public  function returnToTool(Tool $tool, $mvOld):void
+    {
+        $diff = ($mvOld-$this->getQuantity());
+        $add = ($this->getTools()->getStock())+($diff);
+        $tool->setStock($add);
+        $this->setTools($tool);
     }
 }

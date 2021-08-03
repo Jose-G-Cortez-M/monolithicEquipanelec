@@ -14,7 +14,7 @@ class CableType extends AbstractType
         $builder
             ->add('barcode')
             ->add('name')
-            ->add('availablemeter')
+            ->add('availability')
             ->add('weightpermeter')
             ->add('purcharseprice')
             ->add('saleprice')
