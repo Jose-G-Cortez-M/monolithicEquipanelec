@@ -165,7 +165,7 @@ class MovementController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->extracted($movement, $materialRepository, $mvOld, $cableRepository, $toolRepository);
+            $this->backToInventoryByEdit($movement, $materialRepository, $mvOld, $cableRepository, $toolRepository);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
         }
@@ -188,7 +188,7 @@ class MovementController extends AbstractController
         $mvOld = $movement->getQuantity();
         if ($this->isCsrfTokenValid('delete'.$movement->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $this->extracted1($movement, $mvOld, $entityManager);
+            $this->returnToInventoryByElimination($movement, $mvOld, $entityManager);
             $entityManager->remove($movement);
             $entityManager->flush();
         }
@@ -221,7 +221,7 @@ class MovementController extends AbstractController
         return $em->find($id);
     }
 
-    public function extracted(Movement $movement, MaterialRepository $materialRepository, ?float $mvOld, CableRepository $cableRepository, ToolRepository $toolRepository): void
+    public function backToInventoryByEdit(Movement $movement, MaterialRepository $materialRepository, ?float $mvOld, CableRepository $cableRepository, ToolRepository $toolRepository): void
     {
         if ($movement->getMaterials() != null) {
             $material = $materialRepository->find($movement->getMaterials()->getId());
@@ -239,7 +239,7 @@ class MovementController extends AbstractController
      * @param float|null $mvOld
      * @param $entityManager
      */
-    public function extracted1(Movement $movement, ?float $mvOld, $entityManager): void
+    public function returnToInventoryByElimination(Movement $movement, ?float $mvOld, $entityManager): void
     {
         if ($movement->getMaterials() != null) {
             $material = $movement->getMaterials();
