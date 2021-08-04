@@ -11,23 +11,24 @@
             <th>Id</th>
             <th>Name</th>
             <th>Quantity</th>
-            <th>Orderdate</th>
+            <th>OrderDate</th>
             <th>actions</th>
         </tr>
         </thead>
         <tbody>
         {% for movement in movements %}
             <tr>
-                <td>{{ movement.id }}</td>
 
+                <td>{{ movement.id }}
+                </td>
                 <td>
-                    {% if movement.materials.name |default  %}
+                    {% if movement.materials.name |default %}
                         {{ movement.materials.name }}
                     {% endif %}
-                    {% if movement.tools.name |default  %}
+                    {% if movement.tools.name |default %}
                         {{ movement.tools.name }}
                     {% endif %}
-                    {% if movement.cables.name |default  %}
+                    {% if movement.cables.name |default %}
                         {{ movement.cables.name }}
                     {% endif %}
                 </td>

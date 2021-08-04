@@ -8,6 +8,10 @@
     <table class="table">
         <tbody>
             <tr>
+                <th>Image</th>
+                <td><img src="{{ vich_uploader_asset(material, 'imageFile') }}" alt="{{ material.name }}" height="150">
+            </tr>
+            <tr>
                 <th>Id</th>
                 <td>{{ material.id }}</td>
             </tr>

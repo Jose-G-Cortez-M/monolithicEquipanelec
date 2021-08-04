@@ -8,6 +8,12 @@
     <table class="table">
         <tbody>
             <tr>
+                <th>Image</th>
+                <td>
+                    <img src="{{ vich_uploader_asset(cable, 'imageFile') }}" alt="{{ cable.name }}" height="100">
+                </td>
+            </tr>
+            <tr>
                 <th>Id</th>
                 <td>{{ cable.id }}</td>
             </tr>
@@ -36,12 +42,16 @@
                 <td>{{ cable.salePrice }}</td>
             </tr>
             <tr>
-                <th>Description</th>
-                <td>{{ cable.description }}</td>
+                <th>Minimum Limit</th>
+                <td>{{ cable.minimumLimit }}</td>
             </tr>
             <tr>
                 <th>Location</th>
                 <td>{{ cable.location }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ cable.description }}</td>
             </tr>
         </tbody>
     </table>

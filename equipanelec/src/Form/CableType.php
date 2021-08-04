@@ -9,12 +9,16 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class CableType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('imageFile', VichImageType::class,[
+                'required' => false
+            ])
             ->add('barcode', TextType::class,[
                 'label' => "Enter the barcode",
                 'required' => false
@@ -35,14 +39,19 @@ class CableType extends AbstractType
             ->add('salePrice',NumberType::class,[
                 'label' => "Enter the price at which you sell or charge the cable",
             ])
-            ->add('description', TextareaType::class,[
-                'label' => "Enter a description of the cable",
+            ->add('minimumLimit',NumberType::class,[
+                'label' => "Enter the minimum quantity of cable you want in the warehouse",
                 'required' => false
             ])
             ->add('location', TextareaType::class,[
                 'label' => "Enter the location of the cable within the warehouse",
                 'required' => false
             ])
+            ->add('description', TextareaType::class,[
+                'label' => "Enter a description of the cable",
+                'required' => false
+            ])
+
         ;
     }
 

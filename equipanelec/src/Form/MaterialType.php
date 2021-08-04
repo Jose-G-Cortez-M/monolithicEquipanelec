@@ -9,12 +9,16 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class MaterialType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('imageFile', VichImageType::class,[
+                'required' => false
+            ])
             ->add('barcode',TextType::class,[
                 'label' => "Enter the barcode",
                 'required' => false
@@ -36,6 +40,7 @@ class MaterialType extends AbstractType
             ])
             ->add('minimumLimit',NumberType::class,[
                 'label' => "Enter the minimum quantity of material you want in the warehouse",
+                'required' => false
             ])
             ->add('description',TextareaType::class,[
                 'label' => "Enter a description of the material",
