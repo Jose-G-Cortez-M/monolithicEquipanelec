@@ -37,7 +37,7 @@ class Cable
 
     /**
      * @ORM\Column(type="float")
-     * @Assert\Positive
+     * @Assert\PositiveOrZero
      */
     private $availability;
 
@@ -106,6 +106,7 @@ class Cable
 
     public function __construct()
     {
+        $this->image = new EmbeddedFile();
         $this->movements = new ArrayCollection();
     }
 

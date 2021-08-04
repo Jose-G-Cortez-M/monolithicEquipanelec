@@ -21,7 +21,7 @@
         </thead>
         <tbody>
         {% for tool in tools %}
-            {% if tool.minimumLimit is null or tool.minimumLimit>=tool.stock %}
+            {% if tool.minimumLimit is null or tool.minimumLimit>tool.stock %}
                 <tr class="table-warning">
                     <td><img src="{{ vich_uploader_asset(tool, 'imageFile') }}" alt="{{ tool.name }}" height="100"></td>
                     <td>{{ tool.name }}</td>

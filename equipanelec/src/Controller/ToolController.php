@@ -66,6 +66,7 @@ class ToolController extends AbstractController
         $em = $this->getDoctrine()->getRepository(Tool::class);
         $tool = $em->find($id);
         $oldStock = $tool->getStock();
+        $tool->setStock(0);
 
         $form = $this->createForm(ToolType::class, $tool);
         $form->handleRequest($request);

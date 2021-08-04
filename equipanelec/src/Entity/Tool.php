@@ -37,7 +37,7 @@ class Tool
 
     /**
      * @ORM\Column(type="float")
-     * @Assert\Positive
+     * @Assert\PositiveOrZero
      */
     private $stock;
 
@@ -69,6 +69,7 @@ class Tool
 
     public function __construct()
     {
+        $this->image = new EmbeddedFile();
         $this->movements = new ArrayCollection();
     }
 

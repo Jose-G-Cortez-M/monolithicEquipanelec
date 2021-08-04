@@ -66,6 +66,7 @@ class MaterialController extends AbstractController
         $em = $this->getDoctrine()->getRepository(Material::class);
         $material = $em->find($id);
         $oldStock = $material->getStock();
+        $material->setStock(0);
         $form = $this->createForm(MaterialType::class, $material);
         $form->handleRequest($request);
 

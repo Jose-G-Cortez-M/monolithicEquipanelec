@@ -38,7 +38,7 @@ class Material
 
     /**
      * @ORM\Column(type="float")
-     * @Assert\Positive
+     * @Assert\PositiveOrZero
      */
     private $stock;
 

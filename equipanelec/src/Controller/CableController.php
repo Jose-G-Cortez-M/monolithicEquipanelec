@@ -66,6 +66,7 @@ class CableController extends AbstractController
         $em = $this->getDoctrine()->getRepository(Cable::class);
         $cable = $em->find($id);
         $oldAvailability = $cable->getAvailability();
+        $cable->setAvailability(0);
 
         $form = $this->createForm(CableType::class, $cable);
         $form->handleRequest($request);
