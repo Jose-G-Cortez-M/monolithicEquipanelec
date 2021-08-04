@@ -6,9 +6,15 @@ use App\Repository\ToolRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=ToolRepository::class)
+ * @Vich\Uploadable
  */
 class Tool
 {
@@ -31,6 +37,7 @@ class Tool
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive
      */
     private $stock;
 
@@ -46,18 +53,54 @@ class Tool
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive
      */
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="tools")
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $movements;
+    private $location;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $minimumLimit;
 
     public function __construct()
     {
         $this->movements = new ArrayCollection();
     }
+
+    /**
+     *
+     * @Vich\UploadableField(mapping="product_image", fileNameProperty="image.name", size="image.size", mimeType="image.mimeType", originalName="image.originalName", dimensions="image.dimensions")
+     *
+     * @var File|null
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
+     *
+     * @var EmbeddedFile
+     */
+    private $image;
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTimeInterface|null
+     */
+    private $updatedAt;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="tools", cascade={"persist","remove"})
+     * @ORM\JoinColumn(name="id", referencedColumnName="tools", onDelete="CASCADE")
+     */
+    private $movements;
+
 
     public function getId(): ?int
     {
@@ -135,6 +178,29 @@ class Tool
 
         return $this;
     }
+    public function getMinimumLimit(): ?float
+    {
+        return $this->minimumLimit;
+    }
+
+    public function setMinimumLimit(?float $minimumLimit): self
+    {
+        $this->minimumLimit = $minimumLimit;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): self
+    {
+        $this->location = $location;
+
+        return $this;
+    }
 
     /**
      * @return Collection|Movement[]
@@ -164,6 +230,35 @@ class Tool
         }
 
         return $this;
+    }
+
+    /**
+     * @param File|UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null)
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImage(EmbeddedFile $image): void
+    {
+        $this->image = $image;
+    }
+
+    public function getImage(): ?EmbeddedFile
+    {
+        return $this->image;
     }
 
 }

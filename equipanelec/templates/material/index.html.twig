@@ -1,51 +1,63 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Material index{% endblock %}
+{% block title %}Material List{% endblock %}
 
 {% block body %}
-    <h1>Material index</h1>
+    <h1>Material List</h1>
 
-    <table class="table">
+    <a href="{{ path('material_new') }}">Create new</a>
+
+    <table class="table table-hover table-bordered">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Barcode</th>
+            <tr class="table-dark">
+                <th>Image</th>
                 <th>Name</th>
                 <th>Stock</th>
                 <th>Location</th>
                 <th>Description</th>
-                <th>Brand</th>
-                <th>Purchaseprice</th>
-                <th>Saleprice</th>
-                <th>Minimumlimit</th>
+                <th>Minimum Limit</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for material in materials %}
-            <tr>
-                <td>{{ material.id }}</td>
-                <td>{{ material.barcode }}</td>
-                <td>{{ material.name }}</td>
-                <td>{{ material.stock }}</td>
-                <td>{{ material.location }}</td>
-                <td>{{ material.description }}</td>
-                <td>{{ material.brand }}</td>
-                <td>{{ material.purchaseprice }}</td>
-                <td>{{ material.saleprice }}</td>
-                <td>{{ material.minimumlimit }}</td>
-                <td>
-                    <a href="{{ path('material_show', {'id': material.id}) }}">show</a>
-                    <a href="{{ path('material_edit', {'id': material.id}) }}">edit</a>
-                </td>
-            </tr>
+            {% if material.minimumLimit is null or material.minimumLimit>=material.stock %}
+                <tr class="table-warning">
+                    <td><img src="{{ vich_uploader_asset(material, 'imageFile') }}" alt="{{ material.name }}" height="100">
+                    </td>
+                    <td>{{ material.name }}</td>
+                    <td>{{ material.stock }}</td>
+                    <td>{{ material.location }}</td>
+                    <td>{{ material.description }}</td>
+                    <td>{{ material.minimumLimit }}</td>
+                    <td>
+                        <a href="{{ path('material_show', {'id': material.id}) }}">Show details</a>
+                        {{ include('material/_movement_form.html.twig') }}
+                        <a href="{{ path('material_edit', {'id': material.id}) }}">Upgrade or add more cable</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td><img src="{{ vich_uploader_asset(material, 'imageFile') }}" alt="{{ material.name }}" height="100">
+                    </td>
+                    <td>{{ material.name }}</td>
+                    <td>{{ material.stock }}</td>
+                    <td>{{ material.location }}</td>
+                    <td>{{ material.description }}</td>
+                    <td>{{ material.minimumLimit }}</td>
+                    <td>
+                        <a href="{{ path('material_show', {'id': material.id}) }}">Show details</a>
+                        {{ include('material/_movement_form.html.twig') }}
+                        <a href="{{ path('material_edit', {'id': material.id}) }}">Upgrade or add more cable</a>
+                    </td>
+                </tr>
+            {% endif %}
+
         {% else %}
             <tr>
-                <td colspan="11">no records found</td>
+                <td colspan="8">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('material_new') }}">Create new</a>
 {% endblock %}

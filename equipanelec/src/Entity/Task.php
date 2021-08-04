@@ -27,7 +27,7 @@ class Task
     /**
      * @ORM\Column(type="float")
      */
-    private $timeperminute;
+    private $timePerMinute;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -37,7 +37,7 @@ class Task
     /**
      * @ORM\Column(type="float")
      */
-    private $costpertask;
+    private $costPerTask;
 
     /**
      * @ORM\ManyToMany(targetEntity=Project::class, inversedBy="tasks")
@@ -66,14 +66,14 @@ class Task
         return $this;
     }
 
-    public function getTimeperminute(): ?float
+    public function getTimePerMinute(): ?float
     {
-        return $this->timeperminute;
+        return $this->timePerMinute;
     }
 
-    public function setTimeperminute(float $timeperminute): self
+    public function setTimePerMinute(float $timePerMinute): self
     {
-        $this->timeperminute = $timeperminute;
+        $this->timePerMinute = $timePerMinute;
 
         return $this;
     }
@@ -90,14 +90,14 @@ class Task
         return $this;
     }
 
-    public function getCostpertask(): ?float
+    public function getCostPerTask(): ?float
     {
-        return $this->costpertask;
+        return $this->costPerTask;
     }
 
-    public function setCostpertask(float $costpertask): self
+    public function setCostPerTask(float $costPerTask): self
     {
-        $this->costpertask = $costpertask;
+        $this->costPerTask = $costPerTask;
 
         return $this;
     }

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Movement List{% endblock %}
+
+{% block body %}
+    <h1>Movement List</h1>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr class="table-dark">
+            <th>Id</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>OrderDate</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for movement in movements %}
+            <tr>
+
+                <td>{{ movement.id }}
+                </td>
+                <td>
+                    {% if movement.materials.name |default %}
+                        {{ movement.materials.name }}
+                    {% endif %}
+                    {% if movement.tools.name |default %}
+                        {{ movement.tools.name }}
+                    {% endif %}
+                    {% if movement.cables.name |default %}
+                        {{ movement.cables.name }}
+                    {% endif %}
+                </td>
+
+                <td>{{ movement.quantity }}</td>
+                <td>{{ movement.orderdate ? movement.orderdate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('movement_edit', {'id': movement.id}) }}">edit</a>
+                    {{ include('movement/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

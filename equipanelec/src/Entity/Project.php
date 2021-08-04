@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
@@ -22,7 +24,7 @@ class Project
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private $contractnumber;
+    private $contractNumber;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -32,17 +34,17 @@ class Project
     /**
      * @ORM\Column(type="datetime")
      */
-    private $registrationdate;
+    private $registrationDate;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $startdate;
+    private $startDate;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $endtime;
+    private $endTime;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -51,13 +53,15 @@ class Project
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private $advances;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
-    private $totalcost;
+    private $totalCost;
 
     /**
      * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="projects")
@@ -91,14 +95,14 @@ class Project
         return $this->id;
     }
 
-    public function getContractnumber(): ?string
+    public function getContractNumber(): ?string
     {
-        return $this->contractnumber;
+        return $this->contractNumber;
     }
 
-    public function setContractnumber(?string $contractnumber): self
+    public function setContractNumber(?string $contractNumber): self
     {
-        $this->contractnumber = $contractnumber;
+        $this->contractNumber = $contractNumber;
 
         return $this;
     }
@@ -115,38 +119,38 @@ class Project
         return $this;
     }
 
-    public function getRegistrationdate(): ?\DateTimeInterface
+    public function getRegistrationDate(): ?DateTimeInterface
     {
-        return $this->registrationdate;
+        return $this->registrationDate;
     }
 
-    public function setRegistrationdate(\DateTimeInterface $registrationdate): self
+    public function setRegistrationDate(DateTimeInterface $registrationDate): self
     {
-        $this->registrationdate = $registrationdate;
+        $this->registrationDate = $registrationDate;
 
         return $this;
     }
 
-    public function getStartdate(): ?\DateTimeInterface
+    public function getStartDate(): ?DateTimeInterface
     {
-        return $this->startdate;
+        return $this->startDate;
     }
 
-    public function setStartdate(?\DateTimeInterface $startdate): self
+    public function setStartDate(?DateTimeInterface $startDate): self
     {
-        $this->startdate = $startdate;
+        $this->startDate = $startDate;
 
         return $this;
     }
 
-    public function getEndtime(): ?\DateTimeInterface
+    public function getEndTime(): ?DateTimeInterface
     {
-        return $this->endtime;
+        return $this->endTime;
     }
 
-    public function setEndtime(?\DateTimeInterface $endtime): self
+    public function setEndTime(?DateTimeInterface $endTime): self
     {
-        $this->endtime = $endtime;
+        $this->endTime = $endTime;
 
         return $this;
     }
@@ -175,14 +179,14 @@ class Project
         return $this;
     }
 
-    public function getTotalcost(): ?float
+    public function getTotalCost(): ?float
     {
-        return $this->totalcost;
+        return $this->totalCost;
     }
 
-    public function setTotalcost(?float $totalcost): self
+    public function setTotalCost(?float $totalCost): self
     {
-        $this->totalcost = $totalcost;
+        $this->totalCost = $totalCost;
 
         return $this;
     }

@@ -21,7 +21,7 @@ class MaterialController extends AbstractController
     public function index(MaterialRepository $materialRepository): Response
     {
         return $this->render('material/index.html.twig', [
-            'materials' => $materialRepository->findAll(),
+            'materials' => $materialRepository->findBy(array(),array('name' => 'ASC'))
         ]);
     }
 
@@ -61,12 +61,16 @@ class MaterialController extends AbstractController
     /**
      * @Route("/{id}/edit", name="material_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Material $material): Response
+    public function edit(Request $request,$id): Response
     {
+        $em = $this->getDoctrine()->getRepository(Material::class);
+        $material = $em->find($id);
+        $oldStock = $material->getStock();
         $form = $this->createForm(MaterialType::class, $material);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $material->setStock($oldStock+$material->getStock());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('material_index', [], Response::HTTP_SEE_OTHER);

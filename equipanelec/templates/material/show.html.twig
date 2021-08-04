@@ -8,6 +8,10 @@
     <table class="table">
         <tbody>
             <tr>
+                <th>Image</th>
+                <td><img src="{{ vich_uploader_asset(material, 'imageFile') }}" alt="{{ material.name }}" height="150">
+            </tr>
+            <tr>
                 <th>Id</th>
                 <td>{{ material.id }}</td>
             </tr>
@@ -24,6 +28,22 @@
                 <td>{{ material.stock }}</td>
             </tr>
             <tr>
+                <th>Brand</th>
+                <td>{{ material.brand }}</td>
+            </tr>
+            <tr>
+                <th>Purchase Price</th>
+                <td>{{ material.purchasePrice }}</td>
+            </tr>
+            <tr>
+                <th>Sale Price</th>
+                <td>{{ material.salePrice }}</td>
+            </tr>
+            <tr>
+                <th>Minimum Limit</th>
+                <td>{{ material.minimumLimit }}</td>
+            </tr>
+            <tr>
                 <th>Location</th>
                 <td>{{ material.location }}</td>
             </tr>
@@ -31,28 +51,11 @@
                 <th>Description</th>
                 <td>{{ material.description }}</td>
             </tr>
-            <tr>
-                <th>Brand</th>
-                <td>{{ material.brand }}</td>
-            </tr>
-            <tr>
-                <th>Purchaseprice</th>
-                <td>{{ material.purchaseprice }}</td>
-            </tr>
-            <tr>
-                <th>Saleprice</th>
-                <td>{{ material.saleprice }}</td>
-            </tr>
-            <tr>
-                <th>Minimumlimit</th>
-                <td>{{ material.minimumlimit }}</td>
-            </tr>
         </tbody>
     </table>
 
     <a href="{{ path('material_index') }}">back to list</a>
-
+    {{ include('material/_delete_form.html.twig') }}
     <a href="{{ path('material_edit', {'id': material.id}) }}">edit</a>
 
-    {{ include('material/_delete_form.html.twig') }}
 {% endblock %}

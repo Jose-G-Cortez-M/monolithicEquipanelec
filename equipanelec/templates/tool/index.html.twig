@@ -1,38 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tool index{% endblock %}
+{% block title %}Tool List{% endblock %}
 
 {% block body %}
-    <h1>Tool index</h1>
+    <h1>Tool List</h1>
 
-    <table class="table">
+    <a href="{{ path('tool_new') }}">Create new</a>
+
+    <table class="table table-hover table-bordered">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Barcode</th>
+            <tr class="table-dark">
+                <th>Image</th>
                 <th>Name</th>
                 <th>Stock</th>
+                <th>Location</th>
                 <th>Description</th>
-                <th>Brand</th>
-                <th>Price</th>
+                <th>Minimum Limit</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for tool in tools %}
-            <tr>
-                <td>{{ tool.id }}</td>
-                <td>{{ tool.barcode }}</td>
-                <td>{{ tool.name }}</td>
-                <td>{{ tool.stock }}</td>
-                <td>{{ tool.description }}</td>
-                <td>{{ tool.brand }}</td>
-                <td>{{ tool.price }}</td>
-                <td>
-                    <a href="{{ path('tool_show', {'id': tool.id}) }}">show</a>
-                    <a href="{{ path('tool_edit', {'id': tool.id}) }}">edit</a>
-                </td>
+            {% if tool.minimumLimit is null or tool.minimumLimit>=tool.stock %}
+                <tr class="table-warning">
+                    <td><img src="{{ vich_uploader_asset(tool, 'imageFile') }}" alt="{{ tool.name }}" height="100"></td>
+                    <td>{{ tool.name }}</td>
+                    <td>{{ tool.stock }}</td>
+                    <td>{{ tool.location }}</td>
+                    <td>{{ tool.description }}</td>
+                    <td>{{ tool.minimumLimit }}</td>
+                    <td>
+                        <a href="{{ path('tool_show', {'id': tool.id}) }}">Show details</a>
+                        {{ include('tool/_movement_form.html.twig') }}
+                        <a href="{{ path('tool_edit', {'id': tool.id}) }}">Upgrade or add more cable</a>
+                    </td>
             </tr>
+            {% else %}
+                <tr>
+                    <td><img src="{{ vich_uploader_asset(tool, 'imageFile') }}" alt="{{ tool.name }}" height="100"></td>
+                    <td>{{ tool.name }}</td>
+                    <td>{{ tool.stock }}</td>
+                    <td>{{ tool.location }}</td>
+                    <td>{{ tool.description }}</td>
+                    <td>{{ tool.minimumLimit }}</td>
+                    <td>
+                        <a href="{{ path('tool_show', {'id': tool.id}) }}">Show details</a>
+                        {{ include('tool/_movement_form.html.twig') }}
+                        <a href="{{ path('tool_edit', {'id': tool.id}) }}">Upgrade or add more cable</a>
+                    </td>
+                </tr>
+            {% endif %}
         {% else %}
             <tr>
                 <td colspan="8">no records found</td>
@@ -41,5 +58,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('tool_new') }}">Create new</a>
 {% endblock %}
