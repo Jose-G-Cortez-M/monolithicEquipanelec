@@ -15,9 +15,9 @@ class TaskType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('timeperminute')
+            ->add('timePerMinute')
             ->add('description')
-            ->add('costpertask')
+            ->add('costPerTask')
             ->add('projects', EntityType::class,[
                     'class' =>Project::class,
                     'choice_label' => 'name',

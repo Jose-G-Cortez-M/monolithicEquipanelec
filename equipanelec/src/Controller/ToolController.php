@@ -61,7 +61,7 @@ class ToolController extends AbstractController
     /**
      * @Route("/{id}/edit", name="tool_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Tool $tool,$id): Response
+    public function edit(Request $request, $id): Response
     {
         $em = $this->getDoctrine()->getRepository(Tool::class);
         $tool = $em->find($id);

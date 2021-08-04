@@ -4,12 +4,13 @@
 
 {% block body %}
     <h1>Client index</h1>
+    <a href="{{ path('client_new') }}">Create new</a>
 
-    <table class="table">
+    <table class="table table-hover table-bordered">
         <thead>
-            <tr>
+            <tr class="table-dark">
                 <th>Id</th>
-                <th>Comapny</th>
+                <th>Company</th>
                 <th>Representative</th>
                 <th>Phone</th>
                 <th>Direction</th>
@@ -20,7 +21,7 @@
         {% for client in clients %}
             <tr>
                 <td>{{ client.id }}</td>
-                <td>{{ client.comapny }}</td>
+                <td>{{ client.company }}</td>
                 <td>{{ client.representative }}</td>
                 <td>{{ client.phone }}</td>
                 <td>{{ client.direction }}</td>
@@ -37,5 +38,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('client_new') }}">Create new</a>
 {% endblock %}

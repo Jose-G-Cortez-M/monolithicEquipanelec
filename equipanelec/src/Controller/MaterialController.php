@@ -61,7 +61,7 @@ class MaterialController extends AbstractController
     /**
      * @Route("/{id}/edit", name="material_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Material $material,$id): Response
+    public function edit(Request $request,$id): Response
     {
         $em = $this->getDoctrine()->getRepository(Material::class);
         $material = $em->find($id);

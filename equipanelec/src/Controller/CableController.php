@@ -61,7 +61,7 @@ class CableController extends AbstractController
     /**
      * @Route("/{id}/edit", name="cable_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Cable $cable, $id): Response
+    public function edit(Request $request, $id): Response
     {
         $em = $this->getDoctrine()->getRepository(Cable::class);
         $cable = $em->find($id);

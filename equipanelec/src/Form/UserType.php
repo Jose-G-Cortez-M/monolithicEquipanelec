@@ -20,11 +20,11 @@ class UserType extends AbstractType
             ->add('roles',ChoiceType::class,[
                     'multiple' => true,
                     'choices' => [
-                        'Encargado de la bodega' => 'ROLE_CELLAR',
-                        'Jefe de proyectos' => 'ROLE_PROJECT_MANAGER',
-                        'Contador' => 'ROLE_COUNTER',
-                        'Obreros' => 'ROLE_WORKERS',
-                        'Administrador' => 'ROLE_MANAGER'
+                        'Cellar manager' => 'ROLE_CELLAR',
+                        'Project Manager' => 'ROLE_PROJECT_MANAGER',
+                        'Counter' => 'ROLE_COUNTER',
+                        'Workers' => 'ROLE_WORKERS',
+                        'Administrator' => 'ROLE_MANAGER'
 
                     ]
             ])

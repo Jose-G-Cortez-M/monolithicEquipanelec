@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MovementRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,7 +21,7 @@ class Movement
     /**
      * @ORM\Column(type="datetime")
      */
-    private $orderdate;
+    private $orderDate;
 
     /**
      * @ORM\Column(type="float")
@@ -56,14 +57,14 @@ class Movement
         return $this->id;
     }
 
-    public function getOrderdate(): ?\DateTimeInterface
+    public function getOrderDate(): ?DateTimeInterface
     {
-        return $this->orderdate;
+        return $this->orderDate;
     }
 
-    public function setOrderdate(\DateTimeInterface $orderdate): self
+    public function setOrderDate(DateTimeInterface $orderDate): self
     {
-        $this->orderdate = $orderdate;
+        $this->orderDate = $orderDate;
 
         return $this;
     }
@@ -151,6 +152,6 @@ class Movement
     }
     public function __toString():string
     {
-        return $this->orderdate;
+        return $this->orderDate;
     }
 }

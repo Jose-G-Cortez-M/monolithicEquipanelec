@@ -17,17 +17,17 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('contractnumber')
+            ->add('contractNumber')
             ->add('name')
-            ->add('registrationdate',DateType::class,[
+            ->add('registrationDate',DateType::class,[
                 'input' => 'datetime',
                 'widget' => 'single_text',
             ])
-            ->add('startdate')
-            ->add('endtime')
+            ->add('startDate')
+            ->add('endTime')
             ->add('description')
             ->add('advances')
-            ->add('totalcost')
+            ->add('totalCost')
             ->add('clients', EntityType::class,[
                 'class' => Client::class,
                 'choice_label' => 'representative'

@@ -6,6 +6,7 @@ use App\Repository\MaterialRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MaterialRepository::class)
@@ -31,6 +32,7 @@ class Material
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive
      */
     private $stock;
 
@@ -51,16 +53,19 @@ class Material
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive
      */
     private $purchasePrice;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive
      */
     private $salePrice;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private $minimumLimit;
 
