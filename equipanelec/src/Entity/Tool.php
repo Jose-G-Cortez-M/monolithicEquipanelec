@@ -69,6 +69,7 @@ class Tool
 
     public function __construct()
     {
+        $this->image = new EmbeddedFile();
         $this->movements = new ArrayCollection();
     }
 

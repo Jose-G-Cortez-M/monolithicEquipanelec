@@ -16,9 +16,7 @@ class MaterialType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imageFile', VichImageType::class,[
-                'required' => false
-            ])
+            ->add('imageFile', VichImageType::class)
             ->add('barcode',TextType::class,[
                 'label' => "Enter the barcode",
                 'required' => false
@@ -31,6 +29,7 @@ class MaterialType extends AbstractType
             ])
             ->add('brand',TextType::class,[
                 'label' => "Enter the brand of the material",
+                'required' => false
             ])
             ->add('purchasePrice',NumberType::class,[
                 'label' => "Enter the entry price of the material",

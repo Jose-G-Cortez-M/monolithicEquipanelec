@@ -16,9 +16,7 @@ class CableType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imageFile', VichImageType::class,[
-                'required' => false
-            ])
+            ->add('imageFile', VichImageType::class)
             ->add('barcode', TextType::class,[
                 'label' => "Enter the barcode",
                 'required' => false
