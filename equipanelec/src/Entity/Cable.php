@@ -37,7 +37,7 @@ class Cable
 
     /**
      * @ORM\Column(type="float")
-     * @Assert\Positive
+     * @Assert\PositiveOrZero
      */
     private $availability;
 
