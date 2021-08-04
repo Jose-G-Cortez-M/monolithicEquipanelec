@@ -30,16 +30,19 @@ class ProjectType extends AbstractType
             ->add('registrationDate',DateTimeType::class,[
                 'disabled' => true,
                 'widget' => 'single_text',
+                'label' => "Project registration date"
             ])
             ->add('startDate',DateType::class,[
                 'input' => 'datetime',
                 'widget' => 'single_text',
-                'required' => false
+                'required' => false,
+                'label' => 'Project start date'
             ])
             ->add('endTime',DateType::class,[
                 'input' => 'datetime',
                 'widget' => 'single_text',
-                'required' => false
+                'required' => false,
+                'label' => 'Project end date'
             ])
             ->add('description',TextareaType::class,[
                 'label' => "Enter a description of the project",

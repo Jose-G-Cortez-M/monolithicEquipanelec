@@ -5,9 +5,10 @@ namespace App\Entity;
 use App\Repository\MovementRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=MovementRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\MovementRepository", repositoryClass=MovementRepository::class)
  */
 class Movement
 {
@@ -25,6 +26,7 @@ class Movement
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\PositiveOrZero
      */
     private $quantity;
 
