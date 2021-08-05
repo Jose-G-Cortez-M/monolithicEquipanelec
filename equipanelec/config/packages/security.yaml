@@ -4,6 +4,18 @@ security:
     password_hashers:
         App\Entity\User:
             algorithm: auto
+    encoders:
+        # an encoder used in the past for some users
+        legacy:
+            algorithm: sha256
+            encode_as_base64: false
+            iterations: 3
+        App\Entity\User:
+            # the new encoder, along with its options
+            algorithm: sodium
+            migrate_from:
+                - bcrypt # uses the "bcrypt" encoder with the default options
+                - legacy # uses the "legacy" encoder configured above
 
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
@@ -14,6 +26,7 @@ security:
                 class: App\Entity\User
                 property: email
         # used to reload user from session & other features (e.g. switch_user)
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -21,6 +34,12 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            custom_authenticator: App\Security\LoginCustomAuthenticator
+            logout:
+                path: app_logout
+                target: /
+                # where to redirect after logout
+                # target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -31,5 +50,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+         - { path: ^/cable, roles: [ROLE_CELLAR,ROLE_MANAGER] }
+         - { path: ^/tool, roles: [ROLE_CELLAR,ROLE_MANAGER] }
+         - { path: ^/material, roles: [ROLE_CELLAR,ROLE_MANAGER] }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

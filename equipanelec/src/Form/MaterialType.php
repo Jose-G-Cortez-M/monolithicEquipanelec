@@ -41,12 +41,12 @@ class MaterialType extends AbstractType
                 'label' => "Enter the minimum quantity of material you want in the warehouse",
                 'required' => false
             ])
-            ->add('description',TextareaType::class,[
-                'label' => "Enter a description of the material",
-                'required' => false
-            ])
             ->add('location',TextareaType::class,[
                 'label' => "Enter the location of the material within the warehouse",
+                'required' => false
+            ])
+            ->add('description',TextareaType::class,[
+                'label' => "Enter a description of the material",
                 'required' => false
             ])
         ;
