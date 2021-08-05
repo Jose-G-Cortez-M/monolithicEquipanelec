@@ -22,6 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class MovementController extends AbstractController
 {
+
     /**
      * @Route("/", name="movement_index", methods={"GET"})
      */
@@ -112,6 +113,7 @@ class MovementController extends AbstractController
             'form' => $form,
         ]);
     }
+
     /**
      * @Route("/newtool/{id}", name="movement_new_tool", methods={"GET","POST"})
      */
@@ -165,7 +167,7 @@ class MovementController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->backToInventoryByEdit($movement, $materialRepository, $mvOld, $cableRepository, $toolRepository);
+            $this->backToInventoryByEdit($movement, $materialRepository, $cableRepository, $toolRepository,$mvOld);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
         }
@@ -221,19 +223,46 @@ class MovementController extends AbstractController
         return $em->find($id);
     }
 
-    public function backToInventoryByEdit(Movement $movement, MaterialRepository $materialRepository, ?float $mvOld, CableRepository $cableRepository, ToolRepository $toolRepository): void
+
+    /**
+     * @param Movement $movement
+     * @param MaterialRepository $materialRepository
+     * @param CableRepository $cableRepository
+     * @param ToolRepository $toolRepository
+     * @param float|null $mvOld
+     */
+    public function backToInventoryByEdit(
+        Movement $movement,
+        MaterialRepository $materialRepository,
+        CableRepository $cableRepository,
+        ToolRepository $toolRepository,
+        ?float $mvOld
+    ): void
     {
         if ($movement->getMaterials() != null) {
             $material = $materialRepository->find($movement->getMaterials()->getId());
-            $movement->returnToMaterial($material, $mvOld);
+            $diff = ($mvOld - $movement->getQuantity());
+            $add = ($movement->getMaterials()->getStock()) + ($diff);
+            $material->setStock($add);
+            $movement->setMaterials($material);
         } elseif ($movement->getCables() != null) {
             $cable = $cableRepository->find($movement->getCables()->getId());
-            $movement->returnToCable($cable, $mvOld);
+            $diff = ($mvOld - $movement->getQuantity());
+            $add = ($movement->getCables()->getAvailability()) + ($diff);
+            $cable->setAvailability($add);
+            $movement->setCables($cable);
         } elseif ($movement->getTools() != null) {
             $tool = $toolRepository->find($movement->getTools()->getId());
-            $movement->returnToTool($tool, $mvOld);
+            $diff = ($mvOld - $movement->getQuantity());
+            $add = ($movement->getTools()->getStock()) + ($diff);
+            $tool->setStock($add);
+            $movement->setTools($tool);
+
         }
     }
+
+
+
     /**
      * @param Movement $movement
      * @param float|null $mvOld
