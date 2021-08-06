@@ -11,6 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Tool|null findOneBy(array $criteria, array $orderBy = null)
  * @method Tool[]    findAll()
  * @method Tool[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository<Tool>
  */
 class ToolRepository extends ServiceEntityRepository
 {

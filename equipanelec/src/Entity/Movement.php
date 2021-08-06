@@ -17,18 +17,18 @@ class Movement
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $orderDate;
+    private DateTimeInterface $orderDate;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero
      */
-    private $quantity;
+    private float $quantity;
 
     /**
      * @ORM\ManyToOne(targetEntity=Tool::class,inversedBy="movements")
@@ -131,27 +131,6 @@ class Movement
         return $this;
     }
 
-    public function returnToMaterial(Material $material,$mvOld):void
-    {
-        $diff = ($mvOld-$this->getQuantity());
-        $add = ($this->getMaterials()->getStock())+($diff);
-        $material->setStock($add);
-        $this->setMaterials($material);
-    }
-    public function returnToCable(Cable $cable, $mvOld):void
-    {
-        $diff = ($mvOld-$this->getQuantity());
-        $add = ($this->getCables()->getAvailability())+($diff);
-        $cable->setAvailability($add);
-        $this->setCables($cable);
-    }
-    public function returnToTool(Tool $tool, $mvOld):void
-    {
-        $diff = ($mvOld-$this->getQuantity());
-        $add = ($this->getTools()->getStock())+($diff);
-        $tool->setStock($add);
-        $this->setTools($tool);
-    }
     public function __toString():string
     {
         return $this->orderDate;

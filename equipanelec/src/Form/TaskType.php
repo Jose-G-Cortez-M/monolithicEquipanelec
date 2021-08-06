@@ -17,20 +17,20 @@ class TaskType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',TextType::class,[
+            ->add('name', TextType::class, [
                 'label' => "Enter the task name",
             ])
-            ->add('timePerMinute',NumberType::class,[
+            ->add('timePerMinute', NumberType::class, [
                 'label' => "Enter the time in minutes it takes to complete the task",
             ])
-            ->add('description',TextareaType::class,[
+            ->add('description', TextareaType::class, [
                 'label' => "Enter a description of what should be done in the task",
                 'required' => false
             ])
-            ->add('costPerTask',NumberType::class,[
+            ->add('costPerTask', NumberType::class, [
                 'label' => "Enter the cost of the task",
             ])
-            ->add('projects', EntityType::class,[
+            ->add('projects', EntityType::class, [
                     'class' =>Project::class,
                     'choice_label' => 'name',
                     'multiple' => true,

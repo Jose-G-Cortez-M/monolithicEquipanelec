@@ -23,56 +23,56 @@ class Cable
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
      */
-    private $barcode;
+    private ?string $barcode;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero
      */
-    private $availability;
+    private float $availability;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Assert\Positive
      */
-    private $weightPerMeter;
+    private ?float $weightPerMeter;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\Positive
      */
-    private $purchasePrice;
+    private float $purchasePrice;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero()
      */
-    private $salePrice;
+    private float $salePrice;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $location;
+    private ?string $location;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $minimumLimit;
+    private ?float $minimumLimit;
 
     /**
      *
@@ -92,9 +92,9 @@ class Cable
     /**
      * @ORM\Column(type="datetime")
      *
-     * @var \DateTimeInterface|null
+     * @var \DateTimeInterface
      */
-    private $updatedAt;
+    private \DateTimeInterface $updatedAt;
 
 
     /**

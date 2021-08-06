@@ -17,27 +17,27 @@ class Task
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $timePerMinute;
+    private float $timePerMinute;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $costPerTask;
+    private float $costPerTask;
 
     /**
      * @ORM\ManyToMany(targetEntity=Project::class, inversedBy="tasks")

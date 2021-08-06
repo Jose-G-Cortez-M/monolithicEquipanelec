@@ -29,14 +29,17 @@ class UserController extends AbstractController
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
      */
-    public function new(Request $request,UserPasswordEncoderInterface $encoder): Response
+    public function new(
+        Request $request,
+        UserPasswordEncoderInterface $encoder
+    ): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $encoded = $encoder->encodePassword($user,$user->getPassword());
+            $encoded = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($encoded);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -64,13 +67,17 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user,UserPasswordEncoderInterface $encoder): Response
+    public function edit(
+        Request $request,
+        User $user,
+        UserPasswordEncoderInterface $encoder
+    ): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $encoded = $encoder->encodePassword($user,$user->getPassword());
+            $encoded = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($encoded);
             $this->getDoctrine()->getManager()->flush();
 
@@ -86,7 +93,10 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}", name="user_delete", methods={"POST"})
      */
-    public function delete(Request $request, User $user): Response
+    public function delete(
+        Request $request,
+        User $user
+    ): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

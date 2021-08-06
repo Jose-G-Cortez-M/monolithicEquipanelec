@@ -21,7 +21,7 @@ class CableController extends AbstractController
     public function index(CableRepository $cableRepository): Response
     {
         return $this->render('cable/index.html.twig', [
-            'cables' => $cableRepository->findBy(array(),array('name' => 'ASC'))
+            'cables' => $cableRepository->findBy([], ['name' => 'ASC'])
         ]);
     }
 
@@ -61,7 +61,10 @@ class CableController extends AbstractController
     /**
      * @Route("/{id}/edit", name="cable_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, $id): Response
+    public function edit(
+        int $id,
+        Request $request
+    ): Response
     {
         $em = $this->getDoctrine()->getRepository(Cable::class);
         $cable = $em->find($id);
@@ -86,7 +89,10 @@ class CableController extends AbstractController
     /**
      * @Route("/{id}", name="cable_delete", methods={"POST"})
      */
-    public function delete(Request $request, Cable $cable): Response
+    public function delete(
+        Request $request,
+        Cable $cable
+    ): Response
     {
         if ($this->isCsrfTokenValid('delete'.$cable->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

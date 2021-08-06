@@ -19,49 +19,49 @@ class Project
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private $contractNumber;
+    private ?string $contractNumber;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $registrationDate;
+    private DateTimeInterface $registrationDate;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $startDate;
+    private ?DateTimeInterface $startDate;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $endTime;
+    private ?DateTimeInterface $endTime;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Assert\Positive
      */
-    private $advances;
+    private ?float $advances;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Assert\Positive
      */
-    private $totalCost;
+    private ?float $totalCost;
 
     /**
      * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="projects")

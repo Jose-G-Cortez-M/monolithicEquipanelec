@@ -17,35 +17,35 @@ class CableType extends AbstractType
     {
         $builder
             ->add('imageFile', VichImageType::class)
-            ->add('barcode', TextType::class,[
+            ->add('barcode', TextType::class, [
                 'label' => "Enter the barcode",
                 'required' => false
             ])
-            ->add('name', TextType::class,[
+            ->add('name', TextType::class, [
                 'label' => "Enter the name",
             ])
-            ->add('availability',NumberType::class,[
+            ->add('availability', NumberType::class, [
                 'label' => "Enter the meters of cable you want to add to inventory",
             ])
-            ->add('weightPerMeter',NumberType::class,[
+            ->add('weightPerMeter', NumberType::class, [
                 'label' => "Enter the weight per meter of the cable",
                 'required' => false
             ])
-            ->add('purchasePrice',NumberType::class,[
+            ->add('purchasePrice', NumberType::class, [
                 'label' => "Enter the entry price of the cable",
             ])
-            ->add('salePrice',NumberType::class,[
+            ->add('salePrice', NumberType::class, [
                 'label' => "Enter the price at which you sell or charge the cable",
             ])
-            ->add('minimumLimit',NumberType::class,[
+            ->add('minimumLimit', NumberType::class, [
                 'label' => "Enter the minimum quantity of cable you want in the warehouse",
                 'required' => false
             ])
-            ->add('location', TextareaType::class,[
+            ->add('location', TextareaType::class, [
                 'label' => "Enter the location of the cable within the warehouse",
                 'required' => false
             ])
-            ->add('description', TextareaType::class,[
+            ->add('description', TextareaType::class, [
                 'label' => "Enter a description of the cable",
                 'required' => false
             ])

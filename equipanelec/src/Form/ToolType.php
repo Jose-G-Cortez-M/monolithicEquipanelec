@@ -17,31 +17,31 @@ class ToolType extends AbstractType
     {
         $builder
             ->add('imageFile', VichImageType::class)
-            ->add('barcode',TextType::class,[
+            ->add('barcode', TextType::class, [
                 'label' => "Enter the barcode",
                 'required' => false
             ])
-            ->add('name',TextType::class,[
+            ->add('name', TextType::class, [
                 'label' => "Enter the name",
             ])
-            ->add('stock',NumberType::class,[
+            ->add('stock', NumberType::class, [
                 'label' => "Enter the number of tools you want to add to inventory",
             ])
-            ->add('brand',TextType::class,[
+            ->add('brand', TextType::class, [
                 'label' => "Enter the brand of the material",
             ])
-            ->add('price',NumberType::class,[
+            ->add('price', NumberType::class, [
                 'label' => "Enter the cost of the tool",
             ])
-            ->add('minimumLimit',NumberType::class,[
+            ->add('minimumLimit', NumberType::class, [
                 'label' => "Enter the minimum quantity of material you want in the warehouse",
                 'required' => false
             ])
-            ->add('location',TextareaType::class,[
+            ->add('location', TextareaType::class, [
                 'label' => "Enter the location of the tool within the warehouse",
                 'required' => false
             ])
-            ->add('description',TextareaType::class,[
+            ->add('description', TextareaType::class, [
                 'label' => "Enter a description of the tool",
                 'required' => false
             ])

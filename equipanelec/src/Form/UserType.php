@@ -19,11 +19,11 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class,[
+            ->add('email', EmailType::class, [
                 'required' => true,
                 'label' => 'Enter an email with which you can create your account'
             ])
-            ->add('roles',ChoiceType::class,[
+            ->add('roles', ChoiceType::class, [
                     'multiple' => true,
                     'choices' => [
                         'Cellar manager' => 'ROLE_CELLAR',
@@ -33,20 +33,20 @@ class UserType extends AbstractType
                         'Administrator' => 'ROLE_MANAGER'
                     ]
             ])
-            ->add('password', PasswordType::class,[
+            ->add('password', PasswordType::class, [
                 'required' => true,
                 'label' => "Enter a password"
             ])
-            ->add('name',TextType::class,[
+            ->add('name', TextType::class, [
                 'label' => "Enter the name of the employee",
             ])
-            ->add('phone',TextType::class,[
+            ->add('phone', TextType::class, [
                 'label' => "Enter a contact phone",
             ])
-            ->add('salary', NumberType::class,[
+            ->add('salary', NumberType::class, [
                 'label' => "Enter the salary received by the employee",
             ])
-            ->add('projects', EntityType::class,[
+            ->add('projects', EntityType::class, [
                 'class' =>Project::class,
                 'choice_label' => 'name',
                 'multiple' => true,
