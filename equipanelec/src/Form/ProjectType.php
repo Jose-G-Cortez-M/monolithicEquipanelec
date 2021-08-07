@@ -27,11 +27,6 @@ class ProjectType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => "Enter a representative name for the project",
             ])
-            ->add('registrationDate', DateTimeType::class, [
-                'disabled' => true,
-                'widget' => 'single_text',
-                'label' => "Project registration date"
-            ])
             ->add('startDate', DateType::class, [
                 'input' => 'datetime',
                 'widget' => 'single_text',
@@ -48,35 +43,11 @@ class ProjectType extends AbstractType
                 'label' => "Enter a description of the project",
                 'required' => false
             ])
-            ->add('advances', NumberType::class, [
-                'label' => "Amount of project progress based on tasks completed",
-                'disabled' => true
-            ])
-            ->add('totalCost', NumberType::class, [
-                'label' => "This is the total cost of the project in materials and labor",
-                'disabled' => true,
-            ])
             ->add('clients', EntityType::class, [
                 'class' => Client::class,
                 'choice_label' => 'representative',
                 'placeholder' => 'Choose the client',
                 'label' => "Choose the client who hired the service"
-            ])
-            ->add('users', EntityType::class, [
-                        'class' => User::class,
-                        'choice_label' => 'name',
-                        'multiple' => true,
-                        'expanded' => true,
-                        'label' => "Assignment of employees who will work on the project"
-
-            ])
-            ->add('tasks', EntityType::class, [
-                        'class' => Task::class,
-                        'choice_label' => 'name',
-                        'multiple' => true,
-                        'expanded' => true,
-                        'disabled' => true,
-                        'label' => "The assigned tasks will be shown with a check"
             ])
         ;
     }

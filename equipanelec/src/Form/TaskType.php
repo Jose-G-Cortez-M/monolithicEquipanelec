@@ -30,13 +30,6 @@ class TaskType extends AbstractType
             ->add('costPerTask', NumberType::class, [
                 'label' => "Enter the cost of the task",
             ])
-            ->add('projects', EntityType::class, [
-                    'class' =>Project::class,
-                    'choice_label' => 'name',
-                    'multiple' => true,
-                    'expanded' => true,
-                    'label' => "Choose the projects for which the task will be enabled"
-            ])
         ;
     }
 

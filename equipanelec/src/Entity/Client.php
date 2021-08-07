@@ -44,6 +44,11 @@ class Client
      */
     private $projects;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $debt;
+
     public function __construct()
     {
         $this->projects = new ArrayCollection();
@@ -128,6 +133,18 @@ class Client
                 $project->setClients(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDebt(): ?float
+    {
+        return $this->debt;
+    }
+
+    public function setDebt(?float $debt): self
+    {
+        $this->debt = $debt;
 
         return $this;
     }

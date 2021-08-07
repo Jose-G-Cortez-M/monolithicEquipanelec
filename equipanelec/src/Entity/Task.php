@@ -40,9 +40,10 @@ class Task
     private float $costPerTask;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Project::class, inversedBy="tasks")
+     * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="tasks")
      */
     private $projects;
+
 
     public function __construct()
     {
@@ -114,6 +115,7 @@ class Task
     {
         if (!$this->projects->contains($project)) {
             $this->projects[] = $project;
+            $project->addTask($this);
         }
 
         return $this;
@@ -121,12 +123,12 @@ class Task
 
     public function removeProject(Project $project): self
     {
-        $this->projects->removeElement($project);
+        if ($this->projects->removeElement($project)) {
+            $project->removeTask($this);
+        }
 
         return $this;
     }
-    public function __toString():string
-    {
-        return $this->name;
-    }
+
+
 }

@@ -34,4 +34,31 @@
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
+#footer{
+  background: #FFFFFF;
+  width: 100%;
+  height: auto;
+}
+#pie-footer{
+  background: #000000;
+  width: 100%;
+  height: auto;
+}
+.titulo-footer{
+  color: #FFFFFF;
+  text-align: center;
+  position: relative;
+  top: 10px;
+}
+.span-subtitulo{
+  color: rgb(244,246,85);
+  font-weight: 500;
+}
+.alignedToCenter{
+  background-color: #fafafa;
+  margin: 1rem;
+  padding: 1rem;
+  border: 2px solid #ccc;
+  text-align: center;
+}
 

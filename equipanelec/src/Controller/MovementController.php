@@ -284,11 +284,6 @@ class MovementController extends AbstractController
     }
 
 
-    /**
-     * @param Movement $movement
-     * @param float|null $mvOld
-     * @param $entityManager
-     */
     public function returnToInventoryByElimination(
         Movement $movement,
         ?float $mvOld,

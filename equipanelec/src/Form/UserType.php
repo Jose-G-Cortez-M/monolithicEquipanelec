@@ -46,13 +46,13 @@ class UserType extends AbstractType
             ->add('salary', NumberType::class, [
                 'label' => "Enter the salary received by the employee",
             ])
-            ->add('projects', EntityType::class, [
+            /*->add('projects', EntityType::class, [
                 'class' =>Project::class,
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
                 'label' => 'Here you can assign an employee to a project'
-            ])
+            ])*/
         ;
     }
 

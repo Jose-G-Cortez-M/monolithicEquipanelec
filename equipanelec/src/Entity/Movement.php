@@ -31,6 +31,16 @@ class Movement
     private float $quantity;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $description;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    /**
      * @ORM\ManyToOne(targetEntity=Tool::class,inversedBy="movements")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -54,10 +64,11 @@ class Movement
      */
     private $projects;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $totalCost;
+
 
     public function getOrderDate(): ?DateTimeInterface
     {
@@ -131,8 +142,29 @@ class Movement
         return $this;
     }
 
-    public function __toString():string
+    public function getDescription(): ?string
     {
-        return $this->orderDate;
+        return $this->description;
     }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getTotalCost(): ?float
+    {
+        return $this->totalCost;
+    }
+
+    public function setTotalCost(?float $totalCost): self
+    {
+        $this->totalCost = $totalCost;
+
+        return $this;
+    }
+
+
 }

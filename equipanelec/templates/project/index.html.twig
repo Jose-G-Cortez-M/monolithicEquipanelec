@@ -4,38 +4,44 @@
 
 {% block body %}
     <h1>Project index</h1>
-    <a href="{{ path('project_new') }}">Create new</a>
+    <a href="{{ path('project_new') }}"><i class="far fa-plus-square">New Project</i></a>
 
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-dark">
-                <th>Id</th>
-                <th>Contractnumber</th>
+                <th>Contract Number</th>
                 <th>Name</th>
-                <th>Registrationdate</th>
-                <th>Startdate</th>
-                <th>Endtime</th>
+                <th>Start Date</th>
+                <th>End Time</th>
                 <th>Description</th>
                 <th>Advances</th>
-                <th>Totalcost</th>
+                <th>Total Cost</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for project in projects %}
             <tr>
-                <td>{{ project.id }}</td>
                 <td>{{ project.contractnumber }}</td>
                 <td>{{ project.name }}</td>
-                <td>{{ project.registrationdate ? project.registrationdate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ project.startdate ? project.startdate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ project.endtime ? project.endtime|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ project.description }}</td>
                 <td>{{ project.advances }}</td>
                 <td>{{ project.totalcost }}</td>
                 <td>
-                    <a href="{{ path('project_show', {'id': project.id}) }}">show</a>
-                    <a href="{{ path('project_edit', {'id': project.id}) }}">edit</a>
+                    <a href="{{ path('project_show', {'id': project.id}) }}"><i class="far fa-eye"> Show</i></a>
+                    <br>
+                    <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit"> Edit</i> </a>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            {{ include('project/_assignTask_form.html.twig') }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ include('project/_assignWorker_form.html.twig') }}
+                        </div>
+                    </div>
+
                 </td>
             </tr>
         {% else %}
