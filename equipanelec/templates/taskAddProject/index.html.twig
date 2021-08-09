@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Assign Task to a project {% endblock %}
+
+{% block body %}
+    <h1>Assign Task to a Project</h1>
+    <h3>{{ project.name }}</h3>
+    {{ include('taskAddProject/_form.html.twig') }}
+
+
+{% endblock %}

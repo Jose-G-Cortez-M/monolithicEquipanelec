@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+
+use DateTime;
 use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
@@ -31,6 +33,10 @@ class ProjectController extends AbstractController
     public function new(Request $request): Response
     {
         $project = new Project();
+
+        date_default_timezone_set('America/Guayaquil');
+        $project->setRegistrationDate($this->setDate()) ;
+
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
@@ -61,7 +67,10 @@ class ProjectController extends AbstractController
     /**
      * @Route("/{id}/edit", name="project_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Project $project): Response
+    public function edit(
+        Request $request,
+        Project $project
+    ): Response
     {
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
@@ -78,10 +87,14 @@ class ProjectController extends AbstractController
         ]);
     }
 
+
     /**
      * @Route("/{id}", name="project_delete", methods={"POST"})
      */
-    public function delete(Request $request, Project $project): Response
+    public function delete(
+        Request $request,
+        Project $project
+    ): Response
     {
         if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -90,5 +103,10 @@ class ProjectController extends AbstractController
         }
 
         return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
+    }
+    public function setDate(): DateTime
+    {
+        date_default_timezone_set('America/Guayaquil');
+        return new DateTime('now');
     }
 }

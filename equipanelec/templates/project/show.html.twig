@@ -12,7 +12,7 @@
                 <td>{{ project.id }}</td>
             </tr>
             <tr>
-                <th>Contractnumber</th>
+                <th>Contract number</th>
                 <td>{{ project.contractnumber }}</td>
             </tr>
             <tr>
@@ -20,15 +20,15 @@
                 <td>{{ project.name }}</td>
             </tr>
             <tr>
-                <th>Registrationdate</th>
+                <th>Registration Date</th>
                 <td>{{ project.registrationdate ? project.registrationdate|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Startdate</th>
+                <th>StarT Date</th>
                 <td>{{ project.startdate ? project.startdate|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Endtime</th>
+                <th>End time</th>
                 <td>{{ project.endtime ? project.endtime|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
@@ -40,15 +40,15 @@
                 <td>{{ project.advances }}</td>
             </tr>
             <tr>
-                <th>Totalcost</th>
+                <th>Total Cost</th>
                 <td>{{ project.totalcost }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('project_index') }}">back to list</a>
+    <a href="{{ path('project_index') }}"><i class="fas fa-hand-point-left"> back to list</i></a>
 
-    <a href="{{ path('project_edit', {'id': project.id}) }}">edit</a>
+    <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit"> Edit</i></a>
 
     {{ include('project/_delete_form.html.twig') }}
 {% endblock %}

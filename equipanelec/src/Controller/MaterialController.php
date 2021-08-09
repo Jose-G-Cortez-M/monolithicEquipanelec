@@ -23,7 +23,7 @@ class MaterialController extends AbstractController
     public function index(MaterialRepository $materialRepository): Response
     {
         return $this->render('material/index.html.twig', [
-            'materials' => $materialRepository->findBy(array(),array('name' => 'ASC'))
+            'materials' => $materialRepository->findBy([], ['name' => 'ASC'])
         ]);
     }
 
@@ -63,7 +63,10 @@ class MaterialController extends AbstractController
     /**
      * @Route("/{id}/edit", name="material_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request,$id): Response
+    public function edit(
+        int $id,
+        Request $request
+    ): Response
     {
         $em = $this->getDoctrine()->getRepository(Material::class);
         $material = $em->find($id);
@@ -88,7 +91,10 @@ class MaterialController extends AbstractController
     /**
      * @Route("/{id}", name="material_delete", methods={"POST"})
      */
-    public function delete(Request $request, Material $material): Response
+    public function delete(
+        Request $request,
+        Material $material
+    ): Response
     {
         if ($this->isCsrfTokenValid('delete'.$material->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

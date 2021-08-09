@@ -19,49 +19,59 @@ class Project
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private $contractNumber;
+    private ?string $contractNumber;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $registrationDate;
+    private DateTimeInterface $registrationDate;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $startDate;
+    private ?DateTimeInterface $startDate;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $endTime;
+    private ?DateTimeInterface $endTime;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Assert\Positive
      */
-    private $advances;
+    private ?float $advances;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Assert\Positive
      */
-    private $totalCost;
+    private ?float $totalCost;
+
+    /**
+     * @ORM\Column(type="string", length=25, nullable=true)
+     */
+    private ?string $state;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private ?array $date = [];
 
     /**
      * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="projects")
@@ -78,10 +88,13 @@ class Project
      */
     private $users;
 
+
     /**
-     * @ORM\ManyToMany(targetEntity=Task::class, mappedBy="projects")
+     * @ORM\ManyToMany(targetEntity=Task::class, inversedBy="projects")
      */
     private $tasks;
+
+
 
     public function __construct()
     {
@@ -191,6 +204,30 @@ class Project
         return $this;
     }
 
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(?string $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function getDate(): ?array
+    {
+        return $this->date;
+    }
+
+    public function setDate(?array $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Movement[]
      */
@@ -269,7 +306,6 @@ class Project
     {
         if (!$this->tasks->contains($task)) {
             $this->tasks[] = $task;
-            $task->addProject($this);
         }
 
         return $this;
@@ -277,12 +313,11 @@ class Project
 
     public function removeTask(Task $task): self
     {
-        if ($this->tasks->removeElement($task)) {
-            $task->removeProject($this);
-        }
+        $this->tasks->removeElement($task);
 
         return $this;
     }
+
     public function __toString():string
     {
         return $this->name;

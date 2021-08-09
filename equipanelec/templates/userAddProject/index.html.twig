@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Assign workers to a project {% endblock %}
+
+{% block body %}
+    <h1>Assign workers to a project</h1>
+    <h3>{{ project.name }}</h3>
+    {{ include('userAddProject/_form.html.twig') }}
+
+
+{% endblock %}

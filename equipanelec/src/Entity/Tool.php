@@ -23,49 +23,49 @@ class Tool
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
      */
-    private $barcode;
+    private ?string $barcode;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero
      */
-    private $stock;
+    private float $stock;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $brand;
+    private ?string $brand;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\Positive
      */
-    private $price;
+    private float $price;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $location;
+    private ?string $location;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $minimumLimit;
+    protected ?float $minimumLimit;
 
     public function __construct()
     {
@@ -91,7 +91,7 @@ class Tool
     /**
      * @ORM\Column(type="datetime")
      *
-     * @var \DateTimeInterface|null
+     * @var \DateTimeInterface
      */
     private $updatedAt;
 

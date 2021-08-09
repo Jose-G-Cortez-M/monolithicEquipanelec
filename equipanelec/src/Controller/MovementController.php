@@ -39,14 +39,17 @@ class MovementController extends AbstractController
     public function listMovement(MovementRepository $movementRepository): Response
     {
         return $this->render('movement/filteredMovement.html.twig', [
-            'movements' => $movementRepository->findBy(array('projects'=> null)),
+            'movements' => $movementRepository->findBy(['projects'=> null]),
         ]);
     }
 
     /**
      * @Route("/newmaterial/{id}", name="movement_new_material", methods={"GET","POST"})
      */
-    public function newMaterial(Request $request,$id): Response
+    public function newMaterial(
+        int $id,
+        Request $request
+    ): Response
     {
         $movement = new Movement();
         $movement->setOrderdate($this->setDate());
@@ -82,7 +85,10 @@ class MovementController extends AbstractController
     /**
      * @Route("/newcable/{id}", name="movement_new_cable", methods={"GET","POST"})
      */
-    public function newCable($id, Request $request): Response
+    public function newCable(
+        int $id,
+        Request $request
+    ): Response
     {
         $movement = new Movement();
         $movement->setOrderdate($this->setDate());
@@ -117,7 +123,10 @@ class MovementController extends AbstractController
     /**
      * @Route("/newtool/{id}", name="movement_new_tool", methods={"GET","POST"})
      */
-    public function newTool(Request $request,$id): Response
+    public function newTool(
+        int $id,
+        Request $request
+    ): Response
     {
         $movement = new Movement();
         $movement->setOrderdate($this->setDate());
@@ -160,14 +169,14 @@ class MovementController extends AbstractController
         MaterialRepository $materialRepository,
         CableRepository $cableRepository,
         ToolRepository $toolRepository
-        ): Response
+    ): Response
     {
         $mvOld = $movement->getQuantity();
         $form = $this->createForm(MovementType::class, $movement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->backToInventoryByEdit($movement, $materialRepository, $cableRepository, $toolRepository,$mvOld);
+            $this->backToInventoryByEdit($movement, $materialRepository, $cableRepository, $toolRepository, $mvOld);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
         }
@@ -205,19 +214,32 @@ class MovementController extends AbstractController
         return new DateTime('now');
     }
 
-    public function foundCableById($id)
+    /**
+     * @param int $id
+     * @return mixed|object|null
+     */
+    public function foundCableById(int $id)
     {
         $em = $this->getDoctrine()->getRepository(Cable::class);
         return $em->find($id);
 
     }
-    public function foundMaterialById($id)
+
+    /**
+     * @param int $id
+     * @return mixed|object|null
+     */
+    public function foundMaterialById(int $id)
     {
         $em = $this->getDoctrine()->getRepository(Material::class);
         return $em->find($id);
     }
 
-    private function foundToolById($id)
+    /**
+     * @param int $id
+     * @return mixed|object|null
+     */
+    private function foundToolById(int $id)
     {
         $em = $this->getDoctrine()->getRepository(Tool::class);
         return $em->find($id);
@@ -262,13 +284,11 @@ class MovementController extends AbstractController
     }
 
 
-
-    /**
-     * @param Movement $movement
-     * @param float|null $mvOld
-     * @param $entityManager
-     */
-    public function returnToInventoryByElimination(Movement $movement, ?float $mvOld, $entityManager): void
+    public function returnToInventoryByElimination(
+        Movement $movement,
+        ?float $mvOld,
+        $entityManager
+    ): void
     {
         if ($movement->getMaterials() != null) {
             $material = $movement->getMaterials();

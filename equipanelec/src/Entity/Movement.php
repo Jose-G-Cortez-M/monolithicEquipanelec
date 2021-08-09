@@ -17,18 +17,28 @@ class Movement
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $orderDate;
+    private DateTimeInterface $orderDate;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero
      */
-    private $quantity;
+    private float $quantity;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $description;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     /**
      * @ORM\ManyToOne(targetEntity=Tool::class,inversedBy="movements")
@@ -54,10 +64,11 @@ class Movement
      */
     private $projects;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $totalCost;
+
 
     public function getOrderDate(): ?DateTimeInterface
     {
@@ -131,29 +142,29 @@ class Movement
         return $this;
     }
 
-    public function returnToMaterial(Material $material,$mvOld):void
+    public function getDescription(): ?string
     {
-        $diff = ($mvOld-$this->getQuantity());
-        $add = ($this->getMaterials()->getStock())+($diff);
-        $material->setStock($add);
-        $this->setMaterials($material);
+        return $this->description;
     }
-    public function returnToCable(Cable $cable, $mvOld):void
+
+    public function setDescription(?string $description): self
     {
-        $diff = ($mvOld-$this->getQuantity());
-        $add = ($this->getCables()->getAvailability())+($diff);
-        $cable->setAvailability($add);
-        $this->setCables($cable);
+        $this->description = $description;
+
+        return $this;
     }
-    public function returnToTool(Tool $tool, $mvOld):void
+
+    public function getTotalCost(): ?float
     {
-        $diff = ($mvOld-$this->getQuantity());
-        $add = ($this->getTools()->getStock())+($diff);
-        $tool->setStock($add);
-        $this->setTools($tool);
+        return $this->totalCost;
     }
-    public function __toString():string
+
+    public function setTotalCost(?float $totalCost): self
     {
-        return $this->orderDate;
+        $this->totalCost = $totalCost;
+
+        return $this;
     }
+
+
 }

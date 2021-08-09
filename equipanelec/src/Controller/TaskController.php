@@ -61,7 +61,10 @@ class TaskController extends AbstractController
     /**
      * @Route("/{id}/edit", name="task_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Task $task): Response
+    public function edit(
+        Request $request,
+        Task $task
+    ): Response
     {
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
@@ -81,7 +84,10 @@ class TaskController extends AbstractController
     /**
      * @Route("/{id}", name="task_delete", methods={"POST"})
      */
-    public function delete(Request $request, Task $task): Response
+    public function delete(
+        Request $request,
+        Task $task
+    ): Response
     {
         if ($this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

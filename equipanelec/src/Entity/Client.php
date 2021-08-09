@@ -17,32 +17,37 @@ class Client
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private $company;
+    private ?string $company;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $representative;
+    private string $representative;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $phone;
+    private ?string $phone;
 
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
      */
-    private $direction;
+    private ?string $direction;
 
     /**
      * @ORM\OneToMany(targetEntity=Project::class, mappedBy="clients")
      */
     private $projects;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $debt;
 
     public function __construct()
     {
@@ -128,6 +133,18 @@ class Client
                 $project->setClients(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDebt(): ?float
+    {
+        return $this->debt;
+    }
+
+    public function setDebt(?float $debt): self
+    {
+        $this->debt = $debt;
 
         return $this;
     }
