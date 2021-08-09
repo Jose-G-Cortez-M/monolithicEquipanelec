@@ -64,6 +64,7 @@ class MovementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if($movement->getMaterials()->getStock()>=$movement->getQuantity())
             {
+                $movement->setTotalCost($movement->getMaterials()->getSalePrice()*$movement->getQuantity());
                 $remaining = ($movement->getMaterials()->getStock())-($movement->getQuantity());
                 $material->setStock($remaining);
                 $movement->setMaterials($material);
@@ -102,6 +103,7 @@ class MovementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if($movement->getCables()->getAvailability()>=$movement->getQuantity())
             {
+                $movement->setTotalCost($movement->getCables()->getSalePrice()*$movement->getQuantity());
                 $remaining = ($movement->getCables()->getAvailability())-($movement->getQuantity());
                 $cable->setAvailability($remaining);
                 $movement->setCables($cable);
@@ -140,6 +142,7 @@ class MovementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if($movement->getTools()->getStock()>=$movement->getQuantity())
             {
+                $movement->setTotalCost($movement->getTools()->getPrice()*$movement->getQuantity());
                 $remaining = ($movement->getTools()->getStock())-($movement->getQuantity());
                 $tool->setStock($remaining);
                 $movement->setTools($tool);
@@ -266,18 +269,21 @@ class MovementController extends AbstractController
             $diff = ($mvOld - $movement->getQuantity());
             $add = ($movement->getMaterials()->getStock()) + ($diff);
             $material->setStock($add);
+            $movement->setTotalCost($movement->getMaterials()->getSalePrice()*$movement->getQuantity());
             $movement->setMaterials($material);
         } elseif ($movement->getCables() != null) {
             $cable = $cableRepository->find($movement->getCables()->getId());
             $diff = ($mvOld - $movement->getQuantity());
             $add = ($movement->getCables()->getAvailability()) + ($diff);
             $cable->setAvailability($add);
+            $movement->setTotalCost($movement->getCables()->getSalePrice()*$movement->getQuantity());
             $movement->setCables($cable);
         } elseif ($movement->getTools() != null) {
             $tool = $toolRepository->find($movement->getTools()->getId());
             $diff = ($mvOld - $movement->getQuantity());
             $add = ($movement->getTools()->getStock()) + ($diff);
             $tool->setStock($add);
+            $movement->setTotalCost($movement->getTools()->getPrice()*$movement->getQuantity());
             $movement->setTools($tool);
 
         }

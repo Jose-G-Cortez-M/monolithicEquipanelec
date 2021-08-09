@@ -26,22 +26,17 @@
                 <td>{{ project.name }}</td>
                 <td>{{ project.startdate ? project.startdate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ project.endtime ? project.endtime|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ project.description }}</td>
+                <div id="limit">   
+                    <td>{{ project.description }}</td>
+                </div>
                 <td>{{ project.advances }}</td>
                 <td>{{ project.totalcost }}</td>
                 <td>
                     <a href="{{ path('project_show', {'id': project.id}) }}"><i class="far fa-eye"> Show</i></a>
                     <br>
                     <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit"> Edit</i> </a>
-                    <div class="form-group row">
-                        <div class="col-md-3">
-                            {{ include('project/_assignTask_form.html.twig') }}
-                        </div>
-                        <div class="col-md-3">
-                            {{ include('project/_assignWorker_form.html.twig') }}
-                        </div>
-                    </div>
-
+                        {{ include('project/_assignTask_form.html.twig') }}
+                        {{ include('project/_assignWorker_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

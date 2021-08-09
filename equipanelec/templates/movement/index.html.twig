@@ -43,6 +43,7 @@
 
                 <td>
                     <a href="{{ path('movement_edit', {'id': movement.id}) }}">edit</a>
+                    {{ include('movement/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
