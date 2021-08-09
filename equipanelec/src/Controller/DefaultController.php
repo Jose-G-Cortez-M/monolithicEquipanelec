@@ -3,9 +3,16 @@
 
 namespace App\Controller;
 
+
+use App\Entity\Task;
+use App\Form\DescriptionTaskType;
+use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+;
+
 
 /**
  * @Route("/homepage")
@@ -15,9 +22,33 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(): Response
+    public function index(ProjectRepository $projectRepository): Response
     {
-        return $this->render('homepage/homepage.html.twig');
+        return $this->render('homepage/homepage.html.twig',[
+            'tasksPerUser' => $projectRepository->taskPerUser($this->getUser()->getId())
+        ]);
+    }
+
+    /**
+     * @Route("/{idt}/{idp}/updateDescriptionTask", name="homepage_update", methods={"GET","POST"})
+     */
+    public function updateDescriptionTask(ProjectRepository $projectRepository,Request $request, int $idt, int $idp): Response
+    {
+        $taskD = new Task();
+
+        $form = $this->createForm(DescriptionTaskType::class,$taskD);
+        $form->handleRequest($request);
+        var_dump($idp);
+        var_dump($idt);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $projectRepository->updateProjectTask($idt,$idp,$taskD->getDescription());
+            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('homepage/update.html.twig',[
+            'form' => $form
+        ]);
     }
 
 }

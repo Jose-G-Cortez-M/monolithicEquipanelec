@@ -21,8 +21,6 @@ final class Version20210807054021 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE client ADD debt DOUBLE PRECISION DEFAULT NULL');
-        $this->addSql('ALTER TABLE project_task ADD description LONGTEXT DEFAULT NULL');
-        $this->addSql('ALTER TABLE project_task ADD statetask VARCHAR(20) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void

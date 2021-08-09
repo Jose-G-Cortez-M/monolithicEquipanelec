@@ -67,7 +67,7 @@ class Movement
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $totalCost;
+    private ?float $totalCost;
 
 
     public function getOrderDate(): ?DateTimeInterface

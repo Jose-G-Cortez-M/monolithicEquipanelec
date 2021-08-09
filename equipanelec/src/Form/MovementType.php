@@ -2,11 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Cable;
-use App\Entity\Material;
 use App\Entity\Movement;
 use App\Entity\Project;
-use App\Entity\Tool;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
