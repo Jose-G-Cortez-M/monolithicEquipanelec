@@ -32,14 +32,17 @@ class DefaultController extends AbstractController
     /**
      * @Route("/{idt}/{idp}/updateDescriptionTask", name="homepage_update", methods={"GET","POST"})
      */
-    public function updateDescriptionTask(ProjectRepository $projectRepository,Request $request, int $idt, int $idp): Response
+    public function updateDescriptionTask(
+        ProjectRepository $projectRepository,
+        Request $request,
+        int $idt,
+        int $idp
+    ): Response
     {
         $taskD = new Task();
 
         $form = $this->createForm(DescriptionTaskType::class,$taskD);
         $form->handleRequest($request);
-        var_dump($idp);
-        var_dump($idt);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -49,6 +52,19 @@ class DefaultController extends AbstractController
         return $this->renderForm('homepage/update.html.twig',[
             'form' => $form
         ]);
+    }
+    /**
+     * @Route("/{idt}/{idp}/updateStateTask", name="homepage_update_state", methods={"GET","POST"})
+     */
+    public function updateStateTask(
+        ProjectRepository $projectRepository,
+        int $idt,
+        int $idp
+    ): Response
+    {
+        $projectRepository->updateProjectTaskState($idt,$idp,'finished');
+        return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+
     }
 
 }

@@ -12,7 +12,6 @@
             <th>Quantity</th>
             <th>Description</th>
             <th>OrderDate</th>
-            <th>Total Cost</th>
             <th>actions</th>
         </tr>
         </thead>
@@ -35,7 +34,6 @@
                 <td>{{ movement.quantity }}</td>
                 <td>{{ movement.description }}</td>
                 <td>{{ movement.orderDate ? movement.orderDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td> {{ movement.totalCost }}</td>
                 <td>
                     <a href="{{ path('movement_edit', {'id': movement.id}) }}">edit</a>
                     {{ include('movement/_delete_form.html.twig') }}

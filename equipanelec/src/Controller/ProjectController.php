@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use DateTime;
 use App\Entity\Project;
 use App\Form\ProjectType;
@@ -22,8 +21,36 @@ class ProjectController extends AbstractController
      */
     public function index(ProjectRepository $projectRepository): Response
     {
+        $projects = $projectRepository->findAll();
+
+        foreach ($projects as $project){
+            $idProject = $project->getId();
+            $costInventory = $projectRepository->queryCostInventory($idProject);
+            $cI = (float)($costInventory[0]["totalInventory"]);
+
+            $costTask = $projectRepository->queryCostTask($idProject);
+            $cT = (float)$costTask[0]["totalTask"];
+
+            $project->setTotalCost($cT+$cI);
+
+
+
+            $allTask = $projectRepository->allTask($idProject);
+            $aT = (float)($allTask[0]["taskAll"]);
+
+            $finishTask = $projectRepository->taskFinish($idProject);
+            $fT = (float)($finishTask[0]["taskFinish"]);
+
+            if($aT!=0){
+                $project->setAdvances(($fT*100)/$aT);
+            }
+
+            $this->getDoctrine()->getManager()->flush();
+        }
+
+
         return $this->render('project/index.html.twig', [
-            'projects' => $projectRepository->findAll(),
+            'projects' => $projects,
         ]);
     }
 
@@ -109,4 +136,5 @@ class ProjectController extends AbstractController
         date_default_timezone_set('America/Guayaquil');
         return new DateTime('now');
     }
+
 }

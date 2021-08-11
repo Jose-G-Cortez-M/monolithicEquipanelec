@@ -12,6 +12,7 @@
                 <th>Name</th>
                 <th>Quantity</th>
                 <th>Order Date</th>
+                <th>Total Cost</th>
                 <th>Assigned project</th>
                 <th>actions</th>
             </tr>
@@ -35,6 +36,7 @@
 
                 <td>{{ movement.quantity }}</td>
                 <td>{{ movement.orderdate ? movement.orderdate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ movement.totalCost }}</td>
                 <td>
                     {% if movement.projects %}
                         {{ movement.projects.name }}
