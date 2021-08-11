@@ -53,13 +53,13 @@ class Project
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Assert\Positive
+     * @Assert\PositiveOrZero
      */
     private ?float $advances;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Assert\Positive
+     * @Assert\PositiveOrZero
      */
     private ?float $totalCost;
 

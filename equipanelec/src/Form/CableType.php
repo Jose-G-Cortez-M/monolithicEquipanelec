@@ -32,10 +32,10 @@ class CableType extends AbstractType
                 'required' => false
             ])
             ->add('purchasePrice', NumberType::class, [
-                'label' => "Enter the entry price of the cable",
+                'label' => "Enter the entry price of the cable per meter",
             ])
             ->add('salePrice', NumberType::class, [
-                'label' => "Enter the price at which you sell or charge the cable",
+                'label' => "Enter the price at which you sell or charge the cable per meter",
             ])
             ->add('minimumLimit', NumberType::class, [
                 'label' => "Enter the minimum quantity of cable you want in the warehouse",

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Task List</h1>
+    <h1>To-do list</h1>
 
     <table class="table table-hover table-bordered">
         <thead>
@@ -9,7 +9,7 @@
                 <th>Project Name</th>
                 <th>Task Name</th>
                 <th>actions</th>
-                <th>Material </th>
+                <th>Description and Materials </th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +20,7 @@
                 <td>{{ taskPerUser.name }}</td>
                 <td>
                     {{ include('homepage/_updateDescription_form.html.twig') }}
+                    {{ include('homepage/_updateState_form.html.twig') }}
                 </td>
                 <td>{{ taskPerUser.desproject }}</td>
             </tr>

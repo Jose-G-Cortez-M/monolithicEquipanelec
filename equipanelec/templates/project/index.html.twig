@@ -14,8 +14,8 @@
                 <th>Start Date</th>
                 <th>End Time</th>
                 <th>Description</th>
-                <th>Advances</th>
-                <th>Total Cost</th>
+                <th>Advances (%)</th>
+                <th>Total Cost ($)</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,11 +24,9 @@
             <tr>
                 <td>{{ project.contractnumber }}</td>
                 <td>{{ project.name }}</td>
-                <td>{{ project.startdate ? project.startdate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ project.endtime ? project.endtime|date('Y-m-d H:i:s') : '' }}</td>
-                <div id="limit">   
-                    <td>{{ project.description }}</td>
-                </div>
+                <td>{{ project.startdate ? project.startdate|date('Y-m-d') : '' }}</td>
+                <td>{{ project.endtime ? project.endtime|date('Y-m-d') : '' }}</td>
+                <td>{{ project.description }}</td>
                 <td>{{ project.advances }}</td>
                 <td>{{ project.totalcost }}</td>
                 <td>

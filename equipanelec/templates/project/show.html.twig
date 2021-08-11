@@ -24,23 +24,23 @@
                 <td>{{ project.registrationdate ? project.registrationdate|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>StarT Date</th>
-                <td>{{ project.startdate ? project.startdate|date('Y-m-d H:i:s') : '' }}</td>
+                <th>Start Date</th>
+                <td>{{ project.startdate ? project.startdate|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
                 <th>End time</th>
-                <td>{{ project.endtime ? project.endtime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ project.endtime ? project.endtime|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
                 <th>Description</th>
                 <td>{{ project.description }}</td>
             </tr>
             <tr>
-                <th>Advances</th>
+                <th>Advances (%)</th>
                 <td>{{ project.advances }}</td>
             </tr>
             <tr>
-                <th>Total Cost</th>
+                <th>Total Cost ($)</th>
                 <td>{{ project.totalcost }}</td>
             </tr>
         </tbody>
