@@ -16,7 +16,7 @@
                 <td>{{ task.name }}</td>
             </tr>
             <tr>
-                <th>Timeperminute</th>
+                <th>Time Per Minute</th>
                 <td>{{ task.timeperminute }}</td>
             </tr>
             <tr>
@@ -24,15 +24,15 @@
                 <td>{{ task.description }}</td>
             </tr>
             <tr>
-                <th>Costpertask</th>
+                <th>Cost Per Task</th>
                 <td>{{ task.costpertask }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('task_index') }}">back to list</a>
-
-    <a href="{{ path('task_edit', {'id': task.id}) }}">edit</a>
+    <a href="{{ path('task_index') }}"><i class="fas fa-hand-point-left"> back to list</i></a>
+    <br>
+    <a href="{{ path('task_edit', {'id': task.id}) }}"><i class="fas fa-edit"> Edit</i></a>
 
     {{ include('task/_delete_form.html.twig') }}
 {% endblock %}

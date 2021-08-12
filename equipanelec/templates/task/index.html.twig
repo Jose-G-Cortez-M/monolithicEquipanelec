@@ -4,16 +4,16 @@
 
 {% block body %}
     <h1>Task index</h1>
-    <a href="{{ path('task_new') }}">Create new</a>
+    <h4><a href="{{ path('task_new') }}"><i class="fas fa-tasks"> Add new Task</i></a></h4>
 
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-dark">
                 <th>Id</th>
                 <th>Name</th>
-                <th>Timeperminute</th>
+                <th>Time Per Minute</th>
                 <th>Description</th>
-                <th>Costpertask</th>
+                <th>Cost Per Task</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,11 +23,12 @@
                 <td>{{ task.id }}</td>
                 <td>{{ task.name }}</td>
                 <td>{{ task.timeperminute }}</td>
-                <td>{{ task.description }}</td>
+                <td id="desc">{{ task.description }}</td>
                 <td>{{ task.costpertask }}</td>
                 <td>
-                    <a href="{{ path('task_show', {'id': task.id}) }}">show</a>
-                    <a href="{{ path('task_edit', {'id': task.id}) }}">edit</a>
+                    <a href="{{ path('task_show', {'id': task.id}) }}"><i class="far fa-eye"> Show</i></a>
+                    <br>
+                    <a href="{{ path('task_edit', {'id': task.id}) }}"><i class="fas fa-edit"> Edit</i></a>
                 </td>
             </tr>
         {% else %}

@@ -7,8 +7,8 @@
         <div class="row h-100 justify-content-center align-items-center">
             <div class="col-9 bg-white rounded my3 p-5">
                 <h1>Create new Cable</h1>
+                <a href="{{ path('cable_index') }}"><i class="fas fa-hand-point-left"> back to list</i></a>
                 {{ include('cable/_form.html.twig') }}
-                <a href="{{ path('cable_index') }}">back to list</a>
             </div>
         </div>
     </div>

@@ -4,8 +4,7 @@
 
 {% block body %}
     <h1>Project index</h1>
-    <a href="{{ path('project_new') }}"><i class="far fa-plus-square">New Project</i></a>
-
+    <h4><a href="{{ path('project_new') }}"><i class="fas fa-business-time"> Add new Project</i></a></h4>
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-dark">
@@ -13,7 +12,7 @@
                 <th>Name</th>
                 <th>Start Date</th>
                 <th>End Time</th>
-                <th>Description</th>
+                <th>Description or the List Materials</th>
                 <th>Advances (%)</th>
                 <th>Total Cost ($)</th>
                 <th>actions</th>
@@ -26,7 +25,7 @@
                 <td>{{ project.name }}</td>
                 <td>{{ project.startdate ? project.startdate|date('Y-m-d') : '' }}</td>
                 <td>{{ project.endtime ? project.endtime|date('Y-m-d') : '' }}</td>
-                <td>{{ project.description }}</td>
+                <td id="desc">{{ project.description }}</td>
                 <td>{{ project.advances }}</td>
                 <td>{{ project.totalcost }}</td>
                 <td>
@@ -35,6 +34,7 @@
                     <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit"> Edit</i> </a>
                         {{ include('project/_assignTask_form.html.twig') }}
                         {{ include('project/_assignWorker_form.html.twig') }}
+                        {{ include('project/_finishProject_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

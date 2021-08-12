@@ -1,4 +1,4 @@
 <form method="post" action="{{ path('material_delete', {'id': material.id}) }}" onsubmit="return confirm('Are you sure you want to delete this article? you lose the movements associated with the materialAre you sure you want to delete this article? you lose the movements associated with the material');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ material.id) }}">
-    <button class="btn btn-danger">Delete</button>
+    <button class="btn btn-danger" id="button"><i class="fas fa-trash-alt"></i></button>
 </form>
