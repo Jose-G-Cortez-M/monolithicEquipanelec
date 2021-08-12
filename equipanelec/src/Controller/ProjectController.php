@@ -165,6 +165,10 @@ class ProjectController extends AbstractController
 
         $this->getDoctrine()->getManager()->flush();
 
+        $projectRepository->deleteTaskPerEndProject($idP);
+        $projectRepository->deleteMovementPerEndProject($idP);
+
+
         return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
 
     }

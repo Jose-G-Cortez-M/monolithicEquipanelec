@@ -90,6 +90,19 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
 
+    public function queryCommercialInventory(int $idProject){
+        $params = [
+            ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
+        ];
+        $query = ('SELECT SUM(movement.total_cost) AS totalInventory 
+                    FROM movement WHERE movement.projects_id= :idp'
+        );
+
+        return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
+
+
+    }
+
     //Cost of tasks per project
     public function queryCostTask($idProject){
         $params = [
@@ -134,6 +147,7 @@ class ProjectRepository extends ServiceEntityRepository
                 return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
 
     }
+    
 
     //Inventory costs per material
     public function costMaterialPerProject(int $idProject){
@@ -172,6 +186,8 @@ class ProjectRepository extends ServiceEntityRepository
 
     }
 
+
+
     //All task end project
     public function allTaskEndProject($idProject){
         $params = [
@@ -187,6 +203,31 @@ class ProjectRepository extends ServiceEntityRepository
 
     }
 
+    //Record deletion by project
+    public function deleteTaskPerEndProject($idProject){
+        $params = [
+            ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
+        ];
+        $query = ('DELETE from movement 
+                WHERE movement.projects_id = :idp'
+        );
+
+        $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params));
+        return 'Update successful';
+    }
+
+    public function deleteMovementPerEndProject($idProject){
+        $params = [
+            ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
+        ];
+        $query = ('DELETE FROM project_task 
+                WHERE project_id = :idp'
+        );
+
+
+        $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params));
+        return 'Update successful';
+    }
 
 
 }
