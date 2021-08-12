@@ -77,10 +77,6 @@ class ProjectRepository extends ServiceEntityRepository
 
     //Inventory costs
     public function queryCostInventory(int $idProject){
-        /*
-        $query = $this->getEntityManager()->createQuery('SELECT sum(m.total_cost) from App\Entity\Movement WHERE movement.projects_id = :idP');
-        $query->setParameter('idp', $idProject);
-        $query->getResult();*/
         $params = [
             ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
         ];
@@ -138,5 +134,59 @@ class ProjectRepository extends ServiceEntityRepository
                 return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
 
     }
+
+    //Inventory costs per material
+    public function costMaterialPerProject(int $idProject){
+        $params = [
+            ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
+        ];
+        $query = ('SELECT m.order_date,ma.name,ma.sale_price as unit_cost,m.quantity,m.total_cost 
+                   FROM movement m, material ma 
+                   WHERE m.projects_id = :idp AND m.materials_id IS NOT NULL AND m.materials_id = ma.id'
+        );
+
+        return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
+
+    }
+
+    public function costToolPerProject(int $idProject){
+        $params = [
+            ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
+        ];
+        $query = ('SELECT m.order_date,t.name,t.price as unit_cost, m.quantity, m.total_cost 
+                    FROM movement m, tool t 
+                    WHERE m.projects_id = :idp AND m.tools_id IS NOT NULL AND m.tools_id=t.id'
+        );
+        return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
+
+    }
+    public function costCablePerProject(int $idProject){
+        $params = [
+            ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
+        ];
+        $query = ('SELECT m.order_date,c.name,c.sale_price as meter_cost, m.quantity, m.total_cost 
+                    FROM movement m, cable c 
+                    WHERE m.projects_id = :idp AND m.cables_id IS NOT NULL AND m.cables_id=c.id'
+        );
+        return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
+
+    }
+
+    //All task end project
+    public function allTaskEndProject($idProject){
+        $params = [
+            ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
+        ];
+        $query = ('SELECT t.name, t.cost_per_task
+                        FROM project_task pt, task t
+                        WHERE pt.project_id = :idp AND 
+                        pt.task_id = t.id'
+        );
+
+        return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
+
+    }
+
+
 
 }

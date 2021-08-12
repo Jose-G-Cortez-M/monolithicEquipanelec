@@ -8,8 +8,8 @@
             <tr class="table-dark">
                 <th>Project Name</th>
                 <th>Task Name</th>
-                <th>actions</th>
                 <th>Description and Materials </th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
@@ -18,11 +18,11 @@
 
                 <td>{{ taskPerUser.project }}</td>
                 <td>{{ taskPerUser.name }}</td>
+                <td id="des">{{ taskPerUser.desproject }}</td>
                 <td>
                     {{ include('homepage/_updateDescription_form.html.twig') }}
                     {{ include('homepage/_updateState_form.html.twig') }}
                 </td>
-                <td>{{ taskPerUser.desproject }}</td>
             </tr>
         {% else %}
             <tr>

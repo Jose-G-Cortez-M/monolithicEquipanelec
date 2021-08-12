@@ -3,9 +3,16 @@
 {% block title %} Assign workers to a project {% endblock %}
 
 {% block body %}
-    <h1>Assign workers to a project</h1>
-    <h3>{{ project.name }}</h3>
-    {{ include('userAddProject/_form.html.twig') }}
 
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-9 bg-white rounded my3 p-5">
+                <h1>Assign workers to a project</h1>
+                <h3>{{ project.name }}</h3>
+                {{ include('userAddProject/_form.html.twig') }}
+                <a href="{{ path('project_index') }}"><i class="fas fa-hand-point-left"> back to list</i> </a>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

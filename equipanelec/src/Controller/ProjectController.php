@@ -21,7 +21,8 @@ class ProjectController extends AbstractController
      */
     public function index(ProjectRepository $projectRepository): Response
     {
-        $projects = $projectRepository->findAll();
+
+        $projects = $projectRepository->findBy(['state'=> null]);
 
         foreach ($projects as $project){
             $idProject = $project->getId();
@@ -33,8 +34,6 @@ class ProjectController extends AbstractController
 
             $project->setTotalCost($cT+$cI);
 
-
-
             $allTask = $projectRepository->allTask($idProject);
             $aT = (float)($allTask[0]["taskAll"]);
 
@@ -42,7 +41,9 @@ class ProjectController extends AbstractController
             $fT = (float)($finishTask[0]["taskFinish"]);
 
             if($aT!=0){
-                $project->setAdvances(($fT*100)/$aT);
+
+                $result = ($fT*100)/$aT;
+                $project->setAdvances(round($result,2));
             }
 
             $this->getDoctrine()->getManager()->flush();
@@ -50,7 +51,7 @@ class ProjectController extends AbstractController
 
 
         return $this->render('project/index.html.twig', [
-            'projects' => $projects,
+            'projects' => $projectRepository->findBy(['state'=> null])
         ]);
     }
 
@@ -136,5 +137,37 @@ class ProjectController extends AbstractController
         date_default_timezone_set('America/Guayaquil');
         return new DateTime('now');
     }
+
+
+    /**
+     * @Route("/{idP}/finish", name="project_finish", methods={"GET","POST"})
+     */
+    public function finishProject(
+        $idP,
+        ProjectRepository $projectRepository
+    ): Response
+    {
+        $project = $projectRepository->find($idP);
+
+        $project->setState('finished');
+        $material= $projectRepository->costMaterialPerProject($idP);
+        $tool = $projectRepository->costToolPerProject($idP);
+        $cable=  $projectRepository->costCablePerProject($idP);
+        $allTask = $projectRepository->allTaskEndProject($idP);
+
+        $date['material']=$material;
+        $date['tool']=$tool;
+        $date['cable']=$cable;
+        $date['allTask']=$allTask;
+
+        $project->setDate($date);
+        $project->setState('finished');
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
+
+    }
+
 
 }
