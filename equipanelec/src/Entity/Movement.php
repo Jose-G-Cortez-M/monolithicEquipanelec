@@ -59,7 +59,7 @@ class Movement
     private $cables;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="movements")
+     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="movements", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $projects;
@@ -68,6 +68,11 @@ class Movement
      * @ORM\Column(type="float", nullable=true)
      */
     private ?float $totalCost;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $commercialValue;
 
 
     public function getOrderDate(): ?DateTimeInterface
@@ -162,6 +167,18 @@ class Movement
     public function setTotalCost(?float $totalCost): self
     {
         $this->totalCost = $totalCost;
+
+        return $this;
+    }
+
+    public function getCommercialValue(): ?float
+    {
+        return $this->commercialValue;
+    }
+
+    public function setCommercialValue(?float $commercialValue): self
+    {
+        $this->commercialValue = $commercialValue;
 
         return $this;
     }

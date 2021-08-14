@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ProjectClose;
 use DateTime;
 use App\Entity\Project;
 use App\Form\ProjectType;
@@ -21,18 +22,31 @@ class ProjectController extends AbstractController
      */
     public function index(ProjectRepository $projectRepository): Response
     {
+        $projects = $projectRepository->findAll();
 
-        $projects = $projectRepository->findBy(['state'=> null]);
 
         foreach ($projects as $project){
+
             $idProject = $project->getId();
+
+            //cost of all materials used in the project
             $costInventory = $projectRepository->queryCostInventory($idProject);
             $cI = (float)($costInventory[0]["totalInventory"]);
 
+            //Cost of all project tasks
             $costTask = $projectRepository->queryCostTask($idProject);
             $cT = (float)$costTask[0]["totalTask"];
 
-            $project->setTotalCost($cT+$cI);
+            //Total project cost
+            $totalCost = $cT+$cI;
+            //Commercial Price
+            //Commercial project with an additional 12% to the total cost of the project
+            $commercial = $totalCost+(round($totalCost*0.12,2));
+
+            $project->setTotalCostTask($cT);
+            $project->setTotalCostInventory($cI);
+            $project->setTotalCost($totalCost);
+            $project->setCommercialValue($commercial);
 
             $allTask = $projectRepository->allTask($idProject);
             $aT = (float)($allTask[0]["taskAll"]);
@@ -41,17 +55,17 @@ class ProjectController extends AbstractController
             $fT = (float)($finishTask[0]["taskFinish"]);
 
             if($aT!=0){
-
                 $result = ($fT*100)/$aT;
                 $project->setAdvances(round($result,2));
             }
 
             $this->getDoctrine()->getManager()->flush();
+            
         }
 
 
         return $this->render('project/index.html.twig', [
-            'projects' => $projectRepository->findBy(['state'=> null])
+            'projects' => $projectRepository->findAll()
         ]);
     }
 
@@ -149,25 +163,39 @@ class ProjectController extends AbstractController
     {
         $project = $projectRepository->find($idP);
 
-        $project->setState('finished');
-        $material= $projectRepository->costMaterialPerProject($idP);
+        $projectClose = new ProjectClose();
+
+        $material = $projectRepository->costMaterialPerProject($idP);
         $tool = $projectRepository->costToolPerProject($idP);
-        $cable=  $projectRepository->costCablePerProject($idP);
+        $cable = $projectRepository->costCablePerProject($idP);
         $allTask = $projectRepository->allTaskEndProject($idP);
 
-        $date['material']=$material;
-        $date['tool']=$tool;
-        $date['cable']=$cable;
-        $date['allTask']=$allTask;
+        $date['material'] = $material;
+        $date['tool'] = $tool;
+        $date['cable'] = $cable;
+        $date['allTask'] = $allTask;
 
-        $project->setDate($date);
-        $project->setState('finished');
 
-        $this->getDoctrine()->getManager()->flush();
+        $projectClose->setContractNumber($project->getContractNumber());
+        $projectClose->setName($project->getName());
+        $projectClose->setRegistrationDate($project->getRegistrationDate());
+        $projectClose->setStartDate($project->getStartDate());
+        $projectClose->setEndTime($project->getEndTime());
+        $projectClose->setTotalCostTask($project->getTotalCostTask());
+        $projectClose->setTotalCostInventory($project->getTotalCostInventory());
+        $projectClose->setTotalCost($project->getTotalCost());
+        $projectClose->setCommercialValue($project->getCommercialValue());
 
-        $projectRepository->deleteTaskPerEndProject($idP);
-        $projectRepository->deleteMovementPerEndProject($idP);
+        $projectClose->setDate($date);
 
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($projectClose);
+        $entityManager->flush();
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($project);
+        $entityManager->flush();
 
         return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
 

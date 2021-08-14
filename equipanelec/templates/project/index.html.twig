@@ -12,9 +12,8 @@
                 <th>Name</th>
                 <th>Start Date</th>
                 <th>End Time</th>
-                <th>Description or the List Materials</th>
+                <th>Description or List Materials</th>
                 <th>Advances (%)</th>
-                <th>Total Cost ($)</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -27,7 +26,6 @@
                 <td>{{ project.endtime ? project.endtime|date('Y-m-d') : '' }}</td>
                 <td id="desc">{{ project.description }}</td>
                 <td>{{ project.advances }}</td>
-                <td>{{ project.totalcost }}</td>
                 <td>
                     <a href="{{ path('project_show', {'id': project.id}) }}"><i class="far fa-eye"> Show</i></a>
                     <br>

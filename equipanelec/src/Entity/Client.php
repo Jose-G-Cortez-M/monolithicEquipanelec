@@ -40,7 +40,8 @@ class Client
     private ?string $direction;
 
     /**
-     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="clients")
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="clients", cascade={"persist","remove"})
+     * @ORM\JoinColumn(name="id", referencedColumnName="projects", onDelete="CASCADE")
      */
     private $projects;
 

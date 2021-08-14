@@ -26,10 +26,17 @@ class MovementController extends AbstractController
     /**
      * @Route("/", name="movement_index", methods={"GET"})
      */
-    public function index(MovementRepository $movementRepository): Response
+    public function index(
+        MovementRepository $movementRepository
+    ): Response
     {
+        $movements = $movementRepository->findAll();
+
+        $this->totalCostMovement($movements);
+
         return $this->render('movement/index.html.twig', [
             'movements' => $movementRepository->findAll(),
+            'message' => $message=""
         ]);
     }
 
@@ -38,8 +45,12 @@ class MovementController extends AbstractController
      */
     public function listMovement(MovementRepository $movementRepository): Response
     {
+        $movements = $movementRepository->findBy(['projects'=> null]);
+
+        $this->totalCostMovement($movements);
         return $this->render('movement/filteredMovement.html.twig', [
             'movements' => $movementRepository->findBy(['projects'=> null]),
+            'message' => $message=""
         ]);
     }
 
@@ -51,6 +62,7 @@ class MovementController extends AbstractController
         Request $request
     ): Response
     {
+        $message= "";
         $movement = new Movement();
         $movement->setOrderdate($this->setDate());
 
@@ -64,7 +76,6 @@ class MovementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if($movement->getMaterials()->getStock()>=$movement->getQuantity())
             {
-                $movement->setTotalCost($movement->getMaterials()->getSalePrice()*$movement->getQuantity());
                 $remaining = ($movement->getMaterials()->getStock())-($movement->getQuantity());
                 $material->setStock($remaining);
                 $movement->setMaterials($material);
@@ -73,13 +84,14 @@ class MovementController extends AbstractController
                 $entityManager->flush();
                 return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
             }else{
-                echo "<h2>Ops! You don't have enough materials in the warehouse</h2>";
+                $message = "<h2>Ops! You don't have enough materials in the warehouse</h2>";
             }
         }
 
         return $this->renderForm('movement/new.html.twig', [
             'movement' => $movement,
             'form' => $form,
+            'message'=> $message
         ]);
     }
 
@@ -91,6 +103,7 @@ class MovementController extends AbstractController
         Request $request
     ): Response
     {
+        $message= "";
         $movement = new Movement();
         $movement->setOrderdate($this->setDate());
 
@@ -103,7 +116,6 @@ class MovementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if($movement->getCables()->getAvailability()>=$movement->getQuantity())
             {
-                $movement->setTotalCost($movement->getCables()->getSalePrice()*$movement->getQuantity());
                 $remaining = ($movement->getCables()->getAvailability())-($movement->getQuantity());
                 $cable->setAvailability($remaining);
                 $movement->setCables($cable);
@@ -112,15 +124,17 @@ class MovementController extends AbstractController
                 $entityManager->flush();
                 return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
             }else{
-                echo "<h2>Ops! You don't have enough cables in the warehouse</h2>";
+                $message = "<h2>Ops! You don't have enough cables in the warehouse</h2>";
             }
         }
 
         return $this->renderForm('movement/new.html.twig', [
             'movement' => $movement,
             'form' => $form,
+            'message' => $message
         ]);
     }
+
 
     /**
      * @Route("/newtool/{id}", name="movement_new_tool", methods={"GET","POST"})
@@ -130,6 +144,8 @@ class MovementController extends AbstractController
         Request $request
     ): Response
     {
+        $message = "";
+
         $movement = new Movement();
         $movement->setOrderdate($this->setDate());
 
@@ -142,7 +158,6 @@ class MovementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if($movement->getTools()->getStock()>=$movement->getQuantity())
             {
-                $movement->setTotalCost($movement->getTools()->getPrice()*$movement->getQuantity());
                 $remaining = ($movement->getTools()->getStock())-($movement->getQuantity());
                 $tool->setStock($remaining);
                 $movement->setTools($tool);
@@ -151,17 +166,17 @@ class MovementController extends AbstractController
                 $entityManager->flush();
                 return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
             }else{
-                echo "<h2> Ops! You don't have enough tools in the warehouse</h2>";
+                $message = "<h2> Ops! You don't have enough tools in the warehouse</h2>";
             }
         }
 
         return $this->renderForm('movement/new.html.twig', [
             'movement' => $movement,
             'form' => $form,
+            'message' => $message
         ]);
 
     }
-
 
     /**
      * @Route("/{id}/edit", name="movement_edit", methods={"GET","POST"})
@@ -174,19 +189,24 @@ class MovementController extends AbstractController
         ToolRepository $toolRepository
     ): Response
     {
+        $message="";
         $mvOld = $movement->getQuantity();
         $form = $this->createForm(MovementType::class, $movement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->backToInventoryByEdit($movement, $materialRepository, $cableRepository, $toolRepository, $mvOld);
-            $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
+            $message=$this->backToInventoryByEdit($movement, $materialRepository, $cableRepository, $toolRepository, $mvOld);
+            if($message == ''){
+                $this->getDoctrine()->getManager()->flush();
+                return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->renderForm('movement/edit.html.twig', [
             'movement' => $movement,
             'form' => $form,
+            'message' => $message
+
         ]);
     }
 
@@ -255,6 +275,7 @@ class MovementController extends AbstractController
      * @param CableRepository $cableRepository
      * @param ToolRepository $toolRepository
      * @param float|null $mvOld
+     * @return string
      */
     public function backToInventoryByEdit(
         Movement $movement,
@@ -262,34 +283,59 @@ class MovementController extends AbstractController
         CableRepository $cableRepository,
         ToolRepository $toolRepository,
         ?float $mvOld
-    ): void
+    ): string
     {
         if ($movement->getMaterials() != null) {
-            $material = $materialRepository->find($movement->getMaterials()->getId());
-            $diff = ($mvOld - $movement->getQuantity());
-            $add = ($movement->getMaterials()->getStock()) + ($diff);
-            $material->setStock($add);
-            $movement->setTotalCost($movement->getMaterials()->getSalePrice()*$movement->getQuantity());
-            $movement->setMaterials($material);
+            if($movement->getMaterials()->getStock()>=$movement->getQuantity())
+            {
+                $material = $materialRepository->find($movement->getMaterials()->getId());
+                $diff = ($mvOld - $movement->getQuantity());
+                $add = ($movement->getMaterials()->getStock()) + ($diff);
+                $material->setStock($add);
+                $movement->setTotalCost($movement->getMaterials()->getSalePrice()*$movement->getQuantity());
+                $movement->setMaterials($material);
+                $message = '';
+            }else{
+                $message = "<h2>Ops! You don't have enough materials in the warehouse</h2>";
+            }
         } elseif ($movement->getCables() != null) {
-            $cable = $cableRepository->find($movement->getCables()->getId());
-            $diff = ($mvOld - $movement->getQuantity());
-            $add = ($movement->getCables()->getAvailability()) + ($diff);
-            $cable->setAvailability($add);
-            $movement->setTotalCost($movement->getCables()->getSalePrice()*$movement->getQuantity());
-            $movement->setCables($cable);
+            if($movement->getCables()->getAvailability()>=$movement->getQuantity())
+            {
+                $cable = $cableRepository->find($movement->getCables()->getId());
+                $diff = ($mvOld - $movement->getQuantity());
+                $add = ($movement->getCables()->getAvailability()) + ($diff);
+                $cable->setAvailability($add);
+                $movement->setTotalCost($movement->getCables()->getSalePrice()*$movement->getQuantity());
+                $movement->setCables($cable);
+                $message = '';
+            }else{
+                $message = "<h2>Ops! You don't have enough cables in the warehouse</h2>";
+
+            }
         } elseif ($movement->getTools() != null) {
-            $tool = $toolRepository->find($movement->getTools()->getId());
-            $diff = ($mvOld - $movement->getQuantity());
-            $add = ($movement->getTools()->getStock()) + ($diff);
-            $tool->setStock($add);
-            $movement->setTotalCost($movement->getTools()->getPrice()*$movement->getQuantity());
-            $movement->setTools($tool);
+            if($movement->getTools()->getStock()>=$movement->getQuantity())
+            {
+                $tool = $toolRepository->find($movement->getTools()->getId());
+                $diff = ($mvOld - $movement->getQuantity());
+                $add = ($movement->getTools()->getStock()) + ($diff);
+                $tool->setStock($add);
+                $movement->setTotalCost($movement->getTools()->getPrice()*$movement->getQuantity());
+                $movement->setTools($tool);
+                $message='';
+            }else{
+                $message = "<h2> Ops! You don't have enough tools in the warehouse</h2>";
+            }
 
         }
+        return $message;
     }
 
 
+    /**
+     * @param Movement $movement
+     * @param float|null $mvOld
+     * @param $entityManager
+     */
     public function returnToInventoryByElimination(
         Movement $movement,
         ?float $mvOld,
@@ -313,6 +359,30 @@ class MovementController extends AbstractController
             $cable->setAvailability($cable->getAvailability() + $mvOld);
             $entityManager->persist($cable);
             $entityManager->flush();
+        }
+    }
+
+    /**
+     * @param array $movements
+     */
+    public function totalCostMovement(array $movements): void
+    {
+        foreach ($movements as $movement) {
+            if ($movement->getMaterials() != null) {
+
+                $movement->setCommercialValue(($movement->getMaterials()->getSalePrice()) * ($movement->getQuantity()));
+                $movement->setTotalCost(($movement->getMaterials()->getPurchasePrice()) * ($movement->getQuantity()));
+            }
+            if ($movement->getTools() != null) {
+
+                $movement->setCommercialValue($movement->getTools()->getPrice() * $movement->getQuantity());
+                $movement->setTotalCost($movement->getTools()->getPrice() * $movement->getQuantity());
+            }
+            if ($movement->getCables() != null) {
+                $movement->setCommercialValue($movement->getCables()->getSalePrice() * $movement->getQuantity());
+                $movement->setTotalCost($movement->getCables()->getPurchasePrice() * $movement->getQuantity());
+            }
+            $this->getDoctrine()->getManager()->flush();
         }
     }
 

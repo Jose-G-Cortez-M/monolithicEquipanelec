@@ -27,20 +27,28 @@
                         <div class="collapse navbar-collapse" id="navbarNavDropdown">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="{{ path('homepage') }}">Home</a>
+                                    <a class="nav-link active" aria-current="page" href="{{ path('homepage') }}">To do List</a>
                                 </li>
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('client_index') }}">Clients</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('project_index') }}">Projects</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link" href="{{ path('task_index') }}">Tasks</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ path('user_index') }}">Employees</a>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Counter
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <li><a class="dropdown-item" href="{{ path('project_index') }}">Active Projects</a></li>
+                                        <li><a class="dropdown-item" href="{{ path('project_close_index') }}">Closed Projects</a></li>
+                                        <li><a class="dropdown-item" href="{{ path('counter') }}">Counter</a></li>
+                                    </ul>
                                 </li>
 
                                 <li class="nav-item dropdown">
@@ -64,7 +72,17 @@
                                     </ul>
                                 </li>
 
-                                <li class="nav-item align-content-end dropdown">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Project
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <li><a class="dropdown-item" href="{{ path('project_index') }}">Active Projects</a></li>
+                                        <li><a class="dropdown-item" href="{{ path('project_close_index') }}">Closed Projects</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item align-content-end dropdown" >
                                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fas fa-cogs"></i>
                                     </a>

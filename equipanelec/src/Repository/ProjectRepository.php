@@ -19,6 +19,8 @@ class ProjectRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Project::class);
     }
+
+    // list of tasks per user that are not finished
     public function taskPerUser (int $value)
     {
         $params = [
@@ -41,6 +43,7 @@ class ProjectRepository extends ServiceEntityRepository
 
     }
 
+    //task observation update by project
     public function updateProjectTask(int $idTask, int $idProject,string $description)
     {
         $params = [
@@ -57,6 +60,22 @@ class ProjectRepository extends ServiceEntityRepository
         return 'Update successful';
     }
 
+    //task observation by project
+    public function observationProjectTask(int $idTask, int $idProject)
+    {
+        $params = [
+            ':idt' => $this->getEntityManager()->getConnection()->quote($idTask),
+            ':idp' => $this->getEntityManager()->getConnection()->quote($idProject)
+        ];
+        $query = ('SELECT pt.description FROM project_task pt
+            WHERE pt.project_id = :idp and
+            pt.task_id = :idt');
+
+        return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
+
+    }
+
+    //task status update by project
     public function updateProjectTaskState(int $idTask, int $idProject,string $state)
     {
         $params = [
@@ -187,7 +206,6 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
 
-
     //All task end project
     public function allTaskEndProject($idProject){
         $params = [
@@ -203,31 +221,6 @@ class ProjectRepository extends ServiceEntityRepository
 
     }
 
-    //Record deletion by project
-    public function deleteTaskPerEndProject($idProject){
-        $params = [
-            ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
-        ];
-        $query = ('DELETE from movement 
-                WHERE movement.projects_id = :idp'
-        );
-
-        $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params));
-        return 'Update successful';
-    }
-
-    public function deleteMovementPerEndProject($idProject){
-        $params = [
-            ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
-        ];
-        $query = ('DELETE FROM project_task 
-                WHERE project_id = :idp'
-        );
-
-
-        $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params));
-        return 'Update successful';
-    }
 
 
 }
