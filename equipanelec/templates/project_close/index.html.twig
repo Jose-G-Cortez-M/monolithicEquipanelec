@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProjectClose index{% endblock %}
+
+{% block body %}
+    <h1>Project Close index</h1>
+
+    <table class="table table table-hover table-bordered">
+        <thead>
+            <tr class="table-dark">
+                <th>Contract number</th>
+                <th>Name</th>
+                <th>Registration date</th>
+                <th>Total cost of tasks</th>
+                <th>Total inventory cost</th>
+                <th>Total Cost</th>
+                <th>Commercial Value</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for project_close in project_closes %}
+            <tr>
+                <td>{{ project_close.contractNumber }}</td>
+                <td>{{ project_close.name }}</td>
+                <td>{{ project_close.registrationDate ? project_close.registrationDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ project_close.totalCostTask }}</td>
+                <td>{{ project_close.totalCostInventory }}</td>
+                <td>{{ project_close.totalCost }}</td>
+                <td>{{ project_close.commercialValue }}</td>
+                <td>
+                    <a href="{{ path('project_close_show', {'id': project_close.id}) }}"><i class="far fa-eye"> Show details</i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -64,22 +64,14 @@ class Project
     private ?float $totalCost;
 
     /**
-     * @ORM\Column(type="string", length=25, nullable=true)
-     */
-    private ?string $state;
-
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private ?array $date = [];
-
-    /**
-     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="projects")
+     * @ORM\OneToMany(targetEntity=Movement::class, mappedBy="projects", cascade={"persist","remove"})
+     * @ORM\JoinColumn(name="id", referencedColumnName="movements", onDelete="CASCADE")
      */
     private $movements;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="projects", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $clients;
 
@@ -93,6 +85,21 @@ class Project
      * @ORM\ManyToMany(targetEntity=Task::class, inversedBy="projects")
      */
     private $tasks;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $commercialValue;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $totalCostTask;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $totalCostInventory;
 
 
 
@@ -204,29 +211,6 @@ class Project
         return $this;
     }
 
-    public function getState(): ?string
-    {
-        return $this->state;
-    }
-
-    public function setState(?string $state): self
-    {
-        $this->state = $state;
-
-        return $this;
-    }
-
-    public function getDate(): ?array
-    {
-        return $this->date;
-    }
-
-    public function setDate(?array $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Movement[]
@@ -321,5 +305,41 @@ class Project
     public function __toString():string
     {
         return $this->name;
+    }
+
+    public function getCommercialValue(): ?float
+    {
+        return $this->commercialValue;
+    }
+
+    public function setCommercialValue(?float $commercialValue): self
+    {
+        $this->commercialValue = $commercialValue;
+
+        return $this;
+    }
+
+    public function getTotalCostTask(): ?float
+    {
+        return $this->totalCostTask;
+    }
+
+    public function setTotalCostTask(?float $totalCostTask): self
+    {
+        $this->totalCostTask = $totalCostTask;
+
+        return $this;
+    }
+
+    public function getTotalCostInventory(): ?float
+    {
+        return $this->totalCostInventory;
+    }
+
+    public function setTotalCostInventory(?float $totalCostInventory): self
+    {
+        $this->totalCostInventory = $totalCostInventory;
+
+        return $this;
     }
 }

@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('client_delete', {'id': client.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('client_delete', {'id': client.id}) }}" onsubmit="return confirm('Are you sure to delete this client? will lose the projects associated with it, which are not closed');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ client.id) }}">
     <button class="btn btn-danger" id="button"><i class="fas fa-trash-alt"></i></button>
 </form>

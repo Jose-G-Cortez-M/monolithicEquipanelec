@@ -14,7 +14,6 @@
                 <th>Availability</th>
                 <th>Location</th>
                 <th>Description</th>
-                <th>Minimum Limit</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -27,7 +26,6 @@
                     <td>{{ cable.availability }}</td>
                     <td id="desc">{{ cable.location }}</td>
                     <td id="desc">{{ cable.description }}</td>
-                    <td>{{ cable.minimumLimit }}</td>
                     <td>
                         <a href="{{ path('cable_show', {'id': cable.id}) }}" ><i class="far fa-eye"> Show details</i></a>
                         <br>
@@ -43,7 +41,6 @@
                     <td id="desc">{{ cable.location }}</td>
 
                     <td id="desc">{{ cable.description }}</td>
-                    <td>{{ cable.minimumLimit }}</td>
                     <td>
                         <a href="{{ path('cable_show', {'id': cable.id}) }}"><i class="far fa-eye"> Show details</i></a>
                         <br>

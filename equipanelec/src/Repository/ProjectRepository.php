@@ -19,6 +19,8 @@ class ProjectRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Project::class);
     }
+
+    // list of tasks per user that are not finished
     public function taskPerUser (int $value)
     {
         $params = [
@@ -41,6 +43,7 @@ class ProjectRepository extends ServiceEntityRepository
 
     }
 
+    //task observation update by project
     public function updateProjectTask(int $idTask, int $idProject,string $description)
     {
         $params = [
@@ -57,6 +60,22 @@ class ProjectRepository extends ServiceEntityRepository
         return 'Update successful';
     }
 
+    //task observation by project
+    public function observationProjectTask(int $idTask, int $idProject)
+    {
+        $params = [
+            ':idt' => $this->getEntityManager()->getConnection()->quote($idTask),
+            ':idp' => $this->getEntityManager()->getConnection()->quote($idProject)
+        ];
+        $query = ('SELECT pt.description FROM project_task pt
+            WHERE pt.project_id = :idp and
+            pt.task_id = :idt');
+
+        return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
+
+    }
+
+    //task status update by project
     public function updateProjectTaskState(int $idTask, int $idProject,string $state)
     {
         $params = [
@@ -89,6 +108,19 @@ class ProjectRepository extends ServiceEntityRepository
 
     }
 
+
+    public function queryCommercialInventory(int $idProject){
+        $params = [
+            ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
+        ];
+        $query = ('SELECT SUM(movement.total_cost) AS totalInventory 
+                    FROM movement WHERE movement.projects_id= :idp'
+        );
+
+        return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
+
+
+    }
 
     //Cost of tasks per project
     public function queryCostTask($idProject){
@@ -134,6 +166,7 @@ class ProjectRepository extends ServiceEntityRepository
                 return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
 
     }
+    
 
     //Inventory costs per material
     public function costMaterialPerProject(int $idProject){
@@ -171,6 +204,7 @@ class ProjectRepository extends ServiceEntityRepository
         return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
 
     }
+
 
     //All task end project
     public function allTaskEndProject($idProject){

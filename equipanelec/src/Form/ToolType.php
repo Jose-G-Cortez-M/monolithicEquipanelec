@@ -28,7 +28,8 @@ class ToolType extends AbstractType
                 'label' => "Enter the number of tools you want to add to inventory",
             ])
             ->add('brand', TextType::class, [
-                'label' => "Enter the brand of the material",
+                'label' => "Enter the brand of the tool",
+                'required' => false
             ])
             ->add('price', NumberType::class, [
                 'label' => "Enter the cost of the tool",

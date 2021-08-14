@@ -41,6 +41,10 @@ class DefaultController extends AbstractController
     {
         $taskD = new Task();
 
+        $desc = $projectRepository->observationProjectTask($idt,$idp);
+
+        $taskD->setDescription($desc[0]["description"]);
+
         $form = $this->createForm(DescriptionTaskType::class,$taskD);
         $form->handleRequest($request);
 

@@ -3,16 +3,15 @@
 {% block title %}Movement index{% endblock %}
 
 {% block body %}
+
     <h1>Movement index</h1>
 
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-dark">
-                <th>Id</th>
                 <th>Name</th>
                 <th>Quantity</th>
                 <th>Order Date</th>
-                <th>Total Cost</th>
                 <th>Assigned project</th>
                 <th>actions</th>
             </tr>
@@ -20,8 +19,6 @@
         <tbody>
         {% for movement in movements %}
             <tr>
-                <td>{{ movement.id }}</td>
-
                 <td>
                     {% if movement.materials.name |default  %}
                         {{ movement.materials.name }}
@@ -36,7 +33,6 @@
 
                 <td>{{ movement.quantity }}</td>
                 <td>{{ movement.orderdate ? movement.orderdate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ movement.totalCost }}</td>
                 <td>
                     {% if movement.projects %}
                         {{ movement.projects.name }}
