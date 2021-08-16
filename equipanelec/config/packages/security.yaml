@@ -63,7 +63,7 @@ security:
          - { path: ^/project/close, roles: [ ROLE_COUNTER,ROLE_MANAGER ] }
          - { path: ^/project, roles: [ ROLE_PROJECT_MANAGER,ROLE_COUNTER,ROLE_MANAGER ] }
          - { path: ^/task, roles: [ ROLE_PROJECT_MANAGER,ROLE_MANAGER ] }
-         #- { path: ^/user, roles: [ ROLE_CELLAR,ROLE_MANAGER ] }
+         #- { path: ^/user, roles: [ ROLE_MANAGER ] }
 
 
 
