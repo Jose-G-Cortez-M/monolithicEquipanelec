@@ -53,5 +53,23 @@ security:
          - { path: ^/cable, roles: [ROLE_CELLAR,ROLE_MANAGER] }
          - { path: ^/tool, roles: [ROLE_CELLAR,ROLE_MANAGER] }
          - { path: ^/material, roles: [ROLE_CELLAR,ROLE_MANAGER] }
+
+         - { path: ^/addprojects, roles: [ ROLE_PROJECT_MANAGER,ROLE_MANAGER ] }
+         - { path: ^/client, roles: [ ROLE_PROJECT_MANAGER,ROLE_MANAGER ] }
+         - { path: ^/counter, roles: [ ROLE_COUNTER,ROLE_MANAGER ] }
+         - { path: ^/homepage, roles: [ ROLE_CELLAR,ROLE_PROJECT_MANAGER,ROLE_COUNTER,ROLE_WORKERS,ROLE_MANAGER ] }
+         - { path: ^/movement, roles: [ ROLE_CELLAR,ROLE_PROJECT_MANAGER,ROLE_MANAGER ] }
+
+         - { path: ^/project/close, roles: [ ROLE_COUNTER,ROLE_MANAGER ] }
+         - { path: ^/project, roles: [ ROLE_PROJECT_MANAGER,ROLE_COUNTER,ROLE_MANAGER ] }
+         - { path: ^/task, roles: [ ROLE_PROJECT_MANAGER,ROLE_MANAGER ] }
+         #- { path: ^/user, roles: [ ROLE_CELLAR,ROLE_MANAGER ] }
+
+
+
+
+
+
+
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

@@ -6,12 +6,14 @@ namespace App\Controller;
 use App\Entity\Project;
 use App\Form\FilterProjectsCountType;
 use App\Repository\ProjectCloseRepository;
-use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @Route("/counter")
+ */
 class Counter extends abstractController
 {
     /**

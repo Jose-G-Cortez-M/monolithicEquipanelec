@@ -57,5 +57,8 @@
     <a href="{{ path('material_index') }}"><i class="fas fa-hand-point-left"> back to list</i></a>
     <br>
     <a href="{{ path('material_edit', {'id': material.id}) }}"><i class="fas fa-edit"> Upgrade or add more material</i></a>
-    {{ include('material/_delete_form.html.twig') }}
+    {% if is_granted("ROLE_MANAGER") %}
+        {{ include('material/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}
+

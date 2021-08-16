@@ -10,10 +10,11 @@
                 <h1>Edit Tool</h1>
                 <a href="{{ path('tool_index') }}"><i class="fas fa-hand-point-left"> back to list</i></a>
                 {{ include('tool/_form.html.twig', {'button_label': 'Update'}) }}
-                {{ include('tool/_delete_form.html.twig') }}
+                {% if is_granted("ROLE_MANAGER") %}
+                    {{ include('tool/_delete_form.html.twig') }}
+                {% endif %}
             </div>
         </div>
     </div>
 
 {% endblock %}
-

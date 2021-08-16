@@ -48,5 +48,7 @@
 
     <a href="{{ path('project_close_index') }}"><i class="fas fa-hand-point-left"> back to list</i></a>
 
-    {{ include('project_close/_delete_form.html.twig') }}
+    {% if is_granted("ROLE_MANAGER") %}
+        {{ include('project_close/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}
