@@ -198,7 +198,11 @@ class MovementController extends AbstractController
             $message=$this->backToInventoryByEdit($movement, $materialRepository, $cableRepository, $toolRepository, $mvOld);
             if($message == ''){
                 $this->getDoctrine()->getManager()->flush();
-                return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
+                if($this->isGranted("ROLE_CELLAR")) {
+                    return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
+                }else{
+                    return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+                }
             }
         }
 
@@ -227,7 +231,11 @@ class MovementController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
+        if($this->isGranted("ROLE_CELLAR")) {
+            return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
+        }else{
+            return $this->redirectToRoute('movement_index', [], Response::HTTP_SEE_OTHER);
+        }
     }
 
 

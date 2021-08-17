@@ -201,5 +201,17 @@ class ProjectController extends AbstractController
 
     }
 
+    /**
+     * @Route("/{idP}/observations", name="project_observations", methods={"GET"})
+     */
+    public function showObservations(ProjectRepository $projectRepository,int $idP): Response
+    {
+        $projects = $projectRepository->showObservationProjectTask($idP);
+        return $this->render('project/showObservations.html.twig', [
+            'projects' => $projects
+        ]);
+    }
+
+
 
 }

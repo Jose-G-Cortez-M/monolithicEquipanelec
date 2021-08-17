@@ -36,7 +36,7 @@ class ProjectType extends AbstractType
                 'label' => 'Project end date'
             ])
             ->add('description', TextareaType::class, [
-                'label' => "Enter a description or the List Materials of the project",
+                'label' => "Enter a Description or bill of materials",
                 'required' => false
             ])
             ->add('clients', EntityType::class, [

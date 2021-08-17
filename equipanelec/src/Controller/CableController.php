@@ -20,9 +20,13 @@ class CableController extends AbstractController
      */
     public function index(CableRepository $cableRepository): Response
     {
-        return $this->render('cable/index.html.twig', [
-            'cables' => $cableRepository->findBy([], ['name' => 'ASC'])
-        ]);
+        if($this->isGranted("ROLE_MANAGER")||$this->isGranted("ROLE_CELLAR")){
+            return $this->render('cable/index.html.twig', [
+                'cables' => $cableRepository->findBy([], ['name' => 'ASC'])
+            ]);
+        }else{
+            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+        }
     }
 
     /**

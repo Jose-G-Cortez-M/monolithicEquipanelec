@@ -30,66 +30,78 @@
                                     <a class="nav-link active" aria-current="page" href="{{ path('homepage') }}">To do List</a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('client_index') }}">Clients</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('task_index') }}">Tasks</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('user_index') }}">Employees</a>
-                                </li>
+                                {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('client_index') }}">Clients</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('task_index') }}">Tasks</a>
+                                    </li>
+                                {% endif %}
 
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Counter
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a class="dropdown-item" href="{{ path('project_index') }}">Active Projects</a></li>
-                                        <li><a class="dropdown-item" href="{{ path('project_close_index') }}">Closed Projects</a></li>
-                                        <li><a class="dropdown-item" href="{{ path('counter') }}">Counter</a></li>
-                                    </ul>
-                                </li>
+                                {% if is_granted("ROLE_MANAGER") %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ path('user_index') }}">Employees</a>
+                                    </li>
+                                {% endif %}
 
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Inventory
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a class="dropdown-item" href="{{ path('material_index') }}">Materials</a></li>
-                                        <li><a class="dropdown-item" href="{{ path('cable_index') }}">Cables</a></li>
-                                        <li><a class="dropdown-item" href="{{ path('tool_index') }}">Tools</a></li>
-                                    </ul>
-                                </li>
 
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Movement
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a class="dropdown-item" href="{{ path('movement_list') }}">Movements List</a></li>
-                                        <li><a class="dropdown-item" href="{{ path('movement_index') }}">Movements with Projects</a></li>
-                                    </ul>
-                                </li>
+                                {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Project
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{{ path('project_index') }}">Active Projects</a></li>
+                                            {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_MANAGER") %}
+                                                <li><a class="dropdown-item" href="{{ path('project_close_index') }}">Closed Projects</a></li>
+                                                <li><a class="dropdown-item" href="{{ path('counter') }}">Counter</a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </li>
+                                {% endif %}
 
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Project
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a class="dropdown-item" href="{{ path('project_index') }}">Active Projects</a></li>
-                                        <li><a class="dropdown-item" href="{{ path('project_close_index') }}">Closed Projects</a></li>
-                                    </ul>
-                                </li>
 
-                                <li class="nav-item align-content-end dropdown" >
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fas fa-cogs"></i>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fas fa-door-open"> Sign off</i></a></li>
-                                    </ul>
-                                </li>
+
+                                {% if is_granted("ROLE_CELLAR") or is_granted("ROLE_MANAGER") %}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Inventory
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{{ path('material_index') }}">Materials</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('cable_index') }}">Cables</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('tool_index') }}">Tools</a></li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+
+                                {% if is_granted("ROLE_CELLAR") or is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Movement
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            {% if is_granted("ROLE_CELLAR") or is_granted("ROLE_MANAGER") %}
+                                                <li><a class="dropdown-item" href="{{ path('movement_list') }}">Movements List</a></li>
+                                            {% endif %}
+                                            {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
+                                                <li><a class="dropdown-item" href="{{ path('movement_index') }}">Movements with Projects</a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </li>
+                                {% endif %}
+
+                                {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_WORKERS") or is_granted("ROLE_CELLAR") or is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
+                                    <li class="nav-item align-content-end dropdown" >
+                                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fas fa-cogs"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fas fa-door-open"> Sign off</i></a></li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>

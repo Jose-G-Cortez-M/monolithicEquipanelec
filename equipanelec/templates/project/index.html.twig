@@ -1,19 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Project index{% endblock %}
-
 {% block body %}
     <h1>Project index</h1>
-    <h4><a href="{{ path('project_new') }}"><i class="fas fa-business-time"> Add new Project</i></a></h4>
+    {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
+        <h4><a href="{{ path('project_new') }}"><i class="fas fa-business-time"> Add new Project</i></a></h4>
+    {% endif %}
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-dark">
                 <th>Contract Number</th>
                 <th>Name</th>
-                <th>Start Date</th>
-                <th>End Time</th>
-                <th>Description or List Materials</th>
-                <th>Advances (%)</th>
+                {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_MANAGER") %}
+                    <th>Registration Date</th>
+                {% endif %}
+                {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
+                    <th>Start Date</th>
+                    <th>End Time</th>
+                    <th>Advances (%)</th>
+                {% endif %}
+                {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_MANAGER") %}
+                    <th>Total Cost Task</th>
+                    <th>Total Cost Inventory</th>
+                    <th>Total Cost</th>
+                    <th>Commercial Value</th>
+                {% endif %}
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,17 +33,30 @@
             <tr>
                 <td>{{ project.contractnumber }}</td>
                 <td>{{ project.name }}</td>
-                <td>{{ project.startdate ? project.startdate|date('Y-m-d') : '' }}</td>
-                <td>{{ project.endtime ? project.endtime|date('Y-m-d') : '' }}</td>
-                <td id="desc">{{ project.description }}</td>
-                <td>{{ project.advances }}</td>
+                {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_MANAGER") %}
+                    <td>{{ project.registrationDate ? project.registrationDate|date('Y-m-d H:i:s') : '' }}</td>
+                {% endif %}
+                {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
+                    <td>{{ project.startdate ? project.startdate|date('Y-m-d') : '' }}</td>
+                    <td>{{ project.endtime ? project.endtime|date('Y-m-d') : '' }}</td>
+                    <td>{{ project.advances }}</td>
+                {% endif %}
+                {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_MANAGER") %}
+                    <td>{{ project.totalCostTask }}</td>
+                    <td>{{ project.totalCostInventory }}</td>
+                    <td>{{ project.totalCost }}</td>
+                    <td>{{ project.commercialValue }}</td>
+                {% endif %}
                 <td>
-                    <a href="{{ path('project_show', {'id': project.id}) }}"><i class="far fa-eye"> Show</i></a>
+                    <a href="{{ path('project_show', {'id': project.id}) }}"><i class="far fa-eye"> Show details</i></a>
                     <br>
-                    <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit"> Edit</i> </a>
+                    {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
+                        <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit"> Edit</i> </a>
                         {{ include('project/_assignTask_form.html.twig') }}
                         {{ include('project/_assignWorker_form.html.twig') }}
+                        {{ include('project/_showObs_form.html.twig') }}
                         {{ include('project/_finishProject_form.html.twig') }}
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
