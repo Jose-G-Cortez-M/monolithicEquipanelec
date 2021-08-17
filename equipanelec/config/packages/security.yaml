@@ -50,7 +50,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/cable, roles: [ROLE_CELLAR,ROLE_MANAGER] }
+         - { path: ^/cable/, roles: [ROLE_CELLAR,ROLE_MANAGER] }
          - { path: ^/tool, roles: [ROLE_CELLAR,ROLE_MANAGER] }
          - { path: ^/material, roles: [ROLE_CELLAR,ROLE_MANAGER] }
 
@@ -63,13 +63,4 @@ security:
          - { path: ^/project/close, roles: [ ROLE_COUNTER,ROLE_MANAGER ] }
          - { path: ^/project, roles: [ ROLE_PROJECT_MANAGER,ROLE_COUNTER,ROLE_MANAGER ] }
          - { path: ^/task, roles: [ ROLE_PROJECT_MANAGER,ROLE_MANAGER ] }
-         #- { path: ^/user, roles: [ ROLE_MANAGER ] }
-
-
-
-
-
-
-
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/user, roles: [ ROLE_MANAGER ] }

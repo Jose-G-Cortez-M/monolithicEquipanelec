@@ -54,6 +54,7 @@
                         <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit"> Edit</i> </a>
                         {{ include('project/_assignTask_form.html.twig') }}
                         {{ include('project/_assignWorker_form.html.twig') }}
+                        {{ include('project/_showObs_form.html.twig') }}
                         {{ include('project/_finishProject_form.html.twig') }}
                     {% endif %}
                 </td>

@@ -221,6 +221,19 @@ class ProjectRepository extends ServiceEntityRepository
 
     }
 
+    //Show observation per project task
+    public function showObservationProjectTask($idProject){
+        $params = [
+            ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
+        ];
+        $query = ('SELECT p.name AS project,t.name, pt.description FROM project p, project_task pt, task t 
+                    WHERE p.id=pt.project_id AND t.id=pt.task_id AND p.id = :idp'
+        );
+
+        return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
+
+    }
+
 
 
 }
