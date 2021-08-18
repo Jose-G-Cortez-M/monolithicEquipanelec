@@ -21,7 +21,7 @@ class UserType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'required' => true,
-                'label' => 'Enter an email with which you can create your account'
+                'label' => 'Ingresa un correo electrónico'
             ])
             ->add('roles', ChoiceType::class, [
                     'multiple' => true,
@@ -31,20 +31,21 @@ class UserType extends AbstractType
                         'Counter' => 'ROLE_COUNTER',
                         'Workers' => 'ROLE_WORKERS',
                         'Administrator' => 'ROLE_MANAGER'
-                    ]
+                    ],
+                'label' => 'Seleccione el rol del empleado'
             ])
             ->add('password', PasswordType::class, [
                 'required' => true,
-                'label' => "Enter a password"
+                'label' => "Ingrese una contraseña para la cuenta"
             ])
             ->add('name', TextType::class, [
-                'label' => "Enter the name of the employee",
+                'label' => "Ingrese el nombre del empleado",
             ])
             ->add('phone', TextType::class, [
-                'label' => "Enter a contact phone",
+                'label' => "Ingrese un teléfono de contacto",
             ])
             ->add('salary', NumberType::class, [
-                'label' => "Enter the salary received by the employee",
+                'label' => "Ingrese el salario percibido por el empleado.",
             ])
             /*->add('projects', EntityType::class, [
                 'class' =>Project::class,

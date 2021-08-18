@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Client index{% endblock %}
+{% block title %}Índice de clientes{% endblock %}
 
 {% block body %}
-    <h1>Client index</h1>
-    <h3><a href="{{ path('client_new') }}"><i class="far fa-address-card"> Add Client</i></a></h3>
+    <h1>Índice de clientes</h1>
+    <h3><a href="{{ path('client_new') }}"><i class="far fa-address-card"> Añadir un nuevo cliente</i></a></h3>
 
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-dark">
-                <th>Company</th>
-                <th>Representative</th>
-                <th>Phone</th>
-                <th>Direction</th>
-                <th>actions</th>
+                <th>Empresa</th>
+                <th>Representante</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -24,14 +24,14 @@
                 <td>{{ client.phone }}</td>
                 <td>{{ client.direction }}</td>
                 <td>
-                    <a href="{{ path('client_show', {'id': client.id}) }}"><i class="far fa-eye"> Show</i></a>
+                    <a href="{{ path('client_show', {'id': client.id}) }}"><i class="far fa-eye"> Ver detalles</i></a>
                     <br>
-                    <a href="{{ path('client_edit', {'id': client.id}) }}"><i class="fas fa-edit"> Edit</i></a>
+                    <a href="{{ path('client_edit', {'id': client.id}) }}"><i class="fas fa-edit"> Editar</i></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">No se encontraron registros</td>
             </tr>
         {% endfor %}
         </tbody>

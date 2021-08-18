@@ -14,16 +14,16 @@ class ClientType extends AbstractType
     {
         $builder
             ->add('company', TextType::class, [
-                'label' => "Enter the company name",
+                'label' => "Ingrese el nombre de la empresa",
             ])
             ->add('representative', TextType::class, [
-                'label' => "Enter the name of a representative"
+                'label' => "Ingrese el nombre de un representante"
             ])
             ->add('phone', TextType::class, [
-                'label' => "Enter a name where the company representative can be located"
+                'label' => "Ingrese un número de teléfono donde se pueda ubicar al representante de la compañía"
             ])
             ->add('direction', TextType::class, [
-                'label' => "Enter the company address"
+                'label' => "Ingrese la dirección de la empresa"
             ])
         ;
     }

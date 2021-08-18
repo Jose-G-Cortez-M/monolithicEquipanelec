@@ -19,7 +19,7 @@ class UserAddProjectType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
-                'label' => "List Workers"
+                'label' => "Lista de trabajadores"
 
             ])
         ;

@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ProjectClose index{% endblock %}
+{% block title %}Indice de proyectos cerrados{% endblock %}
 
 {% block body %}
-    <h1>Project Close index</h1>
+    <h1>Indice de proyectos cerrados</h1>
 
     <table class="table table table-hover table-bordered">
         <thead>
             <tr class="table-dark">
-                <th>Contract number</th>
-                <th>Name</th>
-                <th>Registration date</th>
-                <th>Total cost of tasks</th>
-                <th>Total inventory cost</th>
-                <th>Total Cost</th>
-                <th>Commercial Value</th>
-                <th>actions</th>
+                <th>Número de contrato</th>
+                <th>Nombre</th>
+                <th>Fecha de Registro</th>
+                <th>Costo total de las tareas</th>
+                <th>Costo total del inventario</th>
+                <th>Costo total</th>
+                <th>Valor comercial</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -29,12 +29,12 @@
                 <td>{{ project_close.totalCost }}</td>
                 <td>{{ project_close.commercialValue }}</td>
                 <td>
-                    <a href="{{ path('project_close_show', {'id': project_close.id}) }}"><i class="far fa-eye"> Show details</i></a>
+                    <a href="{{ path('project_close_show', {'id': project_close.id}) }}"><i class="far fa-eye"> Mostrar detalles</i></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="12">no records found</td>
+                <td colspan="12">No se encontraron registros</td>
             </tr>
         {% endfor %}
         </tbody>

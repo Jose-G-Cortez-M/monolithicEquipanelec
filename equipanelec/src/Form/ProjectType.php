@@ -18,32 +18,32 @@ class ProjectType extends AbstractType
     {
         $builder
             ->add('contractNumber', TextType::class, [
-                'label' => "Enter the contract number",
+                'label' => "Ingrese el número de contrato",
             ])
             ->add('name', TextType::class, [
-                'label' => "Enter a representative name for the project",
+                'label' => "Ingrese el nombre del representante para el proyecto",
             ])
             ->add('startDate', DateType::class, [
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'required' => false,
-                'label' => 'Project start date'
+                'label' => 'Fecha de inicio del proyecto'
             ])
             ->add('endTime', DateType::class, [
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'required' => false,
-                'label' => 'Project end date'
+                'label' => 'Fecha de finalización del proyecto'
             ])
             ->add('description', TextareaType::class, [
-                'label' => "Enter a Description or bill of materials",
+                'label' => "Ingrese una descripción o lista de materiales",
                 'required' => false
             ])
             ->add('clients', EntityType::class, [
                 'class' => Client::class,
                 'choice_label' => 'representative',
-                'placeholder' => 'Choose the client',
-                'label' => "Choose the client who hired the service"
+                'placeholder' => 'Elije el cliente',
+                'label' => "Elija el cliente que contrató el servicio"
             ])
         ;
     }

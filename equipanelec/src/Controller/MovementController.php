@@ -84,7 +84,7 @@ class MovementController extends AbstractController
                 $entityManager->flush();
                 return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
             }else{
-                $message = "<h2>Ops! You don't have enough materials in the warehouse</h2>";
+                $message = "<h2>¡Ops! No tienes suficientes materiales en el almacén.</h2>";
             }
         }
 
@@ -124,7 +124,7 @@ class MovementController extends AbstractController
                 $entityManager->flush();
                 return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
             }else{
-                $message = "<h2>Ops! You don't have enough cables in the warehouse</h2>";
+                $message = "<h2>¡Ops! No tienes suficientes cables en el almacén.</h2>";
             }
         }
 
@@ -166,7 +166,7 @@ class MovementController extends AbstractController
                 $entityManager->flush();
                 return $this->redirectToRoute('movement_list', [], Response::HTTP_SEE_OTHER);
             }else{
-                $message = "<h2> Ops! You don't have enough tools in the warehouse</h2>";
+                $message = "<h2> ¡Ops! No tienes suficientes herramientas en el almacén.</h2>";
             }
         }
 
@@ -304,7 +304,7 @@ class MovementController extends AbstractController
                 $movement->setMaterials($material);
                 $message = '';
             }else{
-                $message = "<h2>Ops! You don't have enough materials in the warehouse</h2>";
+                $message = "<h2>¡Ops! No tienes suficientes materiales en el almacén.</h2>";
             }
         } elseif ($movement->getCables() != null) {
             if($movement->getCables()->getAvailability()>=$movement->getQuantity())
@@ -317,7 +317,7 @@ class MovementController extends AbstractController
                 $movement->setCables($cable);
                 $message = '';
             }else{
-                $message = "<h2>Ops! You don't have enough cables in the warehouse</h2>";
+                $message = "<h2>¡Ops! No tienes suficientes cables en el almacén.</h2>";
 
             }
         } elseif ($movement->getTools() != null) {
@@ -331,7 +331,7 @@ class MovementController extends AbstractController
                 $movement->setTools($tool);
                 $message='';
             }else{
-                $message = "<h2> Ops! You don't have enough tools in the warehouse</h2>";
+                $message = "<h2> ¡Ops! No tienes suficientes herramientas en el almacén.</h2>";
             }
 
         }

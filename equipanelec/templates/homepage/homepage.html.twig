@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>To-do list</h1>
+    <h1>Lista de tareas pendientes</h1>
 
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-dark">
-                <th>Project Name</th>
-                <th>Task Name</th>
-                <th>Description and Materials </th>
-                <th>actions</th>
+                <th>Nombre del proyecto</th>
+                <th>Nombre de la tarea</th>
+                <th>Descripción o materiales</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +26,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">No se encontraron registros</td>
             </tr>
         {% endfor %}
         </tbody>
