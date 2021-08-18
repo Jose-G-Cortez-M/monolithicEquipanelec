@@ -18,35 +18,35 @@ class CableType extends AbstractType
         $builder
             ->add('imageFile', VichImageType::class)
             ->add('barcode', TextType::class, [
-                'label' => "Enter the barcode",
+                'label' => "Ingrese el código de barras",
                 'required' => false
             ])
             ->add('name', TextType::class, [
-                'label' => "Enter the name",
+                'label' => "Ingrese el nombre",
             ])
             ->add('availability', NumberType::class, [
-                'label' => "Enter the meters of cable you want to add to inventory",
+                'label' => "Ingrese los metros de cable que desea agregar al inventario",
             ])
             ->add('weightPerMeter', NumberType::class, [
-                'label' => "Enter the weight per meter of the cable",
+                'label' => "Ingrese el peso por metro del cable",
                 'required' => false
             ])
             ->add('purchasePrice', NumberType::class, [
-                'label' => "Enter the entry price of the cable per meter",
+                'label' => "Ingrese el precio de entrada del cable por metro",
             ])
             ->add('salePrice', NumberType::class, [
-                'label' => "Enter the price at which you sell or charge the cable per meter",
+                'label' => "Ingrese el precio al que vende el cable por metro",
             ])
             ->add('minimumLimit', NumberType::class, [
-                'label' => "Enter the minimum quantity of cable you want in the warehouse",
+                'label' => "Ingrese la cantidad mínima de cable que desea en el almacén",
                 'required' => false
             ])
             ->add('location', TextareaType::class, [
-                'label' => "Enter the location of the cable within the warehouse",
+                'label' => "Ingrese la ubicación del cable dentro del almacén",
                 'required' => false
             ])
             ->add('description', TextareaType::class, [
-                'label' => "Enter a description of the cable",
+                'label' => "Ingrese una descripción del cable",
                 'required' => false
             ])
 

@@ -1,23 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Counter{% endblock %}
+{% block title %}Contador{% endblock %}
 
 {% block body %}
 
-    <h1>Welcome accountant</h1>
+    <h1>Bienvenido Contador</h1>
 
     <table class="table table table-hover table-bordered">
         <thead>
         <tr class="table-dark">
-            <th>Inventory</th>
-            <th>Active($)</th>
-            <th>Passive($)</th>
+            <th>Inventario</th>
+            <th>Activos($)</th>
+            <th>Pasivos($)</th>
         </tr>
         </thead>
         <tbody>
 
             <tr>
-                <td> Materials </td>
+                <td> Materiales </td>
                 <td>{{ inventoryMaterials }}</td>
                 <td>0</td>
             </tr>
@@ -31,7 +31,7 @@
 
 
             <tr>
-                <td> Tools </td>
+                <td> Herramientas </td>
                 <td>{{ inventoryTools }}</td>
                 <td>0</td>
             </tr>
@@ -45,35 +45,35 @@
         </tbody>
     </table>
 
-    <h3> Enter the filtering dates </h3>
+    <h3> Ingrese las fechas del filtrado </h3>
 
     {{ include('counter/_form.html.twig', {'button_label': 'Update'}) }}
 
     <table class="table table table-hover table-bordered">
         <thead>
         <tr class="table-dark">
-            <th>Projects</th>
-            <th>Profits($)</th>
-            <th>Losses($)</th>
+            <th>Proyectos</th>
+            <th>Beneficios($)</th>
+            <th>Perdidas($)</th>
         </tr>
         </thead>
         <tbody>
 
         <tr>
-            <td> Active </td>
+            <td> Activos </td>
             <td> 0 </td>
             <td> {{ costProjectActive }} </td>
         </tr>
 
 
         <tr>
-            <td> Closed </td>
+            <td> Cerrados </td>
             <td> {{ commercialValueClosed }} </td>
             <td>0</td>
         </tr>
 
         <tr>
-            <td> Investments in projects Closed</td>
+            <td> Inversiones en proyectos Cerrados</td>
             <td> 0 </td>
             <td> {{ totalCostClosed }} </td>
         </tr>

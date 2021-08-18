@@ -18,17 +18,17 @@ class TaskType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => "Enter the task name",
+                'label' => "Ingrese el nombre de la tarea",
             ])
             ->add('timePerMinute', NumberType::class, [
-                'label' => "Enter the time in minutes it takes to complete the task",
+                'label' => "Ingrese el tiempo en minutos que se tarda en completar la tarea",
             ])
             ->add('description', TextareaType::class, [
-                'label' => "Enter a description of what should be done in the task",
+                'label' => "Ingrese una descripción de lo que se debe hacer en la tarea",
                 'required' => false
             ])
             ->add('costPerTask', NumberType::class, [
-                'label' => "Enter the cost of the task",
+                'label' => "Ingrese el costo de la tarea",
             ])
         ;
     }

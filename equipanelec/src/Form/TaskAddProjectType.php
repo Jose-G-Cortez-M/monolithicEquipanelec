@@ -20,7 +20,7 @@ class TaskAddProjectType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
-                'label' => "List Task"
+                'label' => "Lista de tareas"
             ])
         ;
     }

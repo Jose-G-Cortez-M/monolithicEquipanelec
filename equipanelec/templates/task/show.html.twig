@@ -1,38 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Task{% endblock %}
+{% block title %}Tarea{% endblock %}
 
 {% block body %}
-    <h1>Task</h1>
+    <h1>Tarea</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>Identificador</th>
                 <td>{{ task.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>Nombre</th>
                 <td>{{ task.name }}</td>
             </tr>
             <tr>
-                <th>Time Per Minute</th>
+                <th>Tiempo por minuto para completar la tarea</th>
                 <td>{{ task.timeperminute }}</td>
             </tr>
             <tr>
-                <th>Description</th>
+                <th>Descripción</th>
                 <td>{{ task.description }}</td>
             </tr>
             <tr>
-                <th>Cost Per Task</th>
+                <th>Costo por tarea</th>
                 <td>{{ task.costpertask }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('task_index') }}"><i class="fas fa-hand-point-left"> back to list</i></a>
+    <a href="{{ path('task_index') }}"><i class="fas fa-hand-point-left"> Volver a la lista</i></a>
     <br>
-    <a href="{{ path('task_edit', {'id': task.id}) }}"><i class="fas fa-edit"> Edit</i></a>
+    <a href="{{ path('task_edit', {'id': task.id}) }}"><i class="fas fa-edit"> Editar</i></a>
 
     {% if is_granted("ROLE_MANAGER") %}
         {{ include('task/_delete_form.html.twig') }}

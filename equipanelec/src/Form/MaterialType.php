@@ -18,35 +18,35 @@ class MaterialType extends AbstractType
         $builder
             ->add('imageFile', VichImageType::class)
             ->add('barcode', TextType::class, [
-                'label' => "Enter the barcode",
+                'label' => "Ingrese el código de barras",
                 'required' => false
             ])
             ->add('name', TextType::class, [
-                'label' => "Enter the name",
+                'label' => "Ingrese el nombre",
             ])
             ->add('stock', NumberType::class, [
-                'label' => "Enter the number of materials you want to add to inventory",
+                'label' => "Ingrese la cantidad de materiales que desea agregar al inventario",
             ])
             ->add('brand', TextType::class, [
-                'label' => "Enter the brand of the material",
+                'label' => "Ingrese la marca del material",
                 'required' => false
             ])
             ->add('purchasePrice', NumberType::class, [
-                'label' => "Enter the entry price of the material",
+                'label' => "Ingrese el precio de entrada del material",
             ])
             ->add('salePrice', NumberType::class, [
-                'label' => "Enter the price at which you sell or charge the material",
+                'label' => "Ingrese el precio al que vende el material",
             ])
             ->add('minimumLimit', NumberType::class, [
-                'label' => "Enter the minimum quantity of material you want in the warehouse",
+                'label' => "Ingrese la cantidad mínima de material que desea en el almacén",
                 'required' => false
             ])
             ->add('location', TextareaType::class, [
-                'label' => "Enter the location of the material within the warehouse",
+                'label' => "Ingrese la ubicación del material dentro del almacén",
                 'required' => false
             ])
             ->add('description', TextareaType::class, [
-                'label' => "Enter a description of the material",
+                'label' => "Ingrese una descripción del material",
                 'required' => false
             ])
         ;

@@ -1,52 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Project Close{% endblock %}
+{% block title %}Indice de proyecto cerrado{% endblock %}
 
 {% block body %}
-    <h1>Project Close</h1>
+    <h1>Indice de proyecto cerrado</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Contract_number</th>
+                <th>Número de contrato</th>
                 <td>{{ project_close.contractNumber }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>Nombre</th>
                 <td>{{ project_close.name }}</td>
             </tr>
             <tr>
-                <th>Registration_date</th>
+                <th>Fecha de Registro</th>
                 <td>{{ project_close.registrationDate ? project_close.registrationDate|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>StartDate</th>
+                <th>Fecha de inicio</th>
                 <td>{{ project_close.startDate ? project_close.startDate|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>EndTime</th>
+                <th>Fecha de finalización</th>
                 <td>{{ project_close.endTime ? project_close.endTime|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>Total_cost_task</th>
+                <th>Costo total por tareas</th>
                 <td>{{ project_close.totalCostTask }}</td>
             </tr>
             <tr>
-                <th>Total_cost_inventory</th>
+                <th>Costo total del inventario</th>
                 <td>{{ project_close.totalCostInventory }}</td>
             </tr>
             <tr>
-                <th>TotalCost</th>
+                <th>Costo total</th>
                 <td>{{ project_close.totalCost }}</td>
             </tr>
             <tr>
-                <th>CommercialValue</th>
+                <th>Valor comercial</th>
                 <td>{{ project_close.commercialValue }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('project_close_index') }}"><i class="fas fa-hand-point-left"> back to list</i></a>
+    <a href="{{ path('project_close_index') }}"><i class="fas fa-hand-point-left"> volver a la lista</i></a>
 
     {% if is_granted("ROLE_MANAGER") %}
         {{ include('project_close/_delete_form.html.twig') }}

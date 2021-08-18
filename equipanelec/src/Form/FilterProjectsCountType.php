@@ -19,13 +19,13 @@ class FilterProjectsCountType extends AbstractType
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'required' => true,
-                'label' => 'Start date'
+                'label' => 'Fecha de inicio'
             ])
             ->add('endTime', DateType::class, [
                 'input' => 'datetime',
                 'widget' => 'single_text',
                 'required' => true,
-                'label' => 'End date'
+                'label' => 'Fecha final'
             ])
         ;
     }

@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Task index{% endblock %}
+{% block title %}Índice de tareas{% endblock %}
 
 {% block body %}
-    <h1>Task index</h1>
-    <h4><a href="{{ path('task_new') }}"><i class="fas fa-tasks"> Add new Task</i></a></h4>
+    <h1>Índice de tareas</h1>
+    <h4><a href="{{ path('task_new') }}"><i class="fas fa-tasks"> Agregar nueva tarea</i></a></h4>
 
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-dark">
-                <th>Id</th>
-                <th>Name</th>
-                <th>Time Per Minute</th>
-                <th>Description</th>
-                <th>Cost Per Task</th>
-                <th>actions</th>
+                <th>Identificador</th>
+                <th>Nombre</th>
+                <th>Tiempo por minuto para completar la tarea</th>
+                <th>Descripción</th>
+                <th>Costo por tarea</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -26,14 +26,14 @@
                 <td id="desc">{{ task.description }}</td>
                 <td>{{ task.costpertask }}</td>
                 <td>
-                    <a href="{{ path('task_show', {'id': task.id}) }}"><i class="far fa-eye"> Show</i></a>
+                    <a href="{{ path('task_show', {'id': task.id}) }}"><i class="far fa-eye"> Ver detalles</i></a>
                     <br>
-                    <a href="{{ path('task_edit', {'id': task.id}) }}"><i class="fas fa-edit"> Edit</i></a>
+                    <a href="{{ path('task_edit', {'id': task.id}) }}"><i class="fas fa-edit"> Editar</i></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">No se encontraron registros</td>
             </tr>
         {% endfor %}
         </tbody>

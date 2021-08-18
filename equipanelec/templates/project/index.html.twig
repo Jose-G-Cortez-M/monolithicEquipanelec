@@ -1,31 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Project index{% endblock %}
+{% block title %}Índice de proyectos{% endblock %}
 {% block body %}
-    <h1>Project index</h1>
+    <h1>Índice de proyectos</h1>
     {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
-        <h4><a href="{{ path('project_new') }}"><i class="fas fa-business-time"> Add new Project</i></a></h4>
+        <h4><a href="{{ path('project_new') }}"><i class="fas fa-business-time"> Agregar nuevo proyecto</i></a></h4>
     {% endif %}
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-dark">
-                <th>Contract Number</th>
-                <th>Name</th>
+                <th>Número de contrato</th>
+                <th>Nombre</th>
                 {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_MANAGER") %}
-                    <th>Registration Date</th>
+                    <th>Fecha de Registro</th>
                 {% endif %}
                 {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
-                    <th>Start Date</th>
-                    <th>End Time</th>
-                    <th>Advances (%)</th>
+                    <th>Fecha de inicio</th>
+                    <th>Fecha de finalización</th>
+                    <th>Avances (%)</th>
                 {% endif %}
                 {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_MANAGER") %}
-                    <th>Total Cost Task</th>
-                    <th>Total Cost Inventory</th>
-                    <th>Total Cost</th>
-                    <th>Commercial Value</th>
+                    <th>Costo total de tareas</th>
+                    <th>Costo total de Inventario</th>
+                    <th>Costo total</th>
+                    <th>Valor comercial</th>
                 {% endif %}
-                <th>actions</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -48,10 +48,10 @@
                     <td>{{ project.commercialValue }}</td>
                 {% endif %}
                 <td>
-                    <a href="{{ path('project_show', {'id': project.id}) }}"><i class="far fa-eye"> Show details</i></a>
+                    <a href="{{ path('project_show', {'id': project.id}) }}"><i class="far fa-eye"> Mostrar detalles</i></a>
                     <br>
                     {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
-                        <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit"> Edit</i> </a>
+                        <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit"> Editar</i> </a>
                         {{ include('project/_assignTask_form.html.twig') }}
                         {{ include('project/_assignWorker_form.html.twig') }}
                         {{ include('project/_showObs_form.html.twig') }}
@@ -61,7 +61,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="10">no records found</td>
+                <td colspan="10"> No se encontraron registros </td>
             </tr>
         {% endfor %}
         </tbody>

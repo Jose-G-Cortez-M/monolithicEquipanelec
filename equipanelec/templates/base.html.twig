@@ -2,7 +2,7 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Bienvenidos!{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -27,21 +27,21 @@
                         <div class="collapse navbar-collapse" id="navbarNavDropdown">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="{{ path('homepage') }}">To do List</a>
+                                    <a class="nav-link active" aria-current="page" href="{{ path('homepage') }}">Lista de tareas pendientes</a>
                                 </li>
 
                                 {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('client_index') }}">Clients</a>
+                                        <a class="nav-link" href="{{ path('client_index') }}">Clientes</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('task_index') }}">Tasks</a>
+                                        <a class="nav-link" href="{{ path('task_index') }}">Tareas</a>
                                     </li>
                                 {% endif %}
 
                                 {% if is_granted("ROLE_MANAGER") %}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ path('user_index') }}">Employees</a>
+                                        <a class="nav-link" href="{{ path('user_index') }}">Empleados</a>
                                     </li>
                                 {% endif %}
 
@@ -49,13 +49,13 @@
                                 {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Project
+                                            Proyectos
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <li><a class="dropdown-item" href="{{ path('project_index') }}">Active Projects</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('project_index') }}">Proyectos activos </a></li>
                                             {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_MANAGER") %}
-                                                <li><a class="dropdown-item" href="{{ path('project_close_index') }}">Closed Projects</a></li>
-                                                <li><a class="dropdown-item" href="{{ path('counter') }}">Counter</a></li>
+                                                <li><a class="dropdown-item" href="{{ path('project_close_index') }}">Proyectos Cerrados </a></li>
+                                                <li><a class="dropdown-item" href="{{ path('counter') }}">Contabilidad de la empresa</a></li>
                                             {% endif %}
                                         </ul>
                                     </li>
@@ -66,12 +66,12 @@
                                 {% if is_granted("ROLE_CELLAR") or is_granted("ROLE_MANAGER") %}
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Inventory
+                                            Inventario
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <li><a class="dropdown-item" href="{{ path('material_index') }}">Materials</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('material_index') }}">Materiales</a></li>
                                             <li><a class="dropdown-item" href="{{ path('cable_index') }}">Cables</a></li>
-                                            <li><a class="dropdown-item" href="{{ path('tool_index') }}">Tools</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('tool_index') }}">Herramientas</a></li>
                                         </ul>
                                     </li>
                                 {% endif %}
@@ -79,14 +79,14 @@
                                 {% if is_granted("ROLE_CELLAR") or is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Movement
+                                            Movimientos
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                             {% if is_granted("ROLE_CELLAR") or is_granted("ROLE_MANAGER") %}
-                                                <li><a class="dropdown-item" href="{{ path('movement_list') }}">Movements List</a></li>
+                                                <li><a class="dropdown-item" href="{{ path('movement_list') }}">Lista de Movimientos</a></li>
                                             {% endif %}
                                             {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
-                                                <li><a class="dropdown-item" href="{{ path('movement_index') }}">Movements with Projects</a></li>
+                                                <li><a class="dropdown-item" href="{{ path('movement_index') }}">Movimientos asignados a un proyecto</a></li>
                                             {% endif %}
                                         </ul>
                                     </li>
@@ -98,7 +98,7 @@
                                             <i class="fas fa-cogs"></i>
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <li><a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fas fa-door-open"> Sign off</i></a></li>
+                                            <li><a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fas fa-door-open"> Cerrar sesión</i></a></li>
                                         </ul>
                                     </li>
                                 {% endif %}

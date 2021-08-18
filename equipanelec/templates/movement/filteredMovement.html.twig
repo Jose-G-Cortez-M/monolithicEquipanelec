@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Movement List{% endblock %}
+{% block title %}Lista de movimientos{% endblock %}
 
 {% block body %}
-    <h1>Movement List</h1>
+    <h1>Lista de movimientos</h1>
 
-    <a href="{{ path('material_index') }}"><i class="fas fa-hand-point-left"> back to list Materials</i></a>
+    <a href="{{ path('material_index') }}"><i class="fas fa-hand-point-left"> Volver al listado de Materiales</i></a>
 
     {{ message |raw}}
     <table class="table table-hover table-bordered">
         <thead>
         <tr class="table-dark">
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Description</th>
-            <th>OrderDate</th>
-            <th>actions</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Descripción</th>
+            <th>Fecha de orden</th>
+            <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -38,13 +38,13 @@
                 <td id="desc">{{ movement.description }}</td>
                 <td>{{ movement.orderDate ? movement.orderDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('movement_edit', {'id': movement.id}) }}"><i class="fas fa-edit"> Edit or Add to a project</i></a>
+                    <a href="{{ path('movement_edit', {'id': movement.id}) }}"><i class="fas fa-edit"> Editar o agregar a un proyecto</i></a>
                     {{ include('movement/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">No se encontraron registros</td>
             </tr>
         {% endfor %}
         </tbody>

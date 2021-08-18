@@ -1,51 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Project{% endblock %}
+{% block title %}Proyecto{% endblock %}
 
 {% block body %}
-    <h1>Project</h1>
+    <h1>Proyecto</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Contract number</th>
+                <th>Número de contrato</th>
                 <td>{{ project.contractnumber }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>Nombre</th>
                 <td>{{ project.name }}</td>
             </tr>
             <tr>
-                <th>Registration Date</th>
+                <th>Fecha de Registro</th>
                 <td>{{ project.registrationdate ? project.registrationdate|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Start Date</th>
+                <th>Fecha de inicio</th>
                 <td>{{ project.startdate ? project.startdate|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>End time</th>
+                <th>Fecha de finalización</th>
                 <td>{{ project.endtime ? project.endtime|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>Description or bill of materials</th>
+                <th>Descripción o lista de materiales</th>
                 <td>{{ project.description }}</td>
             </tr>
             <tr>
-                <th>Advances (%)</th>
+                <th>Avances (%)</th>
                 <td>{{ project.advances }}</td>
             </tr>
             <tr>
-                <th>Total Cost ($)</th>
+                <th> Coste total($)</th>
                 <td>{{ project.totalcost }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('project_index') }}"><i class="fas fa-hand-point-left"> back to list</i></a>
+    <a href="{{ path('project_index') }}"><i class="fas fa-hand-point-left"> volver a la lista</i></a>
     <br>
     {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
-        <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit"> Edit</i></a>
+        <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit"> Editar</i></a>
     {% endif %}
     {% if is_granted("ROLE_MANAGER") %}
         {{ include('project/_delete_form.html.twig') }}

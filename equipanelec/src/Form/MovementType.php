@@ -20,19 +20,21 @@ class MovementType extends AbstractType
             ->add('orderDate', DateTimeType::class, [
                 'disabled' => true,
                 'widget' => 'single_text',
+                'label' => 'Fecha de registro'
             ])
             ->add('quantity', NumberType::class, [
-                'label' => "Enter here the number of elements you need in the movement.",
+                'label' => "Ingrese la cantidad de elementos que necesita en el movimiento",
             ])
             ->add('description', TextareaType::class, [
-                'label' => "Enter a description of the material",
+                'label' => "Ingrese una descripción del material",
                 'required' => false
             ])
             ->add('projects', EntityType::class, [
                 'class' => Project::class,
                 'choice_label' => 'name',
-                'placeholder' => 'Select a Project',
-                'required' => false
+                'placeholder' => 'Seleccione un proyecto',
+                'required' => false,
+                'label' => 'Seleccione el proyecto al que se va asignar el articulo'
             ])
 
         ;
