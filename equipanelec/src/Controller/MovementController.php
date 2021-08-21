@@ -294,6 +294,7 @@ class MovementController extends AbstractController
         ?float $mvOld
     ): string
     {
+        $message = '';
         if ($movement->getMaterials() != null) {
             if($movement->getMaterials()->getStock()>=$movement->getQuantity())
             {
@@ -340,11 +341,6 @@ class MovementController extends AbstractController
     }
 
 
-    /**
-     * @param Movement $movement
-     * @param float|null $mvOld
-     * @param $entityManager
-     */
     public function returnToInventoryByElimination(
         Movement $movement,
         ?float $mvOld,
