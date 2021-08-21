@@ -45,9 +45,10 @@ class MovementController extends AbstractController
      */
     public function listMovement(MovementRepository $movementRepository): Response
     {
-        $movements = $movementRepository->findBy(['projects'=> null]);
+        $movements = $movementRepository->findAll();
 
         $this->totalCostMovement($movements);
+
         return $this->render('movement/filteredMovement.html.twig', [
             'movements' => $movementRepository->findBy(['projects'=> null]),
             'message' => $message=""

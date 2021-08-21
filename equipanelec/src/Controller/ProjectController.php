@@ -65,7 +65,8 @@ class ProjectController extends AbstractController
 
 
         return $this->render('project/index.html.twig', [
-            'projects' => $projectRepository->findAll()
+            'projects' => $projectRepository->findAll(),
+            'message' => ''
         ]);
     }
 
@@ -162,42 +163,49 @@ class ProjectController extends AbstractController
     ): Response
     {
         $project = $projectRepository->find($idP);
+        if (100 == $project->getAdvances())
+        {
+            $projectClose = new ProjectClose();
 
-        $projectClose = new ProjectClose();
+            $material = $projectRepository->costMaterialPerProject($idP);
+            $tool = $projectRepository->costToolPerProject($idP);
+            $cable = $projectRepository->costCablePerProject($idP);
+            $allTask = $projectRepository->allTaskEndProject($idP);
 
-        $material = $projectRepository->costMaterialPerProject($idP);
-        $tool = $projectRepository->costToolPerProject($idP);
-        $cable = $projectRepository->costCablePerProject($idP);
-        $allTask = $projectRepository->allTaskEndProject($idP);
-
-        $date['material'] = $material;
-        $date['tool'] = $tool;
-        $date['cable'] = $cable;
-        $date['allTask'] = $allTask;
-
-
-        $projectClose->setContractNumber($project->getContractNumber());
-        $projectClose->setName($project->getName());
-        $projectClose->setRegistrationDate($project->getRegistrationDate());
-        $projectClose->setStartDate($project->getStartDate());
-        $projectClose->setEndTime($project->getEndTime());
-        $projectClose->setTotalCostTask($project->getTotalCostTask());
-        $projectClose->setTotalCostInventory($project->getTotalCostInventory());
-        $projectClose->setTotalCost($project->getTotalCost());
-        $projectClose->setCommercialValue($project->getCommercialValue());
-
-        $projectClose->setDate($date);
+            $date['material'] = $material;
+            $date['tool'] = $tool;
+            $date['cable'] = $cable;
+            $date['allTask'] = $allTask;
 
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($projectClose);
-        $entityManager->flush();
+            $projectClose->setContractNumber($project->getContractNumber());
+            $projectClose->setName($project->getName());
+            $projectClose->setRegistrationDate($project->getRegistrationDate());
+            $projectClose->setStartDate($project->getStartDate());
+            $projectClose->setEndTime($project->getEndTime());
+            $projectClose->setTotalCostTask($project->getTotalCostTask());
+            $projectClose->setTotalCostInventory($project->getTotalCostInventory());
+            $projectClose->setTotalCost($project->getTotalCost());
+            $projectClose->setCommercialValue($project->getCommercialValue());
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($project);
-        $entityManager->flush();
+            $projectClose->setDate($date);
 
-        return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($projectClose);
+            $entityManager->flush();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($project);
+            $entityManager->flush();
+            return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
+
+        }else{
+            return $this->render('project/index.html.twig', [
+                'message' => 'Tienes tareas pedientes. Termina las tareas para poder cerrar el proyecto.',
+                'projects' => $projectRepository->findAll()
+            ]);
+        }
 
     }
 
@@ -211,7 +219,6 @@ class ProjectController extends AbstractController
             'projects' => $projects
         ]);
     }
-
 
 
 }

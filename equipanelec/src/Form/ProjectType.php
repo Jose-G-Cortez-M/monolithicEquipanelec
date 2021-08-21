@@ -21,7 +21,7 @@ class ProjectType extends AbstractType
                 'label' => "Ingrese el número de contrato",
             ])
             ->add('name', TextType::class, [
-                'label' => "Ingrese el nombre del representante para el proyecto",
+                'label' => "Ingrese un nombre representativo para el proyecto",
             ])
             ->add('startDate', DateType::class, [
                 'input' => 'datetime',
