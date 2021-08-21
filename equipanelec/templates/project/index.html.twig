@@ -6,6 +6,11 @@
     {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
         <h4><a href="{{ path('project_new') }}"><i class="fas fa-business-time"> Agregar nuevo proyecto</i></a></h4>
     {% endif %}
+    <h2>
+        {% if message|default%}
+            {{ message }}
+        {% endif %}
+    </h2>
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-dark">
@@ -20,10 +25,10 @@
                     <th>Avances (%)</th>
                 {% endif %}
                 {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_MANAGER") %}
-                    <th>Costo total de tareas</th>
-                    <th>Costo total de Inventario</th>
-                    <th>Costo total</th>
-                    <th>Valor comercial</th>
+                    <th>Costo total de tareas ($)</th>
+                    <th>Costo total de Inventario ($)</th>
+                    <th>Costo total ($)</th>
+                    <th>Valor comercial ($)</th>
                 {% endif %}
                 <th>Acciones</th>
             </tr>

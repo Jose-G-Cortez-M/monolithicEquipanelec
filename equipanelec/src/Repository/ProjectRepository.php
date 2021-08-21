@@ -100,7 +100,7 @@ class ProjectRepository extends ServiceEntityRepository
             ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
         ];
         $query = ('SELECT SUM(movement.total_cost) AS totalInventory 
-                    FROM movement WHERE movement.projects_id= :idp'
+                    FROM movement WHERE movement.projects_id = :idp'
         );
 
         return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();

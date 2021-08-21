@@ -50,7 +50,7 @@ class ProjectClose
     /**
      * @ORM\Column(type="array", nullable=true)
      */
-    private array $date = [];
+    private ?array $date = [];
 
     /**
      * @ORM\Column(type="float", nullable=true)

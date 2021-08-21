@@ -89,17 +89,17 @@ class Project
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $commercialValue;
+    private ?float $commercialValue;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $totalCostTask;
+    private ?float $totalCostTask;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $totalCostInventory;
+    private ?float $totalCostInventory;
 
 
 
