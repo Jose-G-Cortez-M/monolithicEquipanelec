@@ -26,11 +26,11 @@ class UserType extends AbstractType
             ->add('roles', ChoiceType::class, [
                     'multiple' => true,
                     'choices' => [
-                        'Cellar manager' => 'ROLE_CELLAR',
-                        'Project Manager' => 'ROLE_PROJECT_MANAGER',
-                        'Counter' => 'ROLE_COUNTER',
-                        'Workers' => 'ROLE_WORKERS',
-                        'Administrator' => 'ROLE_MANAGER'
+                        'Encargado de bodega' => 'ROLE_CELLAR',
+                        'Jefe de proyectos' => 'ROLE_PROJECT_MANAGER',
+                        'Contador' => 'ROLE_COUNTER',
+                        'Trabajador' => 'ROLE_WORKERS',
+                        'Administrador' => 'ROLE_MANAGER'
                     ],
                 'label' => 'Seleccione el rol del empleado'
             ])

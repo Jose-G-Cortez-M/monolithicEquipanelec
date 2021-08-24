@@ -3,11 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Project;
-use App\Entity\Task;
 use App\Form\TaskAddProjectType;
 use App\Form\UserAddProjectType;
 use App\Repository\ProjectRepository;
-use App\Repository\TaskRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

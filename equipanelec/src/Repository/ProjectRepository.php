@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Project;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Driver\Exception;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,7 +22,14 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     // list of tasks per user that are not finished
-    public function taskPerUser (int $value)
+
+    /**
+     * @param int $value
+     * @return array
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function taskPerUser (int $value): ?array
     {
         $params = [
           ':id' => $this->getEntityManager()->getConnection()->quote($value),
@@ -44,7 +52,7 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     //task observation update by project
-    public function updateProjectTask(int $idTask, int $idProject,string $description)
+    public function updateProjectTask(int $idTask, int $idProject,string $description): string
     {
         $params = [
             ':idt' => $this->getEntityManager()->getConnection()->quote($idTask),
@@ -61,7 +69,12 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     //task observation by project
-    public function observationProjectTask(int $idTask, int $idProject)
+
+    /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function observationProjectTask(int $idTask, int $idProject): array
     {
         $params = [
             ':idt' => $this->getEntityManager()->getConnection()->quote($idTask),
@@ -76,7 +89,7 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     //task status update by project
-    public function updateProjectTaskState(int $idTask, int $idProject,string $state)
+    public function updateProjectTaskState(int $idTask, int $idProject,string $state): string
     {
         $params = [
             ':idt' => $this->getEntityManager()->getConnection()->quote($idTask),
@@ -95,7 +108,8 @@ class ProjectRepository extends ServiceEntityRepository
 
 
     //Inventory costs
-    public function queryCostInventory(int $idProject){
+    public function queryCostInventory(int $idProject): array
+    {
         $params = [
             ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
         ];
@@ -109,7 +123,8 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
 
-    public function queryCommercialInventory(int $idProject){
+    public function queryCommercialInventory(int $idProject): array
+    {
         $params = [
             ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
         ];
@@ -123,7 +138,8 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     //Cost of tasks per project
-    public function queryCostTask($idProject){
+    public function queryCostTask($idProject): array
+    {
         $params = [
             ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
         ];
@@ -138,7 +154,8 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     //Count of all project tasks
-    public function allTask($idProject){
+    public function allTask($idProject): array
+    {
             $params = [
                 ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
             ];
@@ -151,7 +168,8 @@ class ProjectRepository extends ServiceEntityRepository
 
     }
     //Count of completed project tasks
-    public function taskFinish($idProject){
+    public function taskFinish($idProject): array
+    {
 
                 $params = [
                     ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
@@ -169,7 +187,8 @@ class ProjectRepository extends ServiceEntityRepository
     
 
     //Inventory costs per material
-    public function costMaterialPerProject(int $idProject){
+    public function costMaterialPerProject(int $idProject): array
+    {
         $params = [
             ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
         ];
@@ -182,7 +201,8 @@ class ProjectRepository extends ServiceEntityRepository
 
     }
 
-    public function costToolPerProject(int $idProject){
+    public function costToolPerProject(int $idProject): array
+    {
         $params = [
             ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
         ];
@@ -193,7 +213,8 @@ class ProjectRepository extends ServiceEntityRepository
         return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
 
     }
-    public function costCablePerProject(int $idProject){
+    public function costCablePerProject(int $idProject): array
+    {
         $params = [
             ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
         ];
@@ -207,7 +228,8 @@ class ProjectRepository extends ServiceEntityRepository
 
 
     //All task end project
-    public function allTaskEndProject($idProject){
+    public function allTaskEndProject($idProject): array
+    {
         $params = [
             ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
         ];
@@ -222,7 +244,8 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     //Show observation per project task
-    public function showObservationProjectTask($idProject){
+    public function showObservationProjectTask($idProject): array
+    {
         $params = [
             ':idp' => $this->getEntityManager()->getConnection()->quote($idProject),
         ];
