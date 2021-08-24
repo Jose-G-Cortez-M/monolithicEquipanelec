@@ -1,0 +1,3 @@
+<?php // test.encrypt.public on Sun, 22 Aug 2021 17:57:04 -0400
+
+return "\xB9\x608OU\x23XvG\x3B0\xBCD\x8F\x60AI\x15\xF0-D\xCE\x0E\x8D\xA5\xA4\x933H\xC7\xFCF";

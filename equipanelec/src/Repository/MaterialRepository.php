@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Material|null findOneBy(array $criteria, array $orderBy = null)
  * @method Material[]    findAll()
  * @method Material[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- * @extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository<Client>
+ * @extends \Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository<Material>
  */
 class MaterialRepository extends ServiceEntityRepository
 {

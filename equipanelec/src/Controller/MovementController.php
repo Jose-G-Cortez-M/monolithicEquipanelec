@@ -190,13 +190,18 @@ class MovementController extends AbstractController
         ToolRepository $toolRepository
     ): Response
     {
-        $message="";
+
+        
+        $message="<h4><p>Recuerda verificar el valor de  la casilla cantidad de elementos que es la que te indica el número de ítems(material, cables o herramientas) que serán registrados en el movimiento.</p>
+                   <p>Si modificas este valor la diferencia sera  sumada o restada del inventario.</p></h4>";
         $mvOld = $movement->getQuantity();
         $form = $this->createForm(MovementType::class, $movement);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $message=$this->backToInventoryByEdit($movement, $materialRepository, $cableRepository, $toolRepository, $mvOld);
+
             if($message == ''){
                 $this->getDoctrine()->getManager()->flush();
                 if($this->isGranted("ROLE_CELLAR")) {
@@ -296,7 +301,7 @@ class MovementController extends AbstractController
     {
         $message = '';
         if ($movement->getMaterials() != null) {
-            if($movement->getMaterials()->getStock()>=$movement->getQuantity())
+            if ($movement->getMaterials()->getStock()+$mvOld >= $movement->getQuantity())
             {
                 $material = $materialRepository->find($movement->getMaterials()->getId());
                 $diff = ($mvOld - $movement->getQuantity());
@@ -304,12 +309,14 @@ class MovementController extends AbstractController
                 $material->setStock($add);
                 $movement->setTotalCost($movement->getMaterials()->getSalePrice()*$movement->getQuantity());
                 $movement->setMaterials($material);
+                $this->getDoctrine()->getManager()->flush();
                 $message = '';
             }else{
                 $message = "<h2>¡Ops! No tienes suficientes materiales en el almacén.</h2>";
             }
         } elseif ($movement->getCables() != null) {
-            if($movement->getCables()->getAvailability()>=$movement->getQuantity())
+
+            if($movement->getCables()->getAvailability()+$mvOld >= $movement->getQuantity())
             {
                 $cable = $cableRepository->find($movement->getCables()->getId());
                 $diff = ($mvOld - $movement->getQuantity());
@@ -317,13 +324,14 @@ class MovementController extends AbstractController
                 $cable->setAvailability($add);
                 $movement->setTotalCost($movement->getCables()->getSalePrice()*$movement->getQuantity());
                 $movement->setCables($cable);
+                $this->getDoctrine()->getManager()->flush();
                 $message = '';
             }else{
                 $message = "<h2>¡Ops! No tienes suficientes cables en el almacén.</h2>";
 
             }
         } elseif ($movement->getTools() != null) {
-            if($movement->getTools()->getStock()>=$movement->getQuantity())
+            if($movement->getTools()->getStock()+$mvOld >= $movement->getQuantity())
             {
                 $tool = $toolRepository->find($movement->getTools()->getId());
                 $diff = ($mvOld - $movement->getQuantity());
@@ -331,6 +339,7 @@ class MovementController extends AbstractController
                 $tool->setStock($add);
                 $movement->setTotalCost($movement->getTools()->getPrice()*$movement->getQuantity());
                 $movement->setTools($tool);
+                $this->getDoctrine()->getManager()->flush();
                 $message='';
             }else{
                 $message = "<h2> ¡Ops! No tienes suficientes herramientas en el almacén.</h2>";

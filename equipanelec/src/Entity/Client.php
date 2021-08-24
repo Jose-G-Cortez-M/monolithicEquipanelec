@@ -48,7 +48,7 @@ class Client
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $debt;
+    private ?float $debt;
 
     public function __construct()
     {

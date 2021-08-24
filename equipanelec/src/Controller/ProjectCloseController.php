@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\ProjectClose;
-use App\Form\ProjectCloseType;
 use App\Repository\ProjectCloseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
