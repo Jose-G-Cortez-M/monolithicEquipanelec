@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+
 /**
  * @ORM\Entity(repositoryClass=ToolRepository::class)
  * @Vich\Uploadable
@@ -27,11 +28,19 @@ class Tool
 
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
+     * @Assert\Length(
+     *      max = 150,
+     *      maxMessage = "El  código de barras no puede tener mas de 150 carácteres"
+     * )
      */
     private ?string $barcode;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(
+     *      max = 100,
+     *      maxMessage = "El nombre de la herramienta no puede tener mas de 100 carácteres"
+     * )
      */
     private string $name;
 
@@ -48,6 +57,10 @@ class Tool
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\Length(
+     *      max = 50,
+     *      maxMessage = "La marca del cable no puede tener mas de 50 carácteres"
+     * )
      */
     private ?string $brand;
 

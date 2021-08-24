@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+
 /**
  * @ORM\Entity(repositoryClass=CableRepository::class)
  * @Vich\Uploadable
@@ -27,11 +28,19 @@ class Cable
 
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
+     * @Assert\Length(
+     *      max = 150,
+     *      maxMessage = "El código de barras no puede tener más de 150 carácteres"
+     * )
      */
     private ?string $barcode;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(
+     *      max = 100,
+     *      maxMessage = "El nombre del cable no puede tener más de 100 carácteres"
+     * )
      */
     private string $name;
 
@@ -55,7 +64,7 @@ class Cable
 
     /**
      * @ORM\Column(type="float")
-     * @Assert\PositiveOrZero()
+     * @Assert\Positive
      */
     private float $salePrice;
 
@@ -71,6 +80,7 @@ class Cable
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive
      */
     private ?float $minimumLimit;
 
