@@ -25,7 +25,7 @@ class Project
      * @ORM\Column(type="string", length=100, nullable=true)
      * @Assert\Length(
      *      max = 100,
-     *      maxMessage = "El número de contrato no puede tener mas de 100 carácteres"
+     *      maxMessage = "El número de contrato no puede tener más de 100 carácteres"
      * )
      */
     private ?string $contractNumber;
@@ -34,7 +34,7 @@ class Project
      * @ORM\Column(type="string", length=100)
      * @Assert\Length(
      *      max = 100,
-     *      maxMessage = "El nombre del proyecto no puede tener mas de 100 carácteres"
+     *      maxMessage = "El nombre del proyecto no puede tener más de 100 carácteres"
      * )
      */
     private string $name;

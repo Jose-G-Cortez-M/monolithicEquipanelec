@@ -25,13 +25,14 @@ class Task
      * @ORM\Column(type="string", length=100)
      * @Assert\Length(
      *      max = 100,
-     *      maxMessage = "El nombre de la tarea no puede tener mas de 100 carácteres"
+     *      maxMessage = "El nombre de la tarea no puede tener más de 100 carácteres"
      * )
      */
     private string $name;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive
      */
     private float $timePerMinute;
 
