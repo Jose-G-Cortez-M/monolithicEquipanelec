@@ -30,7 +30,7 @@ class Tool
      * @ORM\Column(type="string", length=150, nullable=true)
      * @Assert\Length(
      *      max = 150,
-     *      maxMessage = "El  código de barras no puede tener mas de 150 carácteres"
+     *      maxMessage = "El  código de barras no puede tener más de 150 carácteres"
      * )
      */
     private ?string $barcode;
@@ -39,7 +39,7 @@ class Tool
      * @ORM\Column(type="string", length=100)
      * @Assert\Length(
      *      max = 100,
-     *      maxMessage = "El nombre de la herramienta no puede tener mas de 100 carácteres"
+     *      maxMessage = "El nombre de la herramienta no puede tener más de 100 carácteres"
      * )
      */
     private string $name;
@@ -59,7 +59,7 @@ class Tool
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Assert\Length(
      *      max = 50,
-     *      maxMessage = "La marca del cable no puede tener mas de 50 carácteres"
+     *      maxMessage = "La marca del cable no puede tener más de 50 carácteres"
      * )
      */
     private ?string $brand;

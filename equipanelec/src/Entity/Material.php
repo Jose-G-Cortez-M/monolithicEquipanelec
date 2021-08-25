@@ -31,7 +31,7 @@ class Material
      * @ORM\Column(type="string", length=150, nullable=true)
      * @Assert\Length(
      *      max = 150,
-     *      maxMessage = "El código de barras no puede tener mas de 150 carácteres"
+     *      maxMessage = "El código de barras no puede tener más de 150 carácteres"
      * )
      */
     private ?string $barcode;
