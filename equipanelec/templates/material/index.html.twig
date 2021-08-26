@@ -20,7 +20,7 @@
         <tbody>
         {% for material in materials %}
             {% if material.minimumLimit is null or material.minimumLimit>material.stock %}
-                <tr class="table-warning">
+                <tr class="table-danger">
                     <td><img src="{{ vich_uploader_asset(material, 'imageFile') }}" alt="{{ material.name }}" height="100">
                     </td>
                     <td>{{ material.name }}</td>
@@ -34,7 +34,7 @@
                     </td>
                 </tr>
             {% else %}
-                <tr>
+                <tr class="table-success">
                     <td><img src="{{ vich_uploader_asset(material, 'imageFile') }}" alt="{{ material.name }}" height="100">
                     </td>
                     <td>{{ material.name }}</td>
