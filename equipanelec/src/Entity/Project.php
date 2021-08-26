@@ -109,6 +109,11 @@ class Project
      */
     private ?float $totalCostInventory;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $process;
+
 
 
     public function __construct()
@@ -347,6 +352,18 @@ class Project
     public function setTotalCostInventory(?float $totalCostInventory): self
     {
         $this->totalCostInventory = $totalCostInventory;
+
+        return $this;
+    }
+
+    public function getProcess(): ?string
+    {
+        return $this->process;
+    }
+
+    public function setProcess(?string $process): self
+    {
+        $this->process = $process;
 
         return $this;
     }

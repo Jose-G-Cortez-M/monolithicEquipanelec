@@ -35,8 +35,12 @@ class ProjectType extends AbstractType
                 'required' => false,
                 'label' => 'Fecha de finalización del proyecto'
             ])
+            ->add('process', TextareaType::class, [
+                'label' => "Ingrese un detalle del proceso que seguira el proyecto",
+                'required' => false
+            ])
             ->add('description', TextareaType::class, [
-                'label' => "Ingrese una descripción o lista de materiales",
+                'label' => "Ingrese una descripción o lista de materiales Este campo sera mostrado al personal asignado a las tareas",
                 'required' => false
             ])
             ->add('clients', EntityType::class, [

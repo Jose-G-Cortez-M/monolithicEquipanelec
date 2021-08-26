@@ -20,7 +20,7 @@
         <tbody>
         {% for cable in cables %}
             {% if cable.minimumLimit is null or cable.minimumLimit>cable.availability %}
-                <tr class="table-warning">
+                <tr class="table-danger">
                     <td><img src="{{ vich_uploader_asset(cable, 'imageFile') }}" alt="{{ cable.name }}" height="100"></td>
                     <td>{{ cable.name }}</td>
                     <td>{{ cable.availability }}</td>
@@ -34,7 +34,7 @@
                     </td>
                 </tr>
             {% else %}
-                <tr>
+                <tr class="table-success">
                     <td><img src="{{ vich_uploader_asset(cable, 'imageFile') }}" alt="{{ cable.name }}" height="100"></td>
                     <td>{{ cable.name }}</td>
                     <td>{{ cable.availability }}</td>
