@@ -15,7 +15,7 @@ class DescriptionTaskType extends AbstractType
         $builder
             ->add('description', TextareaType::class, [
                 'label' => "Ingrese la observación de la tarea",
-                'required' => false
+                'required' => true
             ])
 
         ;
