@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nuevo proyecto{% endblock %}
+
+{% block body %}
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-9 bg-white rounded my3 p-5">
+                <h1>Crear nuevo proyecto</h1>
+                {{ include('project/_form.html.twig') }}
+                <a href="{{ path('project_index') }}"><i class="fas fa-hand-point-left"> Volver a la lista</i> </a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('movement_delete', {'id': movement.id}) }}" onsubmit="return confirm('¿Seguro que desea devolver todos los artículos al inventario?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ movement.id) }}">
+    <button class="btn btn-success" id="do"><i class="fas fa-pallet"> Regresar al Inventario</i></button>
+</form>

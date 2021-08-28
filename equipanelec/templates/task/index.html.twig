@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Índice de tareas{% endblock %}
+
+{% block body %}
+    <h1>Índice de tareas</h1>
+    <h4><a href="{{ path('task_new') }}"><i class="fas fa-tasks"> Agregar nueva tarea</i></a></h4>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr class="table-dark">
+                <th>Nombre</th>
+                <th>Tiempo por minuto para completar la tarea</th>
+                <th>Descripción</th>
+                <th>Costo por tarea</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.name }}</td>
+                <td>{{ task.timeperminute }}</td>
+                <td id="desc">{{ task.description }}</td>
+                <td>{{ task.costpertask }}</td>
+                <td>
+                    <a href="{{ path('task_show', {'id': task.id}) }}"><i class="far fa-eye"> Ver detalles</i></a>
+                    <br>
+                    <a href="{{ path('task_edit', {'id': task.id}) }}"><i class="fas fa-edit"> Editar</i></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">No se encontraron registros</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

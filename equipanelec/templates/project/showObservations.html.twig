@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Observaciones{% endblock %}
+
+{% block body %}
+
+    <h1>Observaciones del proyecto</h1>
+    {% if projects|default  %}
+        <h2>{{ projects[0]['name'] }}</h2>
+    {% endif %}
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr class="table-dark">
+            <th>Nombre de la tarea</th>
+            <th>Observación</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for project in projects %}
+            <tr>
+                <td>
+                    {{ project.name }}
+                </td>
+
+                <td>
+                    {{ project.description }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">No se encontraron registros</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('project_index') }}"><i class="fas fa-hand-point-left"> Volver a la lista</i></a>
+
+{% endblock %}

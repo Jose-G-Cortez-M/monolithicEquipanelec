@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar material{% endblock %}
+
+{% block body %}
+
+
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-9 bg-white rounded my3 p-5">
+                <h1>Editar material</h1>
+                <a href="{{ path('material_index') }}"><i class="fas fa-hand-point-left"> Volver a la lista</i></a>
+                {{ include('material/_form.html.twig', {'button_label': 'Update'}) }}
+                {% if is_granted("ROLE_MANAGER") %}
+                    {{ include('material/_delete_form.html.twig') }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

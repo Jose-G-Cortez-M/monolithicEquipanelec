@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('project_close_delete', {'id': project_close.id}) }}" onsubmit="return confirm('¿Estas seguro de eliminar un proyecto cerrado? perderas valor histórico de los proyectos');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project_close.id) }}">
+    <button class="btn btn-danger" id="button"><i class="fas fa-trash-alt"></i></button>
+</form>

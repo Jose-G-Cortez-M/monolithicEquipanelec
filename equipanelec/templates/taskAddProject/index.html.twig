@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Asignar tareas a un proyecto {% endblock %}
+
+{% block body %}
+
+
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-9 bg-white rounded my3 p-5">
+                <h1>Asignar tareas a un proyecto</h1>
+                <h3>Proyecto: {{ project.name }}</h3>
+                {{ include('taskAddProject/_form.html.twig') }}
+                <a href="{{ path('project_index') }}"><i class="fas fa-hand-point-left"> Volver a la lista</i> </a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

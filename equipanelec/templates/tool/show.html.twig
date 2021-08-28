@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Herramientas{% endblock %}
+
+{% block body %}
+    <h1>Herramientas</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Imagen</th>
+                <td>
+                    <img src="{{ vich_uploader_asset(tool, 'imageFile') }}" alt="{{ tool.name }}" height="150">
+                </td>
+            </tr>
+            <tr>
+                <th>Identificador</th>
+                <td>{{ tool.id }}</td>
+            </tr>
+            <tr>
+                <th>Código de barras</th>
+                <td>{{ tool.barcode }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ tool.name }}</td>
+            </tr>
+            <tr>
+                <th>Inventario</th>
+                <td>{{ tool.stock }}</td>
+            </tr>
+            <tr>
+                <th>Marca</th>
+                <td>{{ tool.brand }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ tool.price }}</td>
+            </tr>
+            <tr>
+                <th>Límite Minimo</th>
+                <td>{{ tool.minimumLimit }}</td>
+            </tr>
+            <tr>
+                <th>Ubicación</th>
+                <td>{{ tool.location }}</td>
+            </tr>
+            <tr>
+                <th>Descripción</th>
+                <td>{{ tool.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('tool_index') }}"><i class="fas fa-hand-point-left"> volver a la lista</i></a>
+    <br>
+    <a href="{{ path('tool_edit', {'id': tool.id}) }}"><i class="fas fa-edit"> Actualice o agregue más herramientas</i></a>
+    {% if is_granted("ROLE_MANAGER") %}
+        {{ include('tool/_delete_form.html.twig') }}
+    {% endif %}
+
+{% endblock %}

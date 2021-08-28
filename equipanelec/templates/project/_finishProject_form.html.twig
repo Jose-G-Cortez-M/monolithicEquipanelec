@@ -1,0 +1,5 @@
+<form method="get" action="{{ path('project_finish', {'idP': project.id}) }}" onsubmit="return confirm(' ¿Estás seguro de que desea terminar el proyecto? Cuando esté terminado, no podrá verlo en su lista de proyectos.')">
+    <button class="btn btn-danger" id="button">
+        <i class="fas fa-paperclip"> Terminar proyecto</i>
+    </button>
+</form>

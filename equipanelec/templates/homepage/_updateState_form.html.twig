@@ -1,0 +1,5 @@
+<form method="get" action="{{ path('homepage_update_state', {'idt': taskPerUser.idt,'idp': taskPerUser.idp}) }}" onsubmit="return confirm('¿Terminaste tu tarea? No olvides escribir una observación. ');">
+    <button class="btn btn-success" id="do">
+        <i class="far fa-calendar-check"> Tarea terminada</i>
+    </button>
+</form>

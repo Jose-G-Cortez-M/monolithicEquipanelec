@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('cable_delete', {'id': cable.id}) }}" onsubmit="return confirm('¿Está seguro que desea eliminar el artículo? perderia los movimientos asociados.');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cable.id) }}">
+    <button class="btn btn-danger" id="button"><i class="fas fa-trash-alt"></i></button>
+</form>

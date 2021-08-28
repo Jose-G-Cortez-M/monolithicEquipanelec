@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista de materiales{% endblock %}
+
+{% block body %}
+    <h1>Lista de materiales</h1>
+
+    <h4><a href="{{ path('material_new') }}"><i class="fas fa-archive"> Agregar un nuevo material</i></a></h4>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr class="table-dark">
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Inventario</th>
+                <th>Ubicación</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for material in materials %}
+            {% if material.minimumLimit is null or material.minimumLimit>material.stock %}
+                <tr class="table-danger">
+                    <td><img src="{{ vich_uploader_asset(material, 'imageFile') }}" alt="{{ material.name }}" height="100">
+                    </td>
+                    <td>{{ material.name }}</td>
+                    <td>{{ material.stock }}</td>
+                    <td id="desc">{{ material.location }}</td>
+                    <td id="desc">{{ material.description }}</td>
+                    <td>
+                        <a href="{{ path('material_show', {'id': material.id}) }}"><i class="far fa-eye"> Mostrar detalles</i></a>
+                        {{ include('material/_movement_form.html.twig') }}
+                        <a href="{{ path('material_edit', {'id': material.id}) }}"><i class="fas fa-edit"> Actualice o agregue más material</i></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="table-success">
+                    <td><img src="{{ vich_uploader_asset(material, 'imageFile') }}" alt="{{ material.name }}" height="100">
+                    </td>
+                    <td>{{ material.name }}</td>
+                    <td>{{ material.stock }}</td>
+                    <td id="desc">{{ material.location }}</td>
+                    <td id="desc">{{ material.description }}</td>
+                    <td>
+                        <a href="{{ path('material_show', {'id': material.id}) }}"><i class="far fa-eye"> Mostrar detalles</i></a>
+                        <br>
+                        <a href="{{ path('material_edit', {'id': material.id}) }}"><i class="fas fa-edit"> Actualice o agregue más material</i></a>
+                        {{ include('material/_movement_form.html.twig') }}
+                    </td>
+                </tr>
+            {% endif %}
+
+        {% else %}
+            <tr>
+                <td colspan="8"> No se encontraron registros</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

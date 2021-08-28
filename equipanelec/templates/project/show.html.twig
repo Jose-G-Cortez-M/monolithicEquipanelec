@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Proyecto{% endblock %}
+
+{% block body %}
+    <h1>Proyecto</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Número de contrato</th>
+                <td>{{ project.contractnumber }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ project.name }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de Registro</th>
+                <td>{{ project.registrationdate ? project.registrationdate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de inicio</th>
+                <td>{{ project.startdate ? project.startdate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de finalización</th>
+                <td>{{ project.endtime ? project.endtime|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Descripción o lista de materiales</th>
+                <td>{{ project.description }}</td>
+            </tr>
+            <tr>
+                <th>Avances (%)</th>
+                <td>{{ project.advances }}</td>
+            </tr>
+            <tr>
+                <th> Coste total($)</th>
+                <td>{{ project.totalcost }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('project_index') }}"><i class="fas fa-hand-point-left"> volver a la lista</i></a>
+    <br>
+    {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
+        <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit"> Editar</i></a>
+    {% endif %}
+    {% if is_granted("ROLE_MANAGER") %}
+        {{ include('project/_delete_form.html.twig') }}
+    {% endif %}
+
+{% endblock %}

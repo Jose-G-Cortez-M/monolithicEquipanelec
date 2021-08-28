@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista de movimientos{% endblock %}
+
+{% block body %}
+    <h1>Lista de movimientos</h1>
+
+    <a href="{{ path('material_index') }}"><i class="fas fa-hand-point-left"> Volver al listado de Materiales</i></a>
+
+    {{ message |raw}}
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr class="table-dark">
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Descripción</th>
+            <th>Fecha de orden</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for movement in movements %}
+            <tr>
+
+                <td>
+                    {% if movement.materials.name |default %}
+                        {{ movement.materials.name }}
+                    {% endif %}
+                    {% if movement.tools.name |default %}
+                        {{ movement.tools.name }}
+                    {% endif %}
+                    {% if movement.cables.name |default %}
+                        {{ movement.cables.name }}
+                    {% endif %}
+                </td>
+
+                <td>{{ movement.quantity }}</td>
+                <td id="desc">{{ movement.description }}</td>
+                <td>{{ movement.orderDate ? movement.orderDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('movement_edit', {'id': movement.id}) }}"><i class="fas fa-edit"> Editar o agregar a un proyecto</i></a>
+                    {{ include('movement/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">No se encontraron registros</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Lista de tareas pendientes</h1>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr class="table-dark">
+                <th>Nombre del proyecto</th>
+                <th>Nombre de la tarea</th>
+                <th>Descripción o materiales</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for taskPerUser in tasksPerUser %}
+            <tr>
+
+                <td>{{ taskPerUser.project }}</td>
+                <td>{{ taskPerUser.name }}</td>
+                <td id="des">{{ taskPerUser.desproject }}</td>
+                <td>
+                    {{ include('homepage/_updateDescription_form.html.twig') }}
+                    {{ include('homepage/_updateState_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">No se encontraron registros</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

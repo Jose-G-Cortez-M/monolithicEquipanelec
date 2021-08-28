@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nuevo material{% endblock %}
+
+{% block body %}
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-9 bg-white rounded my3 p-5">
+                <h1>Crear nuevo material</h1>
+                <a href="{{ path('material_index') }}"><i class="fas fa-hand-point-left"> volver a la lista</i></a>
+                {{ include('material/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

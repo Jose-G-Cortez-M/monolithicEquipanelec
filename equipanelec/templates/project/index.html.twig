@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Índice de proyectos{% endblock %}
+{% block body %}
+    <h1>Índice de proyectos</h1>
+    {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
+        <h4><a href="{{ path('project_new') }}"><i class="fas fa-business-time"> Agregar nuevo proyecto</i></a></h4>
+    {% endif %}
+    <h2>
+        {% if message|default%}
+            {{ message }}
+        {% endif %}
+    </h2>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr class="table-dark">
+                <th>Número de contrato</th>
+                <th>Nombre</th>
+                {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_MANAGER") %}
+                    <th>Fecha de Registro</th>
+                {% endif %}
+                {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
+                    <th>Fecha de inicio</th>
+                    <th>Fecha de finalización</th>
+                    <th>Avances (%)</th>
+                {% endif %}
+                {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_MANAGER") %}
+                    <th>Costo total de tareas ($)</th>
+                    <th>Costo total de Inventario ($)</th>
+                    <th>Costo total ($)</th>
+                    <th>Valor comercial ($)</th>
+                {% endif %}
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for project in projects %}
+            <tr>
+                <td>{{ project.contractnumber }}</td>
+                <td>{{ project.name }}</td>
+                {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_MANAGER") %}
+                    <td>{{ project.registrationDate ? project.registrationDate|date('Y-m-d H:i:s') : '' }}</td>
+                {% endif %}
+                {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
+                    <td>{{ project.startdate ? project.startdate|date('Y-m-d') : '' }}</td>
+                    <td>{{ project.endtime ? project.endtime|date('Y-m-d') : '' }}</td>
+                    <td>{{ project.advances }}</td>
+                {% endif %}
+                {% if is_granted("ROLE_COUNTER") or is_granted("ROLE_MANAGER") %}
+                    <td>{{ project.totalCostTask }}</td>
+                    <td>{{ project.totalCostInventory }}</td>
+                    <td>{{ project.totalCost }}</td>
+                    <td>{{ project.commercialValue }}</td>
+                {% endif %}
+                <td>
+                    <a href="{{ path('project_show', {'id': project.id}) }}"><i class="far fa-eye"> Mostrar detalles</i></a>
+                    <br>
+                    {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
+                        <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit"> Editar</i> </a>
+                        {{ include('project/_assignTask_form.html.twig') }}
+                        {{ include('project/_assignWorker_form.html.twig') }}
+                        {{ include('project/_showObs_form.html.twig') }}
+                        {{ include('project/_finishProject_form.html.twig') }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10"> No se encontraron registros </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

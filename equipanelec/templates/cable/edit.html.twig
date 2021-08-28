@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Cable{% endblock %}
+
+{% block body %}
+
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-9 bg-white rounded my3 p-5">
+                <h1>Editar Cable</h1>
+                {{ include('cable/_form.html.twig', {'button_label': 'Update'}) }}
+                {% if is_granted("ROLE_MANAGER") %}
+                    {{ include('cable/_delete_form.html.twig') }}
+                {% endif %}
+                <a href="{{ path('cable_index') }}"><i class="fas fa-hand-point-left"> Regresar a la lista</i></a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

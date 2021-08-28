@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista de Herramientas{% endblock %}
+
+{% block body %}
+    <h1>Lista de Herramientas</h1>
+
+    <h4><a href="{{ path('tool_new') }}"><i class="fas fa-tools"> Agregar nueva herramienta</i></a></h4>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr class="table-dark">
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Inventario</th>
+                <th>Ubicación</th>
+                <th>Descripción</th>
+                <th>Límite mínimo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tool in tools %}
+            {% if tool.minimumLimit is null or tool.minimumLimit>tool.stock %}
+                <tr class="table-danger">
+                    <td><img src="{{ vich_uploader_asset(tool, 'imageFile') }}" alt="{{ tool.name }}" height="100"></td>
+                    <td>{{ tool.name }}</td>
+                    <td>{{ tool.stock }}</td>
+                    <td>{{ tool.location }}</td>
+                    <td id="desc">{{ tool.description }}</td>
+                    <td>{{ tool.minimumLimit }}</td>
+                    <td>
+                        <a href="{{ path('tool_show', {'id': tool.id}) }}"><i class="far fa-eye">Mostrar detalles</i></a>
+                        <a href="{{ path('tool_edit', {'id': tool.id}) }}"><i class="fas fa-edit"> Actualice o agregue más herramientas</i></a>
+                        {{ include('tool/_movement_form.html.twig') }}
+                    </td>
+            </tr>
+            {% else %}
+                <tr class="table-success">
+                    <td><img src="{{ vich_uploader_asset(tool, 'imageFile') }}" alt="{{ tool.name }}" height="100"></td>
+                    <td>{{ tool.name }}</td>
+                    <td>{{ tool.stock }}</td>
+                    <td>{{ tool.location }}</td>
+                    <td id="desc">{{ tool.description }}</td>
+                    <td>{{ tool.minimumLimit }}</td>
+                    <td>
+                        <a href="{{ path('tool_show', {'id': tool.id}) }}"><i class="far fa-eye"> Mostrar detalles</i></a>
+                        <br>
+                        <a href="{{ path('tool_edit', {'id': tool.id}) }}"><i class="fas fa-edit"> Actualice o agregue más herramientas</i></a>
+                        {{ include('tool/_movement_form.html.twig') }}
+                    </td>
+                </tr>
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="8">No se encontraron registros</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

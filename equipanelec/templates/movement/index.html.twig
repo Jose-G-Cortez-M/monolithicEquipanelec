@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Índice de movimiento {% endblock %}
+
+{% block body %}
+
+    <h1>Índice de movimiento </h1>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr class="table-dark">
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Fecha de orden</th>
+                <th>Asignar a un proyecto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for movement in movements %}
+            <tr>
+                <td>
+                    {% if movement.materials.name |default  %}
+                        {{ movement.materials.name }}
+                    {% endif %}
+                    {% if movement.tools.name |default  %}
+                        {{ movement.tools.name }}
+                    {% endif %}
+                    {% if movement.cables.name |default  %}
+                        {{ movement.cables.name }}
+                    {% endif %}
+                </td>
+
+                <td>{{ movement.quantity }}</td>
+                <td>{{ movement.orderdate ? movement.orderdate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    {% if movement.projects %}
+                        {{ movement.projects.name }}
+                    {% endif %}
+                </td>
+
+                <td>
+                    <a href="{{ path('movement_edit', {'id': movement.id}) }}"><i class="fas fa-edit"> Editar o agregar a un proyecto</i></a>
+                    {{ include('movement/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">No se encontraron registros</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

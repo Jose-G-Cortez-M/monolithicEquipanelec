@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-9 bg-white rounded my3 p-5">
+                <h1>Observaciones de la tarea</h1>
+                {{ include('homepage/_form.html.twig', {'button_label': 'Actualizar'}) }}
+                <a href="{{ path('homepage') }}"><i class="fas fa-hand-point-left"> volver a la lista</i></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

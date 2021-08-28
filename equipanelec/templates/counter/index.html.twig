@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contador{% endblock %}
+
+{% block body %}
+
+    <h1>Bienvenido Contador</h1>
+
+    <table class="table table table-hover table-bordered">
+        <thead>
+        <tr class="table-dark">
+            <th>Inventario</th>
+            <th>Activos($)</th>
+            <th>Pasivos($)</th>
+        </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td> Materiales </td>
+                <td>{{ inventoryMaterials }}</td>
+                <td>0</td>
+            </tr>
+
+
+            <tr>
+                <td> Cables </td>
+                <td>{{ inventoryCables }}</td>
+                <td>0</td>
+            </tr>
+
+
+            <tr>
+                <td> Herramientas </td>
+                <td>{{ inventoryTools }}</td>
+                <td>0</td>
+            </tr>
+
+
+            <tr>
+                <td><strong> TOTAL </strong></td>
+                <td><strong> {{ inventoryTools+inventoryCables+inventoryMaterials }} </strong></td>
+                <td><strong> 0 </strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3> Ingrese las fechas del filtrado </h3>
+
+    {{ include('counter/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <table class="table table table-hover table-bordered">
+        <thead>
+        <tr class="table-dark">
+            <th>Proyectos</th>
+            <th>Beneficios($)</th>
+            <th>Perdidas($)</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td> Activos </td>
+            <td> 0 </td>
+            <td> {{ costProjectActive }} </td>
+        </tr>
+
+
+        <tr>
+            <td> Cerrados </td>
+            <td> {{ commercialValueClosed }} </td>
+            <td>0</td>
+        </tr>
+
+        <tr>
+            <td> Inversiones en proyectos Cerrados</td>
+            <td> 0 </td>
+            <td> {{ totalCostClosed }} </td>
+        </tr>
+
+        <tr>
+            <td><strong> TOTAL </strong></td>
+            <td><strong> {{ commercialValueClosed }} </strong></td>
+            <td><strong> {{ costProjectActive+totalCostClosed }} </strong></td>
+        </tr>
+        </tbody>
+    </table>
+
+{% endblock %}
