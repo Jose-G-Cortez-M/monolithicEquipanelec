@@ -10,7 +10,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DescriptionTaskType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    )
     {
         $builder
             ->add('description', TextareaType::class, [

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\ProjectClose;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -22,6 +23,10 @@ class ProjectCloseRepository extends ServiceEntityRepository
 
     //Active Inventory
 
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws Exception
+     */
     public function totalInventoryMaterials(): array
     {
 
@@ -31,6 +36,10 @@ class ProjectCloseRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws Exception
+     */
     public function totalInventoryCables(): array
     {
 
@@ -40,6 +49,10 @@ class ProjectCloseRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws Exception
+     */
     public function totalInventoryTools(): array
     {
 
@@ -51,6 +64,11 @@ class ProjectCloseRepository extends ServiceEntityRepository
 
 
     //Projects Active
+
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws Exception
+     */
     public function totalCostProjectTaskActive(): array
     {
 
@@ -67,6 +85,10 @@ class ProjectCloseRepository extends ServiceEntityRepository
         return $this->getEntityManager()->getConnection()->executeQuery($query)->fetchAllAssociative();
     }
 
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws Exception
+     */
     public function totalCostProjectsActive(): array
     {
 
@@ -76,6 +98,10 @@ class ProjectCloseRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Driver\Exception
+     */
     public function commercialValueProjectActive(): array
     {
 
@@ -88,6 +114,10 @@ class ProjectCloseRepository extends ServiceEntityRepository
     //Projects Closed
 
 
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws Exception
+     */
     public function totalCostTaskProjectsClosed(): array
     {
 
@@ -97,6 +127,10 @@ class ProjectCloseRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Driver\Exception
+     */
     public function totalInventoryCostProjectClosed(): array
     {
 
@@ -105,6 +139,10 @@ class ProjectCloseRepository extends ServiceEntityRepository
         return $this->getEntityManager()->getConnection()->executeQuery($query)->fetchAllAssociative();
     }
 
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws Exception
+     */
     public function totalCostProjectsClosed(): array
     {
 
@@ -115,6 +153,10 @@ class ProjectCloseRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws Exception
+     */
     public function commercialValueProjectClosed(): array
     {
 
@@ -126,7 +168,12 @@ class ProjectCloseRepository extends ServiceEntityRepository
 
 
     //Projects Active por filter
-    public function totalCostProjectsActiveFilter($startDate,$endDate): array
+
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws Exception
+     */
+    public function totalCostProjectsActiveFilter($startDate, $endDate): array
     {
 
         $params = [
@@ -141,7 +188,11 @@ class ProjectCloseRepository extends ServiceEntityRepository
         return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
     }
 
-    public function commercialValueClosedFilter($startDate,$endDate): array
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws Exception
+     */
+    public function commercialValueClosedFilter($startDate, $endDate): array
     {
 
         $params = [
@@ -156,7 +207,12 @@ class ProjectCloseRepository extends ServiceEntityRepository
         return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
     }
 
-    public function totalCostClosedFilter($startDate,$endDate){
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws Exception
+     */
+    public function totalCostClosedFilter($startDate, $endDate):array
+    {
 
         $params = [
             ':startDate' => $this->getEntityManager()->getConnection()->quote($startDate),

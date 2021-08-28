@@ -9,7 +9,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProjectCloseType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    )
     {
         $builder
             ->add('contract_number')
