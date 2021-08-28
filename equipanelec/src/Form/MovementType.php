@@ -14,7 +14,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MovementType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    )
     {
         $builder
             ->add('orderDate', DateTimeType::class, [

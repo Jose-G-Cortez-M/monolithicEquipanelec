@@ -12,7 +12,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TaskAddProjectType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    )
     {
         $builder
             ->add('tasks', EntityType::class, [

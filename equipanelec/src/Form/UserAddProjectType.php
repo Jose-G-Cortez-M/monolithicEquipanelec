@@ -11,7 +11,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserAddProjectType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    )
     {
         $builder
             ->add('users', EntityType::class, [

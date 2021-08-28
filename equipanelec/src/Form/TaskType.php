@@ -14,7 +14,10 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class TaskType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    )
     {
         $builder
             ->add('name', TextType::class, [

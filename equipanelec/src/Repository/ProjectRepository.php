@@ -52,7 +52,11 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     //task observation update by project
-    public function updateProjectTask(int $idTask, int $idProject,string $description): string
+
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function updateProjectTask(int $idTask, int $idProject, string $description): string
     {
         $params = [
             ':idt' => $this->getEntityManager()->getConnection()->quote($idTask),
@@ -89,7 +93,11 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     //task status update by project
-    public function updateProjectTaskState(int $idTask, int $idProject,string $state): string
+
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function updateProjectTaskState(int $idTask, int $idProject, string $state): string
     {
         $params = [
             ':idt' => $this->getEntityManager()->getConnection()->quote($idTask),
@@ -108,6 +116,11 @@ class ProjectRepository extends ServiceEntityRepository
 
 
     //Inventory costs
+
+    /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function queryCostInventory(int $idProject): array
     {
         $params = [
@@ -123,6 +136,10 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     * @throws Exception
+     */
     public function queryCommercialInventory(int $idProject): array
     {
         $params = [
@@ -138,6 +155,11 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     //Cost of tasks per project
+
+    /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function queryCostTask($idProject): array
     {
         $params = [
@@ -154,6 +176,11 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     //Count of all project tasks
+
+    /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function allTask($idProject): array
     {
             $params = [
@@ -168,6 +195,11 @@ class ProjectRepository extends ServiceEntityRepository
 
     }
     //Count of completed project tasks
+
+    /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function taskFinish($idProject): array
     {
 
@@ -187,6 +219,11 @@ class ProjectRepository extends ServiceEntityRepository
     
 
     //Inventory costs per material
+
+    /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function costMaterialPerProject(int $idProject): array
     {
         $params = [
@@ -201,6 +238,10 @@ class ProjectRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function costToolPerProject(int $idProject): array
     {
         $params = [
@@ -213,6 +254,11 @@ class ProjectRepository extends ServiceEntityRepository
         return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
 
     }
+
+    /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function costCablePerProject(int $idProject): array
     {
         $params = [
@@ -228,6 +274,11 @@ class ProjectRepository extends ServiceEntityRepository
 
 
     //All task end project
+
+    /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function allTaskEndProject($idProject): array
     {
         $params = [
@@ -244,6 +295,11 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     //Show observation per project task
+
+    /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function showObservationProjectTask($idProject): array
     {
         $params = [

@@ -13,7 +13,10 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ToolType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    )
     {
         $builder
             ->add('imageFile', VichImageType::class)

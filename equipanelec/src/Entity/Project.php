@@ -112,7 +112,7 @@ class Project
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $process;
+    private ?string $process;
 
 
 
