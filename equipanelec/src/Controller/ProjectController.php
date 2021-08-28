@@ -158,7 +158,7 @@ class ProjectController extends AbstractController
      * @Route("/{idP}/finish", name="project_finish", methods={"GET","POST"})
      */
     public function finishProject(
-        $idP,
+        int $idP,
         ProjectRepository $projectRepository
     ): Response
     {

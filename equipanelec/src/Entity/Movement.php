@@ -72,7 +72,7 @@ class Movement
     /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $commercialValue;
+    private ?float $commercialValue;
 
 
     public function getOrderDate(): ?DateTimeInterface

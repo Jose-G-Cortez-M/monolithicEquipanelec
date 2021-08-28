@@ -8,6 +8,7 @@ use App\Entity\Cable;
 use App\Entity\Material;
 use App\Entity\Movement;
 use App\Form\MovementType;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ToolRepository;
 use App\Repository\CableRepository;
 use App\Repository\MaterialRepository;
@@ -22,6 +23,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class MovementController extends AbstractController
 {
+    protected EntityManagerInterface $entityManager;
+    public function __construct(EntityManagerInterface $entityManager){
+        $this->entityManager = $entityManager;
+    }
 
     /**
      * @Route("/", name="movement_index", methods={"GET"})
@@ -232,7 +237,7 @@ class MovementController extends AbstractController
         $mvOld = $movement->getQuantity();
         if ($this->isCsrfTokenValid('delete'.$movement->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $this->returnToInventoryByElimination($movement, $mvOld, $entityManager);
+            $this->returnToInventoryByElimination($movement, $mvOld);
             $entityManager->remove($movement);
             $entityManager->flush();
         }
@@ -352,33 +357,29 @@ class MovementController extends AbstractController
 
     public function returnToInventoryByElimination(
         Movement $movement,
-        ?float $mvOld,
-        $entityManager
+        ?float $mvOld
     ): void
     {
         if ($movement->getMaterials() != null) {
             $material = $movement->getMaterials();
             $material->setStock($material->getStock() + $mvOld);
-            $entityManager->persist($material);
-            $entityManager->flush();
+            $this->entityManager->persist($material);
+            $this->entityManager->flush();
         }
         if ($movement->getTools() != null) {
             $tool = $movement->getTools();
             $tool->setStock($tool->getStock() + $mvOld);
-            $entityManager->persist($tool);
-            $entityManager->flush();
+            $this->entityManager->persist($tool);
+            $this->entityManager->flush();
         }
         if ($movement->getCables() != null) {
             $cable = $movement->getCables();
             $cable->setAvailability($cable->getAvailability() + $mvOld);
-            $entityManager->persist($cable);
-            $entityManager->flush();
+            $this->entityManager->persist($cable);
+            $this->entityManager->flush();
         }
     }
 
-    /**
-     * @param array $movements
-     */
     public function totalCostMovement(array $movements): void
     {
         foreach ($movements as $movement) {
