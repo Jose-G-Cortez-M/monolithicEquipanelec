@@ -11,7 +11,7 @@
                 {% if is_granted("ROLE_MANAGER") %}
                     {{ include('task/_delete_form.html.twig') }}
                 {% endif %}
-                <a href="{{ path('task_index') }}"><i class="fas fa-hand-point-left"> Volver a la lista</i></a>
+                {{ include('task/_backList_form.html.twig') }}
             </div>
         </div>
     </div>

@@ -10,7 +10,8 @@
                 <h4> Por seguridad, cada vez que modifica a un empleado, se debe cambiar la contraseña </h4>
                 {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
                 {{ include('user/_delete_form.html.twig') }}
-                <a href="{{ path('user_index') }}"><i class="fas fa-hand-point-left"> Volver a la lista</i></a>
+                {{ include('user/_backList_form.html.twig') }}
+
             </div>
         </div>
     </div>

@@ -33,6 +33,6 @@
         {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('project_index') }}"><i class="fas fa-hand-point-left"> Volver a la lista</i></a>
+    {{ include('project/_backList_form.html.twig') }}
 
 {% endblock %}

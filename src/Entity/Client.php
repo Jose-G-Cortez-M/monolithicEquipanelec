@@ -23,8 +23,8 @@ class Client
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      * @Assert\Length(
-     *      max = 100,
-     *      maxMessage = "El nombre de la compañia no puede tener más de 100 carácteres"
+     *      max = 40,
+     *      maxMessage = "El nombre de la compañia no puede tener más de 40 carácteres"
      * )
      */
     private ?string $company;
@@ -32,17 +32,17 @@ class Client
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\Length(
-     *      max = 100,
-     *      maxMessage = "El nombre del representante no puede tener más de 100 carácteres"
+     *      max = 30,
+     *      maxMessage = "El nombre del representante no puede tener más de 30 carácteres"
      * )
      */
     private string $representative;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", length=40, nullable=true)
      * @Assert\Length(
-     *      max = 50,
-     *      maxMessage = "El teléfono no puede tener más de 50 carácteres"
+     *      max = 21,
+     *      maxMessage = "El campo de teléfono no puede tener más de dos números registrados y puedes separar los con un -"
      * )
      */
     private ?string $phone;
@@ -50,8 +50,8 @@ class Client
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
      * @Assert\Length(
-     *      max = 150,
-     *      maxMessage = "La dirección no puede tener más de 150 carácteres"
+     *      max = 30,
+     *      maxMessage = "La dirección no puede tener más de 30 carácteres"
      * )
      */
     private ?string $direction;

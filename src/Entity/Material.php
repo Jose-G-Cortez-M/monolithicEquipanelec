@@ -30,8 +30,8 @@ class Material
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
      * @Assert\Length(
-     *      max = 150,
-     *      maxMessage = "El código de barras no puede tener más de 150 carácteres"
+     *      max = 50,
+     *      maxMessage = "El código de barras no puede tener más de 50 caracteres"
      * )
      */
     private ?string $barcode;
@@ -39,8 +39,8 @@ class Material
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\Length(
-     *      max = 100,
-     *      maxMessage = "EL nombre del material no puede tener más de 100 carácteres"
+     *      max = 25,
+     *      maxMessage = "El nombre del material no puede tener más de 25 caracteres"
      * )
      */
     private string $name;
@@ -48,6 +48,10 @@ class Material
     /**
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero
+     * @Assert\Range(
+     *      max = 99999,
+     *      maxMessage = "No puedes registrar mas de 99999 unidades de este material "
+     * )
      */
     private float $stock;
 
@@ -65,7 +69,7 @@ class Material
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Assert\Length(
      *      max = 50,
-     *      maxMessage = "La marca del material no puede tener más de 50 carácteres"
+     *      maxMessage = "La marca del material no puede tener más de 50 caracteres"
      * )
      */
     private ?string $brand;
@@ -73,18 +77,30 @@ class Material
     /**
      * @ORM\Column(type="float")
      * @Assert\Positive
+     * @Assert\Range(
+     *      max = 99999,
+     *      maxMessage = "El costo del material no puede sobrepasar los $ 99999"
+     * )
      */
     private float $purchasePrice;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\Positive
+     * @Assert\Range(
+     *      max = 99999,
+     *      maxMessage = "El costo del material no puede sobrepasar los $ 99999"
+     * )
      */
     private float $salePrice;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Assert\Positive
+     * @Assert\Range(
+     *      max = 99999,
+     *      maxMessage = "No puedes registrar mas de 99999 unidades de este material "
+     * )
      */
     private ?float $minimumLimit;
 

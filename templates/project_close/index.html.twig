@@ -29,7 +29,7 @@
                 <td>{{ project_close.totalCost }}</td>
                 <td>{{ project_close.commercialValue }}</td>
                 <td>
-                    <a href="{{ path('project_close_show', {'id': project_close.id}) }}"><i class="far fa-eye"> Mostrar detalles</i></a>
+                    {{ include('project_close/_show_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

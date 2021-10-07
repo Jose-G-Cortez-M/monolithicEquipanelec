@@ -25,10 +25,10 @@ class MaterialType extends AbstractType
                 'required' => false
             ])
             ->add('name', TextType::class, [
-                'label' => "Ingrese el nombre",
+                'label' => "Ingrese el nombre del material",
             ])
             ->add('stock', NumberType::class, [
-                'label' => "Ingrese la cantidad de materiales que desea agregar al inventario",
+                'label' => "Ingrese la cantidad del material que desea agregar en el inventario",
             ])
             ->add('brand', TextType::class, [
                 'label' => "Ingrese la marca del material",

@@ -29,8 +29,8 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Length(
-     *      max = 180,
-     *      maxMessage = "Su correo no puede tener más de 180 carácteres"
+     *      max = 30,
+     *      maxMessage = "Su correo no puede tener más de 30 caracteres"
      * )
      */
     private string $email;
@@ -49,8 +49,8 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\Length(
-     *      max = 100,
-     *      maxMessage = "Su nombre no puede tener más de 100 carácteres"
+     *      max = 30,
+     *      maxMessage = "Su nombre no puede tener más de 30 caracteres"
      * )
      */
     private string $name;
@@ -58,8 +58,8 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Assert\Length(
-     *      max = 50,
-     *      maxMessage = "El teléfono no puede tener más de 50 carácteres"
+     *      max = 21,
+     *      maxMessage = "El campo de teléfono no puede tener más de dos números registrados y puedes separar los con un -"
      * )
      */
     private ?string $phone;
@@ -67,6 +67,10 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Assert\Positive
+     * @Assert\Range(
+     *      max = 10000,
+     *      maxMessage = "EL salario máximo permitido para el registro es de $ 10000"
+     * )
      */
     private ?float $salary;
 

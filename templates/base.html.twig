@@ -2,7 +2,7 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Bienvenidos!{% endblock %}</title>
+        <title>{% block title %}Bienvenido!{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -101,6 +101,12 @@
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                             <li><a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fas fa-door-open"> Cerrar sesión</i></a></li>
                                         </ul>
+                                    </li>
+                                {% endif %}
+
+                                {% if app.user %}
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" >Bienvenido  {{app.user}}</a>
                                     </li>
                                 {% endif %}
                             </ul>

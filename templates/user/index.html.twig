@@ -21,9 +21,8 @@
                 <td>{{ user.name }}</td>
                 <td>{{ user.phone }}</td>
                 <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}"><i class="far fa-eye"> Vista detallada</i></a>
-                    <br>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}"><i class="fas fa-edit"> Editar</i></a>
+                    {{ include('user/_show_form.html.twig') }}
+                    {{ include('user/_edit_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

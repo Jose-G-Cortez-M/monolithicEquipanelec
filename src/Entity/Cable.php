@@ -29,8 +29,8 @@ class Cable
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
      * @Assert\Length(
-     *      max = 150,
-     *      maxMessage = "El código de barras no puede tener más de 150 carácteres"
+     *      max = 50,
+     *      maxMessage = "El código de barras no puede tener más de 50 caracteres"
      * )
      */
     private ?string $barcode;
@@ -38,8 +38,8 @@ class Cable
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\Length(
-     *      max = 100,
-     *      maxMessage = "El nombre del cable no puede tener más de 100 carácteres"
+     *      max = 25,
+     *      maxMessage = "El nombre del cable no puede tener más de 25 caracteres"
      * )
      */
     private string $name;
@@ -47,29 +47,46 @@ class Cable
     /**
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero
+     * @Assert\Range(
+     *      max = 999999,
+     *      maxMessage = "No puedes registrar más de 999999 metros de cable"
+     * )
      */
     private float $availability;
 
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Assert\Positive
+     * @Assert\Range(
+     *      max = 1000,
+     *      maxMessage = "No puedes registrar peso superior a 1000 libras por metro de cable"
+     * )
      */
     private ?float $weightPerMeter;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\Positive
+     * @Assert\Range(
+     *      max = 9999,
+     *      maxMessage = "El costo de venta del cable no puede superar $ 9999 "
+     * )
      */
     private float $purchasePrice;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\Positive
+     * @Assert\Range(
+     *      max = 9999,
+     *      maxMessage = "Revisa el precio no puede registrar cable con valor superior a $ 9999 por metro"
+     * )
      */
     private float $salePrice;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+
      */
     private ?string $description;
 
@@ -81,13 +98,20 @@ class Cable
     /**
      * @ORM\Column(type="float", nullable=true)
      * @Assert\Positive
+     * @Assert\Range(
+     *      max = 999999,
+     *      maxMessage = "No puedes registrar más de 999999 metros de cable"
+     * )
      */
     private ?float $minimumLimit;
 
     /**
      *
      * @Vich\UploadableField(mapping="product_image", fileNameProperty="image.name", size="image.size", mimeType="image.mimeType", originalName="image.originalName", dimensions="image.dimensions")
-     *
+     * @Assert\Range(
+     *      max = 999999,
+     *      maxMessage = "No puedes ser más alto que 999999 metros para poder registrar el cable"
+     * )
      * @var File|null
      */
     private $imageFile;

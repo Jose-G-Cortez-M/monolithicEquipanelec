@@ -20,11 +20,6 @@ class MovementType extends AbstractType
     )
     {
         $builder
-            ->add('orderDate', DateTimeType::class, [
-                'disabled' => true,
-                'widget' => 'single_text',
-                'label' => 'Fecha de registro'
-            ])
             ->add('quantity', NumberType::class, [
                 'label' => "Ingrese la cantidad de elementos que necesita en el movimiento",
             ])

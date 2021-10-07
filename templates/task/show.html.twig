@@ -30,11 +30,10 @@
         </tbody>
     </table>
 
-    <a href="{{ path('task_index') }}"><i class="fas fa-hand-point-left"> Volver a la lista</i></a>
-    <br>
-    <a href="{{ path('task_edit', {'id': task.id}) }}"><i class="fas fa-edit"> Editar</i></a>
-
+    {{ include('task/_edit_form.html.twig') }}
     {% if is_granted("ROLE_MANAGER") %}
         {{ include('task/_delete_form.html.twig') }}
     {% endif %}
+    {{ include('task/_backList_form.html.twig') }}
+    
 {% endblock %}

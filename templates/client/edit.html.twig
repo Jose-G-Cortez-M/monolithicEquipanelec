@@ -12,7 +12,7 @@
                 {% if is_granted("ROLE_MANAGER") %}
                     {{ include('client/_delete_form.html.twig') }}
                 {% endif %}
-                <a href="{{ path('client_index') }}"><a href="{{ path('client_index') }}"><i class="fas fa-hand-point-left"> Regresar a la lista</i></a></a>
+                {{ include('client/_backList_form.html.twig') }}
             </div>
         </div>
     </div>

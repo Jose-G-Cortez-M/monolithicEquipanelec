@@ -12,12 +12,10 @@
                 {{ include('movement/_form.html.twig', {'button_label': 'Update'}) }}
                 {{ include('movement/_delete_form.html.twig') }}
                 {% if is_granted("ROLE_CELLAR") %}
-                    <a href="{{ path('movement_list') }}"><i class="fas fa-hand-point-left"> Volver a la lista</i></a>
+                    {{ include('movement/_backList_form.html.twig') }}
                 {% else %}
-                    <a href="{{ path('movement_index') }}"><i class="fas fa-hand-point-left"> Volver a la lista</i></a>
+                    {{ include('movement/_backIndex_form.html.twig') }}
                 {% endif %}
-
-
             </div>
         </div>
     </div>

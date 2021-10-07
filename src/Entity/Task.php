@@ -24,8 +24,8 @@ class Task
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\Length(
-     *      max = 100,
-     *      maxMessage = "El nombre de la tarea no puede tener más de 100 carácteres"
+     *      max = 30,
+     *      maxMessage = "El nombre de la tarea no puede tener más de 30 carácteres"
      * )
      */
     private string $name;
@@ -33,6 +33,10 @@ class Task
     /**
      * @ORM\Column(type="float")
      * @Assert\Positive
+     * @Assert\Range(
+     *      max = 10000,
+     *      maxMessage = "Las tareas no pueden durar mas de 10000 minutos"
+     * )
      */
     private float $timePerMinute;
 
@@ -44,6 +48,10 @@ class Task
     /**
      * @ORM\Column(type="float")
      * @Assert\Positive
+     * @Assert\Range(
+     *      max = 99999,
+     *      maxMessage = "No puedes registrar una tarea con un costo superior a $ 99999"
+     * )
      */
     private float $costPerTask;
 

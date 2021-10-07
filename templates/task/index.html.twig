@@ -24,9 +24,8 @@
                 <td id="desc">{{ task.description }}</td>
                 <td>{{ task.costpertask }}</td>
                 <td>
-                    <a href="{{ path('task_show', {'id': task.id}) }}"><i class="far fa-eye"> Ver detalles</i></a>
-                    <br>
-                    <a href="{{ path('task_edit', {'id': task.id}) }}"><i class="fas fa-edit"> Editar</i></a>
+                    {{ include('task/_show_form.html.twig') }}                
+                    {{ include('task/_edit_form.html.twig') }}                
                 </td>
             </tr>
         {% else %}

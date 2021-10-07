@@ -33,8 +33,8 @@ class Project
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\Length(
-     *      max = 100,
-     *      maxMessage = "El nombre del proyecto no puede tener más de 100 carácteres"
+     *      max = 15,
+     *      maxMessage = "El nombre del proyecto no puede tener más de 15 carácteres"
      * )
      */
     private string $name;

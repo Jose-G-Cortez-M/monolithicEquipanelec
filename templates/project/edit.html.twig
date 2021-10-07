@@ -11,7 +11,7 @@
                     {% if is_granted("ROLE_MANAGER") %}
                         {{ include('project/_delete_form.html.twig') }}
                     {% endif %}
-                    <a href="{{ path('project_index') }}"><i class="fas fa-hand-point-left"> Volver a la lista</i></a>
+                    {{ include('project/_backList_form.html.twig') }}
             </div>
         </div>
     </div>

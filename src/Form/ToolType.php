@@ -21,11 +21,11 @@ class ToolType extends AbstractType
         $builder
             ->add('imageFile', VichImageType::class)
             ->add('barcode', TextType::class, [
-                'label' => "Ingrese el código de barras",
+                'label' => "Ingrese el código de barras de la herramienta",
                 'required' => false
             ])
             ->add('name', TextType::class, [
-                'label' => "Ingrese el nombre",
+                'label' => "Ingrese el nombre de la herramienta",
             ])
             ->add('stock', NumberType::class, [
                 'label' => "Ingrese la cantidad de herramientas que desea agregar al inventario",

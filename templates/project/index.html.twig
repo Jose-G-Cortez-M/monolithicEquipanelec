@@ -53,10 +53,9 @@
                     <td>{{ project.commercialValue }}</td>
                 {% endif %}
                 <td>
-                    <a href="{{ path('project_show', {'id': project.id}) }}"><i class="far fa-eye"> Mostrar detalles</i></a>
-                    <br>
+                        {{ include('project/_show_form.html.twig') }}
                     {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
-                        <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit"> Editar</i> </a>
+                        {{ include('project/_edit_form.html.twig') }}
                         {{ include('project/_assignTask_form.html.twig') }}
                         {{ include('project/_assignWorker_form.html.twig') }}
                         {{ include('project/_showObs_form.html.twig') }}

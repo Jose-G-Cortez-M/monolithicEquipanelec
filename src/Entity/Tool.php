@@ -29,8 +29,8 @@ class Tool
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
      * @Assert\Length(
-     *      max = 150,
-     *      maxMessage = "El  código de barras no puede tener más de 150 carácteres"
+     *      max = 50,
+     *      maxMessage = "El  código de barras no puede tener más de 50 carácteres"
      * )
      */
     private ?string $barcode;
@@ -38,8 +38,8 @@ class Tool
     /**
      * @ORM\Column(type="string", length=100)
      * @Assert\Length(
-     *      max = 100,
-     *      maxMessage = "El nombre de la herramienta no puede tener más de 100 carácteres"
+     *      max = 25,
+     *      maxMessage = "El nombre de la herramienta no puede tener más de 25 carácteres"
      * )
      */
     private string $name;
@@ -47,11 +47,16 @@ class Tool
     /**
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero
+     * @Assert\Range(
+     *      max = 999999,
+     *      maxMessage = "No puedes registrar más de 999999 herramientas de este tipo"
+     * )
      */
     private float $stock;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     
      */
     private ?string $description;
 
@@ -67,6 +72,10 @@ class Tool
     /**
      * @ORM\Column(type="float")
      * @Assert\Positive
+     * @Assert\Range(
+     *      max = 99999,
+     *      maxMessage = "El costo de la herramienta no puede sobrepasar los $ 99999"
+     * )
      */
     private float $price;
 
@@ -77,6 +86,10 @@ class Tool
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Range(
+     *      max = 999999,
+     *      maxMessage = "No puedes registrar más de 999999 herramientas de este tipo"
+     * )
      */
     protected ?float $minimumLimit;
 

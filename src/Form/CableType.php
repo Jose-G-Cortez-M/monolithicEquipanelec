@@ -25,13 +25,13 @@ class CableType extends AbstractType
                 'required' => false
             ])
             ->add('name', TextType::class, [
-                'label' => "Ingrese el nombre",
+                'label' => "Ingrese el nombre del cable",
             ])
             ->add('availability', NumberType::class, [
                 'label' => "Ingrese los metros de cable que desea agregar al inventario",
             ])
             ->add('weightPerMeter', NumberType::class, [
-                'label' => "Ingrese el peso por metro del cable",
+                'label' => "Ingrese el peso en libras por metro de cable",
                 'required' => false
             ])
             ->add('purchasePrice', NumberType::class, [
@@ -41,7 +41,7 @@ class CableType extends AbstractType
                 'label' => "Ingrese el precio al que vende el cable por metro",
             ])
             ->add('minimumLimit', NumberType::class, [
-                'label' => "Ingrese la cantidad mínima de cable que desea en el almacén",
+                'label' => "Ingrese la cantidad mínima de cable que desea en el almacén por metro",
                 'required' => false
             ])
             ->add('location', TextareaType::class, [
