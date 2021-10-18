@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Material;
 use App\Form\MaterialType;
 use App\Repository\MaterialRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/material")
@@ -16,12 +18,37 @@ use Symfony\Component\Routing\Annotation\Route;
 class MaterialController extends AbstractController
 {
     /**
-     * @Route("/", name="material_index", methods={"GET"})
+     * @Route("/", name="material_index", methods={"GET","POST"})
      */
-    public function index(MaterialRepository $materialRepository): Response
+    public function index(
+        MaterialRepository $materialRepository,
+        Request $request
+        ): Response
     {
+        $form = $this->createFormBuilder()
+            ->add('buscador',TextType::class, [
+                'label' => "Ingrese el nombre del material",
+                'required' => false
+            ])
+            ->add('buscar',SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        $material= null;
+
+        if($form->isSubmitted()&& $form->isValid()){
+            $material = new Material();
+            $data = $form->getData();
+            if($data['buscador'] == null){
+                $data['buscador'] = "";
+            }
+            $material = $materialRepository->shareMaterial($data['buscador']);
+        }
+
         return $this->render('material/index.html.twig', [
-            'materials' => $materialRepository->findBy([], ['name' => 'ASC'])
+            'materials' => $materialRepository->findBy([], ['name' => 'ASC']),
+            'form' => $form->createView(),
+            'shares' => $material
         ]);
     }
 

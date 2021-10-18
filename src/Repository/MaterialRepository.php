@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Client;
 use App\Entity\Material;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,4 +21,23 @@ class MaterialRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Material::class);
     }
+    
+    /*
+    * @return array
+    * @throws Exception
+    * @throws \Doctrine\DBAL\Exception
+    */
+   public function shareMaterial (string $share): ?array
+   {
+       $params = [
+         ':share' => $this->getEntityManager()->getConnection()->quote($share),
+       ];
+
+       $query = ("SELECT * FROM material WHERE material.name LIKE  \"$share%\"");
+
+       return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
+
+   }
+
+
 }
