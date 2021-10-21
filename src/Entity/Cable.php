@@ -106,7 +106,6 @@ class Cable
     private ?float $minimumLimit;
 
     /**
-     *
      * @Vich\UploadableField(mapping="product_image", fileNameProperty="image.name", size="image.size", mimeType="image.mimeType", originalName="image.originalName", dimensions="image.dimensions")
      * @Assert\Range(
      *      max = 999999,

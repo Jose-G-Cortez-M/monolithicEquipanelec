@@ -28,7 +28,9 @@
                         <div class="mb-3">
                             <label for="inputPassword">Contraseña</label>
                             <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                            <button id="show_password" class="bn btn-lg btn-dark" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
                         </div>
+
 
                         <input type="hidden" name="_csrf_token"
                                value="{{ csrf_token('authenticate') }}"
