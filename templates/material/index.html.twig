@@ -12,8 +12,8 @@
         <thead>
             <tr class="table-dark">
                 <th>Imagen</th>
-                <th>Ubicación</th>
                 <th>Nombre</th>
+                <th>Ubicación</th>
                 <th>Inventario</th>
                 <th>Descripción</th>
                 <th>Acciones</th>
@@ -26,8 +26,8 @@
                             <tr class="table-danger">
                                 <td><img src="{{ vich_uploader_asset(material, 'imageFile') }}" alt="{{ material.name }}" height="100">
                                 </td>
+                                <td>{{ material.name }}</td>                               
                                 <td id="desc">{{ material.location }}</td>
-                                <td>{{ material.name }}</td>
                                 <td>{{ material.stock }}</td>
                                 <td id="desc">{{ material.description }}</td>
                                 <td>
@@ -40,8 +40,8 @@
                             <tr class="table-success">
                                 <td><img src="{{ vich_uploader_asset(material, 'imageFile') }}" alt="{{ material.name }}" height="100">
                                 </td>
+                                 <td>{{ material.name }}</td>
                                 <td id="desc">{{ material.location }}</td>                                
-                                <td>{{ material.name }}</td>
                                 <td>{{ material.stock }}</td>
                                 <td id="desc">{{ material.description }}</td>
                                 <td>
@@ -65,8 +65,8 @@
                             <tr class="table-danger">
                                 <td><img src="{{ vich_uploader_asset(material, 'imageFile') }}" alt="{{ material.name }}" height="100">
                                 </td>
-                                <td id="desc">{{ material.location }}</td>                                
                                 <td>{{ material.name }}</td>
+                                <td id="desc">{{ material.location }}</td>                                
                                 <td>{{ material.stock }}</td>
                                 <td id="desc">{{ material.description }}</td>
                                 <td>
@@ -79,8 +79,8 @@
                             <tr class="table-success">
                                 <td><img src="{{ vich_uploader_asset(material, 'imageFile') }}" alt="{{ material.name }}" height="100">
                                 </td>
-                                <td id="desc">{{ material.location }}</td>
                                 <td>{{ material.name }}</td>
+                                <td id="desc">{{ material.location }}</td>
                                 <td>{{ material.stock }}</td>
                                 <td id="desc">{{ material.description }}</td>
                                 <td>
