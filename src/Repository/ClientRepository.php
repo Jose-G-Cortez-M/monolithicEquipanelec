@@ -19,5 +19,21 @@ class ClientRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Client::class);
     }
+    /*
+    * @return array
+    * @throws Exception
+    * @throws \Doctrine\DBAL\Exception
+    */
+   public function shareClient (string $share): ?array
+   {
+       $params = [
+         ':share' => $this->getEntityManager()->getConnection()->quote($share),
+       ];
+
+       $query = ("SELECT * FROM client WHERE client.company LIKE  \"$share%\"");
+
+       return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
+
+   }
 
 }

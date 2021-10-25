@@ -19,5 +19,21 @@ class TaskRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Task::class);
     }
+    /*
+    * @return array
+    * @throws Exception
+    * @throws \Doctrine\DBAL\Exception
+    */
+   public function shareTask (string $share): ?array
+   {
+       $params = [
+         ':share' => $this->getEntityManager()->getConnection()->quote($share),
+       ];
+
+       $query = ("SELECT * FROM task WHERE task.name LIKE  \"$share%\"");
+
+       return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
+
+   }
 
 }

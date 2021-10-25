@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * @Route("/tool")
@@ -16,12 +18,37 @@ use Symfony\Component\Routing\Annotation\Route;
 class ToolController extends AbstractController
 {
     /**
-     * @Route("/", name="tool_index", methods={"GET"})
+     * @Route("/", name="tool_index", methods={"GET","POST"})
      */
-    public function index(ToolRepository $toolRepository): Response
+    public function index(
+        ToolRepository $toolRepository,
+        Request $request
+        ): Response
     {
+    $form = $this->createFormBuilder()
+        ->add('buscador',TextType::class, [
+            'label' => "Ingrese el nombre del herramientas",
+            'required' => false
+        ])
+        ->add('buscar',SubmitType::class)
+        ->getForm();
+
+    $form->handleRequest($request);
+    $tool= null;
+
+    if($form->isSubmitted()&& $form->isValid()){
+        $tool = new Tool();
+        $data = $form->getData();
+        if($data['buscador'] == null){
+            $data['buscador'] = "";
+        }
+        $tool = $toolRepository->shareTool($data['buscador']);
+    }
+
         return $this->render('tool/index.html.twig', [
-            'tools' => $toolRepository->findBy([], ['name' => 'ASC'])
+            'tools' => $toolRepository->findBy([], ['name' => 'ASC']),
+            'form' => $form->createView(),
+            'shares' => $tool
         ]);
     }
 

@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * @Route("/client")
@@ -16,12 +18,37 @@ use Symfony\Component\Routing\Annotation\Route;
 class ClientController extends AbstractController
 {
     /**
-     * @Route("/", name="client_index", methods={"GET"})
+     * @Route("/", name="client_index", methods={"GET","POST"})
      */
-    public function index(ClientRepository $clientRepository): Response
+    public function index(
+        ClientRepository $clientRepository,
+        Request $request
+        ): Response
     {
+        $form = $this->createFormBuilder()
+            ->add('buscador', TextType::class, [
+                'label' => "Ingrese el nombre del material",
+                'required' => false
+            ])
+            ->add('buscar', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        $client= null;
+
+        if ($form->isSubmitted()&& $form->isValid()) {
+            $client = new Client();
+            $data = $form->getData();
+            if ($data['buscador'] == null) {
+                $data['buscador'] = "";
+            }
+            $client = $clientRepository->shareClient($data['buscador']);
+        }
+
         return $this->render('client/index.html.twig', [
             'clients' => $clientRepository->findAll(),
+            'form' => $form->createView(),
+            'shares' => $client
         ]);
     }
 

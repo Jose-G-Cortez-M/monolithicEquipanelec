@@ -4,8 +4,10 @@
 
 {% block body %}
     <h1>Lista de Herramientas</h1>
-
     <h4><a href="{{ path('tool_new') }}"><i class="fas fa-tools"> Agregar nueva herramienta</i></a></h4>
+    {{ form_start(form) }}
+    {{ form_end(form) }}
+
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-dark">
@@ -19,41 +21,82 @@
             </tr>
         </thead>
         <tbody>
-        {% for tool in tools %}
-            {% if tool.minimumLimit is null or tool.minimumLimit>tool.stock %}
-                <tr class="table-danger">
-                    <td><img src="{{ vich_uploader_asset(tool, 'imageFile') }}" alt="{{ tool.name }}" height="100"></td>
-                    <td>{{ tool.name }}</td>
-                    <td id="desc">{{ tool.location }}</td>
-                    <td>{{ tool.stock }}</td>
-                    <td id="desc">{{ tool.description }}</td>
-                    <td>{{ tool.minimumLimit }}</td>
-                    <td>
-                        {{ include('tool/_show_form.html.twig') }}                
-                        {{ include('tool/_edit_form.html.twig') }}  
-                        {{ include('tool/_movement_form.html.twig') }}
-                    </td>
-            </tr>
+            {% if shares is empty %}
+                {% for tool in tools %}
+                    {% if tool.minimumLimit is null or tool.minimumLimit>tool.stock %}
+                        <tr class="table-danger">
+                            <td><img src="{{ vich_uploader_asset(tool, 'imageFile') }}" alt="{{ tool.name }}" height="100"></td>
+                            <td>{{ tool.name }}</td>
+                            <td id="desc">{{ tool.location }}</td>
+                            <td>{{ tool.stock }}</td>
+                            <td id="desc">{{ tool.description }}</td>
+                            <td>{{ tool.minimumLimit }}</td>
+                            <td>
+                                {{ include('tool/_show_form.html.twig') }}                
+                                {{ include('tool/_edit_form.html.twig') }}  
+                                {{ include('tool/_movement_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr class="table-success">
+                            <td><img src="{{ vich_uploader_asset(tool, 'imageFile') }}" alt="{{ tool.name }}" height="100"></td>
+                            <td>{{ tool.name }}</td>
+                            <td id="desc">{{ tool.location }}</td>
+                            <td>{{ tool.stock }}</td>
+                            <td id="desc">{{ tool.description }}</td>
+                            <td>{{ tool.minimumLimit }}</td>
+                            <td>
+                                {{ include('tool/_show_form.html.twig') }}                
+                                {{ include('tool/_edit_form.html.twig') }}  
+                                {{ include('tool/_movement_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% else %}
+                    <tr>
+                        <td colspan="8">No se encontraron registros</td>
+                    </tr>
+                {% endfor %}
             {% else %}
-                <tr class="table-success">
-                    <td><img src="{{ vich_uploader_asset(tool, 'imageFile') }}" alt="{{ tool.name }}" height="100"></td>
-                    <td>{{ tool.name }}</td>
-                    <td id="desc">{{ tool.location }}</td>
-                    <td>{{ tool.stock }}</td>
-                    <td id="desc">{{ tool.description }}</td>
-                    <td>{{ tool.minimumLimit }}</td>
-                    <td>
-                        {{ include('tool/_show_form.html.twig') }}                
-                        {{ include('tool/_edit_form.html.twig') }}  
-                        {{ include('tool/_movement_form.html.twig') }}
-                    </td>
-                </tr>
+                {% for tool in tools %}
+                    {% for share in shares %}
+                        {% if tool.id == share['id'] %}
+                            {% if tool.minimumLimit is null or tool.minimumLimit>tool.stock %}
+                            <tr class="table-danger">
+                                <td><img src="{{ vich_uploader_asset(tool, 'imageFile') }}" alt="{{ tool.name }}" height="100"></td>
+                                <td>{{ tool.name }}</td>
+                                <td id="desc">{{ tool.location }}</td>
+                                <td>{{ tool.stock }}</td>
+                                <td id="desc">{{ tool.description }}</td>
+                                <td>{{ tool.minimumLimit }}</td>
+                                <td>
+                                    {{ include('tool/_show_form.html.twig') }}                
+                                    {{ include('tool/_edit_form.html.twig') }}  
+                                    {{ include('tool/_movement_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr class="table-success">
+                                <td><img src="{{ vich_uploader_asset(tool, 'imageFile') }}" alt="{{ tool.name }}" height="100"></td>
+                                <td>{{ tool.name }}</td>
+                                <td id="desc">{{ tool.location }}</td>
+                                <td>{{ tool.stock }}</td>
+                                <td id="desc">{{ tool.description }}</td>
+                                <td>{{ tool.minimumLimit }}</td>
+                                <td>
+                                    {{ include('tool/_show_form.html.twig') }}                
+                                    {{ include('tool/_edit_form.html.twig') }}  
+                                    {{ include('tool/_movement_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% endif %}
+
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                
             {% endif %}
-        {% else %}
-            <tr>
-                <td colspan="8">No se encontraron registros</td>
-            </tr>
-        {% endfor %}
+            
         </tbody>
     </table>
 

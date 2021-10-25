@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * @Route("/cable")
@@ -16,17 +18,40 @@ use Symfony\Component\Routing\Annotation\Route;
 class CableController extends AbstractController
 {
     /**
-     * @Route("/", name="cable_index", methods={"GET"})
+     * @Route("/", name="cable_index", methods={"GET","POST"})
      */
-    public function index(CableRepository $cableRepository): Response
+    public function index(
+        CableRepository $cableRepository,
+        Request $request
+        ): Response
     {
-        if($this->isGranted("ROLE_MANAGER")||$this->isGranted("ROLE_CELLAR")){
-            return $this->render('cable/index.html.twig', [
-                'cables' => $cableRepository->findBy([], ['name' => 'ASC'])
-            ]);
-        }else{
-            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+
+        $form = $this->createFormBuilder()
+            ->add('buscador',TextType::class, [
+                'label' => "Ingrese el nombre del material",
+                'required' => false
+            ])
+            ->add('buscar',SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        $cable= null;
+
+        if($form->isSubmitted()&& $form->isValid()){
+            $cable = new Cable();
+            $data = $form->getData();
+            if($data['buscador'] == null){
+                $data['buscador'] = "";
+            }
+            $cable = $cableRepository->shareCable($data['buscador']);
         }
+
+        return $this->render('cable/index.html.twig', [
+            'cables' => $cableRepository->findBy([], ['name' => 'ASC']),
+            'form' => $form->createView(),
+            'shares' => $cable
+        ]);
+
     }
 
     /**

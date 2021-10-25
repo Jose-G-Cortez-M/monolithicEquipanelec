@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * @Route("/task")
@@ -16,12 +18,37 @@ use Symfony\Component\Routing\Annotation\Route;
 class TaskController extends AbstractController
 {
     /**
-     * @Route("/", name="task_index", methods={"GET"})
+     * @Route("/", name="task_index", methods={"GET","POST"})
      */
-    public function index(TaskRepository $taskRepository): Response
+    public function index(
+        TaskRepository $taskRepository,
+        Request $request
+        ): Response
     {
+        $form = $this->createFormBuilder()
+            ->add('buscador',TextType::class, [
+                'label' => "Ingrese el nombre del material",
+                'required' => false
+            ])
+            ->add('buscar',SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        $task= null;
+
+        if($form->isSubmitted()&& $form->isValid()){
+            $task = new Task();
+            $data = $form->getData();
+            if($data['buscador'] == null){
+                $data['buscador'] = "";
+            }
+            $task = $taskRepository->shareTask($data['buscador']);
+        }
+
         return $this->render('task/index.html.twig', [
             'tasks' => $taskRepository->findAll(),
+            'form' => $form->createView(),
+            'shares' => $task
         ]);
     }
 

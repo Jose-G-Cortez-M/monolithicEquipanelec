@@ -20,4 +20,21 @@ class ToolRepository extends ServiceEntityRepository
         parent::__construct($registry, Tool::class);
     }
 
+        /*
+    * @return array
+    * @throws Exception
+    * @throws \Doctrine\DBAL\Exception
+    */
+   public function shareTool (string $share): ?array
+   {
+       $params = [
+         ':share' => $this->getEntityManager()->getConnection()->quote($share),
+       ];
+
+       $query = ("SELECT * FROM tool WHERE tool.name LIKE  \"$share%\"");
+
+       return $this->getEntityManager()->getConnection()->executeQuery(strtr($query,$params))->fetchAllAssociative();
+
+   }
+
 }

@@ -5,7 +5,8 @@
 {% block body %}
     <h1>Índice de clientes</h1>
     <h3><a href="{{ path('client_new') }}"><i class="far fa-address-card"> Añadir un nuevo cliente</i></a></h3>
-
+    {{ form_start(form) }}
+    {{ form_end(form) }}
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-dark">
@@ -17,22 +18,41 @@
             </tr>
         </thead>
         <tbody>
-        {% for client in clients %}
-            <tr>
-                <td>{{ client.company }}</td>
-                <td>{{ client.representative }}</td>
-                <td>{{ client.phone }}</td>
-                <td>{{ client.direction }}</td>
-                <td>
-                    {{ include('client/_show_form.html.twig') }}
-                    {{ include('client/_edit_form.html.twig') }}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">No se encontraron registros</td>
-            </tr>
-        {% endfor %}
+            {% if shares is empty %}
+                {% for client in clients %}
+                    <tr>
+                        <td>{{ client.company }}</td>
+                        <td>{{ client.representative }}</td>
+                        <td>{{ client.phone }}</td>
+                        <td>{{ client.direction }}</td>
+                        <td>
+                            {{ include('client/_show_form.html.twig') }}
+                            {{ include('client/_edit_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8"> No se encontraron registros</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                {% for client in clients %}
+                    {% for share in shares %}
+                        {% if client.id == share['id'] %}
+                            <tr>
+                                <td>{{ client.company }}</td>
+                                <td>{{ client.representative }}</td>
+                                <td>{{ client.phone }}</td>
+                                <td>{{ client.direction }}</td>
+                                <td>
+                                    {{ include('client/_show_form.html.twig') }}
+                                    {{ include('client/_edit_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 

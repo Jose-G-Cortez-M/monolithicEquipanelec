@@ -4,8 +4,10 @@
 
 {% block body %}
     <h1>Lista de cables</h1>
-
     <h4><a href="{{ path('cable_new') }}"><i class="fas fa-dolly"> Agregar un nuevo Cable </i></a></h4>
+    
+    {{ form_start(form) }}
+    {{ form_end(form) }}
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-dark">
@@ -18,6 +20,7 @@
             </tr>
         </thead>
         <tbody>
+        {% if shares is empty %}
         {% for cable in cables %}
             {% if cable.minimumLimit is null or cable.minimumLimit>cable.availability %}
                 <tr class="table-danger">
@@ -47,11 +50,50 @@
                 </tr>
             {% endif %}
 
-        {% else %}
-            <tr>
-                <td colspan="8">No se encontraron registros</td>
-            </tr>
-        {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="8"> No se encontraron registros</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                {% for cable in cables %}
+                    {% for share in shares %}
+                        {% if cable.id == share['id'] %}
+                            {% if cable.minimumLimit is null or cable.minimumLimit>cable.availability %}
+                                <tr class="table-danger">
+                                    <td><img src="{{ vich_uploader_asset(cable, 'imageFile') }}" alt="{{ cable.name }}" height="100"></td>
+                                    <td>{{ cable.name }}</td>
+                                    <td id="desc">{{ cable.location }}</td>
+                                    <td>{{ cable.availability }}</td>
+                                    <td id="desc">{{ cable.description }}</td>
+                                    <td>
+                                        {{ include('cable/_show_form.html.twig') }}
+                                        {{ include('cable/_edit_form.html.twig') }}
+                                        {{ include('cable/_movement_form.html.twig') }}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr class="table-success">
+                                    <td><img src="{{ vich_uploader_asset(cable, 'imageFile') }}" alt="{{ cable.name }}" height="100"></td>
+                                    <td>{{ cable.name }}</td>
+                                    <td id="desc">{{ cable.location }}</td>
+                                    <td>{{ cable.availability }}</td>
+                                    <td id="desc">{{ cable.description }}</td>
+                                    <td>
+                                        {{ include('cable/_show_form.html.twig') }}
+                                        {{ include('cable/_edit_form.html.twig') }}
+                                        {{ include('cable/_movement_form.html.twig') }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                
+            {% endif %}
+
+
         </tbody>
     </table>
 {% endblock %}
