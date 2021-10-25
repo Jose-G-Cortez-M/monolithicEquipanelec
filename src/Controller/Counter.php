@@ -6,10 +6,13 @@ namespace App\Controller;
 use App\Entity\Project;
 use App\Form\FilterProjectsCountType;
 use App\Repository\ProjectCloseRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ToolRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Dompdf\Dompdf;
+
 
 /**
  * @Route("/counter")
@@ -55,6 +58,58 @@ class Counter extends abstractController
             'project' => $project,
             'form' => $form,
         ]);
+    }
+
+    /**
+     * @Route ("/report", name="report", methods={"GET"} )
+     */
+    public function dataDownload(
+        Request $request,
+        ToolRepository $toolRepository
+        )
+    {
+      // On définitions les options du PDF
+   
+      /*$pdfOptions = new Options();
+   
+      $pdfOptions->set('defaultFont', 'Arial'));*/
+   
+      // On instancie Dompdf
+   
+      $dompdf = new Dompdf();
+   
+      $content = stream_context_create([
+        'ssl' => [
+          'verify_peer' => FALSE,
+          'verify_peer_name' => FALSE,
+          'allow_self_signed' => TRUE,
+        ]
+      ]);
+   
+      $dompdf->setHttpContext($content);
+   
+      // On génère le html
+      $tools = $toolRepository->findAll();
+   
+      $html = $this->renderView('counter/report.html.twig', [
+        'tools' => $tools 
+     ]);
+   
+      $dompdf->loadHtml($html);
+      $dompdf->setPaper('A4', 'portrait');
+      $dompdf->render();
+   
+      // On génère un nom de ficher
+   
+      $file = 'user-data-' . $this->getUser()->getId() . '.pdf';
+   
+      // On envoie le PDF au navigateur
+   
+      $dompdf->stream($file, [
+        'Attachement' => true
+      ]);
+   
+      return new Response();
     }
 
 }
