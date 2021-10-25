@@ -11,8 +11,8 @@
             <tr class="table-dark">
                 <th>Imagen</th>
                 <th>Nombre</th>
-                <th>Inventario</th>
                 <th>Ubicación</th>
+                <th>Inventario</th>
                 <th>Descripción</th>
                 <th>Límite mínimo</th>
                 <th>Acciones</th>
@@ -24,8 +24,8 @@
                 <tr class="table-danger">
                     <td><img src="{{ vich_uploader_asset(tool, 'imageFile') }}" alt="{{ tool.name }}" height="100"></td>
                     <td>{{ tool.name }}</td>
+                    <td id="desc">{{ tool.location }}</td>
                     <td>{{ tool.stock }}</td>
-                    <td>{{ tool.location }}</td>
                     <td id="desc">{{ tool.description }}</td>
                     <td>{{ tool.minimumLimit }}</td>
                     <td>
@@ -38,8 +38,8 @@
                 <tr class="table-success">
                     <td><img src="{{ vich_uploader_asset(tool, 'imageFile') }}" alt="{{ tool.name }}" height="100"></td>
                     <td>{{ tool.name }}</td>
+                    <td id="desc">{{ tool.location }}</td>
                     <td>{{ tool.stock }}</td>
-                    <td>{{ tool.location }}</td>
                     <td id="desc">{{ tool.description }}</td>
                     <td>{{ tool.minimumLimit }}</td>
                     <td>

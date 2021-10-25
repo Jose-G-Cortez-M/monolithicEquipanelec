@@ -1,23 +1,19 @@
 {% block body %}
-   <h1>Lista de Herramientas</h1>
+   <h1>Lista de Material</h1>
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="table-dark">
                 <th>Nombre</th>
                 <th>Inventario</th>
-                <th>Ubicación</th>
-                <th>Descripción</th>
                 <th>Límite mínimo</th>
             </tr>
         </thead>
         <tbody>
-        {% for tool in tools %}
+        {% for material in materials %}
                 <tr>
-                    <td>{{ tool.name }}</td>
-                    <td>{{ tool.stock }}</td>
-                    <td>{{ tool.location }}</td>
-                    <td id="desc">{{ tool.description }}</td>
-                    <td>{{ tool.minimumLimit }}</td>
+                    <td>{{ material.name }}</td>
+                    <td>{{ material.stock }}</td>
+                    <td>{{ material.minimumLimit }}</td>
             </tr>
         {% else %}
             <tr>

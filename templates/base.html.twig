@@ -77,6 +77,8 @@
                                     </li>
                                 {% endif %}
 
+
+
                                 {% if is_granted("ROLE_CELLAR") or is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -89,6 +91,22 @@
                                             {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
                                                 <li><a class="dropdown-item" href="{{ path('movement_index') }}">Movimientos asignados a un proyecto</a></li>
                                             {% endif %}
+                                        </ul>
+                                    </li>
+                                {% endif %}
+
+                                {% if is_granted("ROLE_PROJECT_MANAGER") or is_granted("ROLE_MANAGER") %}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Reportes
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <li><a class="dropdown-item" href="{{ path('report_material') }}">Lista de Materiales</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('report_cable') }}">Lista de Cables</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('report_tool') }}">Lista de Herramientas</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('report_client') }}">Lista de Clientes</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('report_task') }}">Lista de Tareas</a></li>
+                                            <li><a class="dropdown-item" href="{{ path('report_project') }}">Lista de Proyectos</a></li>
                                         </ul>
                                     </li>
                                 {% endif %}
@@ -171,12 +189,40 @@
         let search_date = document.getElementById("filter_projects_count_startDate");
         let search_date1 = document.getElementById("filter_projects_count_endTime");
 
+
         search_date.max = today;
         search_date.min = minimum;
-        search_date1.max = today
+        search_date1.max = today;
+
+
+    </script>
+    
+    <script type="text/javascript">
+        let today = new Date();
+        let dd = today.getDate();
+        let mm = today.getMonth() + 1; //January is 0!
+        let yyyy = today.getFullYear();
+        if (dd < 10) {
+        dd = '0' + dd
+        }
+        if (mm < 10) {
+        mm = '0' + mm
+        }
+
+        today = yyyy + '-' + mm + '-' + dd;
+
+        let minimum = "2018-01-01";
+
+        let search_date2 = document.getElementById("project_startDate");
+        let search_date3 = document.getElementById("project_endTime");
+
+
+        search_date2.min = today;
+        search_date3.max = today;
+
+
     </script>
 
     
-
     </body>
 </html>
