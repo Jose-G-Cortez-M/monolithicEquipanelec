@@ -105,12 +105,12 @@ class Cable
      */
     private ?float $minimumLimit;
 
-    /**
-     * @Vich\UploadableField(mapping="product_image", fileNameProperty="image.name", size="image.size", mimeType="image.mimeType", originalName="image.originalName", dimensions="image.dimensions")
-     * @Assert\Range(
-     *      max = 999999,
-     *      maxMessage = "No puedes ser más alto que 999999 metros para poder registrar el cable"
+    /**     
+     * @Assert\File(
+     *      mimeTypes={"image/png","image/jpeg","image/pjpeg"},
+     *      mimeTypesMessage= "El tipo de archivo subido es invalido"
      * )
+     * @Vich\UploadableField(mapping="product_image", fileNameProperty="image.name", size="image.size", mimeType="image.mimeType", originalName="image.originalName", dimensions="image.dimensions")
      * @var File|null
      */
     private $imageFile;
@@ -127,7 +127,7 @@ class Cable
      *
      * @var \DateTimeInterface
      */
-    private \DateTimeInterface $updatedAt;
+    private $updatedAt;
 
 
     /**
