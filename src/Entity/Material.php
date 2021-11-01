@@ -107,7 +107,7 @@ class Material
     /**
      * @Assert\File(
      *      mimeTypes={"image/png","image/jpeg","image/pjpeg"},
-     *      mimeTypesMessage= "El tipo de archivo subido es invalido"
+     *      mimeTypesMessage= "El tipo de archivo subido es inválido"
      * )
      * @Vich\UploadableField(mapping="product_image", fileNameProperty="image.name", size="image.size", mimeType="image.mimeType", originalName="image.originalName", dimensions="image.dimensions")
      *

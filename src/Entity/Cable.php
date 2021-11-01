@@ -116,6 +116,10 @@ class Cable
     private $imageFile;
 
     /**
+     * @Assert\File(
+     *      mimeTypes={"image/png","image/jpeg","image/pjpeg"},
+     *      mimeTypesMessage= "El tipo de archivo subido es inválido"
+     * )
      * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
      *
      * @var EmbeddedFile
